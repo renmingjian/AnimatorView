@@ -1,0 +1,57 @@
+package com.erge.animatorview
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.erge.animatorview.activity.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    fun loadingButton(view: View) {
+        startActivity(Intent(this, LoadingButtonActivity::class.java))
+    }
+
+    fun loadingView(view: View) {
+        startActivity(Intent(this, LoadingActivity::class.java))
+    }
+
+    fun sportView(view: View) {
+        startActivity(Intent(this, SportActivity::class.java))
+    }
+
+    fun progressBar(view: View) {
+        startActivity(Intent(this, ProgressBarActivity::class.java))
+    }
+
+    fun pie(view: View) {
+        startActivity(Intent(this, PieActivity::class.java))
+    }
+
+    fun histogram(view: View) {
+        startActivity(Intent(this, HistogramActivity::class.java))
+    }
+
+    fun longClickView(view: View) {
+        startActivity(Intent(this, LongClickActivity::class.java))
+    }
+
+    fun boardView1(view: View) {
+        startActivity(Intent(this, BoardActivity1::class.java))
+    }
+
+    fun boardView2(view: View) {
+        startActivity(Intent(this, BoardViewActivity2::class.java))
+    }
+
+    fun charge(view: View) {
+        startActivity(Intent(this, ChargeActivity::class.java))
+    }
+
+
+}

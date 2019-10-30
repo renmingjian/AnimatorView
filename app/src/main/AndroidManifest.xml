@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.erge.animatorview">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.SportActivity"></activity>
+        <activity android:name=".activity.ChargeActivity" />
+        <activity android:name=".activity.BoardViewActivity2" />
+        <activity android:name=".activity.BoardActivity1" />
+        <activity android:name=".activity.LongClickActivity" />
+        <activity android:name=".activity.HistogramActivity" />
+        <activity android:name=".activity.PieActivity" />
+        <activity android:name=".activity.ProgressBarActivity" />
+        <activity android:name=".activity.LoadingActivity" />
+        <activity android:name=".activity.LoadingButtonActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
