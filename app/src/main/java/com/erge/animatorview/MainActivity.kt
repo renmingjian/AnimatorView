@@ -53,5 +53,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, ChargeActivity::class.java))
     }
 
+    fun sky(view: View) {
+        startActivity(Intent(this, SkyGalaxyActivity::class.java))
+    }
 
 }

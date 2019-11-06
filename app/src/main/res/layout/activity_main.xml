@@ -70,6 +70,13 @@
             android:layout_height="wrap_content"
             android:onClick="charge"
             android:text="充电" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sky"
+            android:text="星空" />
+
     </LinearLayout>
 
 </ScrollView>
