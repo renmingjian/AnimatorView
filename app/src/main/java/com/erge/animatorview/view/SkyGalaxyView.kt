@@ -34,7 +34,7 @@ class SkyGalaxyView(context: Context, attributeSet: AttributeSet) : View(context
         mScreenWidth = context.resources.displayMetrics.widthPixels
         mScreenHeight = context.resources.displayMetrics.heightPixels
 
-        for (i in 1 until 50) {
+        for (i in 0 until 50) {
             val x = Random.nextInt(0, mScreenWidth)
             val y = Random.nextInt(0, mScreenHeight)
             mDotLocations.add(Point(x, y))
@@ -101,7 +101,7 @@ class SkyGalaxyView(context: Context, attributeSet: AttributeSet) : View(context
 
     private fun produceRandomLine() {
         mLineLocations.clear()
-        for (i in 1 until 5) {
+        for (i in 0 until 5) {
             val x = Random.nextInt(0, mScreenWidth)
             val y = Random.nextInt(0, mScreenHeight)
             mLineLocations.add(Point(x, y))
