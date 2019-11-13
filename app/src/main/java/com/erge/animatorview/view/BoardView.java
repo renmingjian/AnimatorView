@@ -4,8 +4,10 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
@@ -175,10 +177,21 @@ public class BoardView extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(0xddffffff);
         mPaint.setTextSize(Utils.dp2px(14));
+        mPaint.setTextAlign(Paint.Align.LEFT);
+
+        // 添加一条虚拟的Path圆弧，根据圆弧位置画文字
+        Path path = new Path();
+        mPaint.setTextSize(Utils.dp2px(14));
+        RectF rectF = new RectF(-mBigRadius * 0.6f, -mBigRadius * 0.6f,
+                mBigRadius * 0.6f, mBigRadius * 0.6f);
+        path.addArc(rectF, 120f, 300f);
+
         for (int i = 0; i < mDotsLocation.length; i++) {
             if (i % 3 == 0) {
-                RectF rectF = mDotsLocation[i];
-                canvas.drawText(mTexts[i / 3], rectF.left * 0.8f, rectF.top * 0.8f, mPaint);
+                // 设置文字开始的偏移量，需要根据角度算出弧度
+                final float startOffset = i == mDotsLocation.length - 1 ? Utils.dp2px(20) : Utils.dp2px(9);
+                canvas.drawTextOnPath(mTexts[i / 3], path,
+                        (float) (2 * Math.PI * mBigRadius * 0.6f * i * 10 / 360 - startOffset), 0, mPaint);
             }
         }
     }

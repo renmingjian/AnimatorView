@@ -57,4 +57,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, SkyGalaxyActivity::class.java))
     }
 
+    fun test(view: View) {
+        startActivity(Intent(this, TestActivity::class.java))
+    }
+
 }

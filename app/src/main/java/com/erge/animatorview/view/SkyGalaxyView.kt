@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.erge.animatorview.R
 import com.erge.animatorview.utils.Utils
 import kotlin.random.Random
 
@@ -20,8 +21,10 @@ class SkyGalaxyView(context: Context, attributeSet: AttributeSet) : View(context
     private val mPaintBg: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mPaintDot: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mPaintLine: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mPaintBitmap: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mDotLocations = ArrayList<Point>()
     private val mLineLocations = ArrayList<Point>()
+    private var mOffsetY: Int = 0
     private var mScreenWidth: Int = 0
     private var mScreenHeight: Int = 0
     private var translateLine: Float = 0f
@@ -56,6 +59,7 @@ class SkyGalaxyView(context: Context, attributeSet: AttributeSet) : View(context
         drawBackground(canvas)
         drawDots(canvas)
         drawLines(canvas)
+        drawBitmap(canvas)
         canvas?.restore()
     }
 
@@ -85,12 +89,12 @@ class SkyGalaxyView(context: Context, attributeSet: AttributeSet) : View(context
     private fun drawLines(canvas: Canvas?) {
         mPaintLine.color = 0xffffffff.toInt()
         mPaintLine.style = Paint.Style.FILL
-        mPaintLine.strokeWidth = Utils.dp2px(3f)
+        mPaintLine.strokeWidth = Utils.dp2px(2f)
         for (index in mLineLocations.indices) {
             val startX: Float = mLineLocations[index].x.toFloat() + translateLine
-            val startY: Float = mLineLocations[index].y.toFloat() + translateLine
+            val startY: Float = mLineLocations[index].y.toFloat()
             val endX: Float = startX + LINE_LENGTH
-            val endY: Float = startY + LINE_LENGTH
+            val endY: Float = startY + mOffsetY
             mPaintLine.shader = LinearGradient(
                 startX, startY, endX, endY, 0x337EC8DF,
                 0xff7EC8DF.toInt(), Shader.TileMode.CLAMP
@@ -99,13 +103,21 @@ class SkyGalaxyView(context: Context, attributeSet: AttributeSet) : View(context
         }
     }
 
+    private fun drawBitmap(canvas: Canvas?) {
+        val bitmapSun = BitmapFactory.decodeResource(resources, R.drawable.sun)
+        val bitmapEarth = BitmapFactory.decodeResource(resources, R.drawable.earth)
+        val bitmapMoon = BitmapFactory.decodeResource(resources, R.drawable.moon)
+        canvas?.drawBitmap(bitmapSun, 0f, 0f, mPaintBitmap)
+    }
+
     private fun produceRandomLine() {
         mLineLocations.clear()
         for (i in 0 until 5) {
-            val x = Random.nextInt(0, mScreenWidth)
+            val x = Random.nextInt(0, mScreenWidth / 2)
             val y = Random.nextInt(0, mScreenHeight)
             mLineLocations.add(Point(x, y))
         }
+        mOffsetY = Random.nextInt(0, 100)
     }
 
     fun startAnim() {
