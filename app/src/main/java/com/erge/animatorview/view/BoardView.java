@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -19,6 +18,7 @@ import com.erge.animatorview.utils.Utils;
 
 
 /**
+ * 仪表盘
  * Created by erge 2019-10-24 15:46
  */
 public class BoardView extends View {
@@ -215,6 +215,7 @@ public class BoardView extends View {
         animator.start();
     }
 
+    @SuppressWarnings("unused")
     public void setAngle(float angle) {
         this.angle = angle;
         invalidate();
@@ -224,6 +225,7 @@ public class BoardView extends View {
         this.count = count;
     }
 
+    @SuppressWarnings("unused")
     public void setCountText(int count) {
         this.count = count;
         pointerAnim();

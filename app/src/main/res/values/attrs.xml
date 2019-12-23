@@ -19,4 +19,11 @@
         <attr name="out_layer_length" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="ProgressLayoutView">
+        <attr name="img" format="reference"/>
+        <attr name="imgWidth" format="dimension" />
+        <attr name="imgHeight" format="dimension" />
+        <attr name="desc" format="string" />
+    </declare-styleable>
+
 </resources>

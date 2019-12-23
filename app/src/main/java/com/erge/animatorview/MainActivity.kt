@@ -61,4 +61,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, TestActivity::class.java))
     }
 
+    fun progress(view: View) {
+        startActivity(Intent(this, ProgressLayoutActivity::class.java))
+    }
+
 }
