@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.erge.animatorview">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ProgressLayoutActivity"></activity>
+        <activity android:name=".activity.ScrollActivity2"></activity>
+        <activity android:name=".activity.ScrollActivity"></activity>
+        <activity android:name=".activity.ViewPagerActivity" />
+        <activity android:name=".activity.ElectricQualityActivity" />
+        <activity android:name=".activity.ZanActivity" />
+        <activity android:name=".activity.DragActivity" />
+        <activity android:name=".activity.ProgressLayoutActivity" />
         <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.SkyGalaxyActivity" />
         <activity android:name=".activity.SportActivity" />

@@ -89,6 +89,36 @@
             android:onClick="progress"
             android:text="进度布局" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="change"
+            android:text="换位" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="zan"
+            android:text="赞" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="electric"
+            android:text="电量" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewpager"
+            android:text="viewpager" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="scroll"
+            android:text="垂直滑动" />
+
     </LinearLayout>
 
 </ScrollView>

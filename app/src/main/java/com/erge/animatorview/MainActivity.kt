@@ -65,4 +65,25 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, ProgressLayoutActivity::class.java))
     }
 
+    fun change(view: View) {
+        startActivity(Intent(this, DragActivity::class.java))
+    }
+
+    fun zan(view: View) {
+        startActivity(Intent(this, ZanActivity::class.java))
+    }
+
+    fun electric(view: View) {
+        startActivity(Intent(this, ElectricQualityActivity::class.java))
+    }
+
+
+    fun viewpager(view: View) {
+        startActivity(Intent(this, ViewPagerActivity::class.java))
+    }
+
+    fun scroll(view: View) {
+        startActivity(Intent(this, ScrollActivity2::class.java))
+    }
+
 }

@@ -26,4 +26,17 @@
         <attr name="desc" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="TabSwitchView">
+        <attr name="tabMargin" format="dimension" />
+        <attr name="indicatorHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiImagesView">
+        <attr name="dividerSpace" format="dimension" />
+    </declare-styleable>
+    
+<!--    <declare-styleable name="ElectricQuantity">-->
+<!--        <attr name=""-->
+<!--    </declare-styleable>-->
+
 </resources>
