@@ -1,6 +1,7 @@
 package com.erge.animatorview.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,11 +21,13 @@ public class ScrollActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_scroll);
 
         VerticalScrollView scrollView = findViewById(R.id.scrollView);
+        final View viewTrans = findViewById(R.id.viewTrans);
         final OvalView ovalView = findViewById(R.id.viewOval);
         scrollView.setOnScrollListener(new VerticalScrollView.OnScrollListener() {
             @Override
             public void onScroll(int instance, int maxInstance, float alpha, boolean up) {
-                ovalView.switchColor(alpha == 1f);
+//                ovalView.switchColor(alpha == 1f);
+                viewTrans.setAlpha(alpha);
             }
         });
     }

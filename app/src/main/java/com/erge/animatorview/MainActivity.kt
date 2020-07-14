@@ -86,4 +86,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, ScrollActivity2::class.java))
     }
 
+    fun carControl(view: View) {
+        startActivity(Intent(this, CarControlGridActivity::class.java))
+    }
+
+
 }

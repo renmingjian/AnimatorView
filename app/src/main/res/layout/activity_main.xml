@@ -119,6 +119,12 @@
             android:onClick="scroll"
             android:text="垂直滑动" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="carControl"
+            android:text="控车item" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -82,7 +82,6 @@ public class VerticalScrollView extends FrameLayout {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        System.out.println("mTopLayoutHeight = " + mTopLayoutHeight + "--" + mBottomLayout.getMeasuredHeight());
         mTopLayout.layout(0, 0, getWidth(), mTopLayoutHeight);
         mBottomLayout.layout(0, mTopLayoutHeight, getMeasuredWidth(), mTopLayoutHeight + mBottomLayout.getMeasuredHeight());
     }
@@ -148,24 +147,27 @@ public class VerticalScrollView extends FrameLayout {
 
                 // 设置回调
                 final float alpha = (float) top / mTopLayoutHeight;
+                mTopLayout.setAlpha(alpha);
                 if (mOnScrollListener != null)
                     mOnScrollListener.onScroll(top, mTopLayoutHeight, 1 - alpha, dy == 0);
 
             } else { // 滑动的是顶部View
                 // 先把顶部View摆放好
 
-                mTopLayout.layout(0, top / 2, mTopLayout.getMeasuredWidth(), top / 2 + mTopLayout.getMeasuredHeight());
+                mTopLayout.layout(0, top, mTopLayout.getMeasuredWidth(), top + mTopLayout.getMeasuredHeight());
                 // 声明底部View的真正top，当滑动顶部View时让底部的滑动距离是顶部的一半
-                int realTop = top * 2 + mTopLayout.getMeasuredHeight();
+                int realTop = (int) (top * 1.5f + mTopLayout.getMeasuredHeight());
                 if (realTop < 0) realTop = 0;
                 if (realTop > mTopLayoutHeight) realTop = mTopLayoutHeight;
                 mBottomLayout.layout(0,
                         realTop,
                         mBottomLayout.getWidth(),
                         realTop + mBottomLayout.getMeasuredHeight());
-
+                float alpha = realTop * 1f / mTopLayoutHeight;
+                mTopLayout.setAlpha(alpha);
                 if (mOnScrollListener != null)
-                    mOnScrollListener.onScroll(mTopLayoutHeight - realTop, mTopLayoutHeight, 1 - realTop * 1f / mTopLayoutHeight, dy == 0);
+                    mOnScrollListener.onScroll(mTopLayoutHeight - realTop, mTopLayoutHeight,
+                            1 - alpha, dy == 0);
             }
         }
 
