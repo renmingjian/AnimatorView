@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="30dp"
-    android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
 
     <com.erge.animatorview.view.LoadingButton
-        android:id="@+id/lb"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        app:text="@string/app_name"/>
+            android:id="@+id/lb"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            app:text="@string/app_name" />
 
     <Button
-        android:id="@+id/btn_reset"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="重置"/>
+            android:id="@+id/btn_reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="重置" />
+
+    <com.erge.animatorview.view.AirControlView
+            android:layout_width="300dp"
+            android:layout_height="300dp" />
 
 </LinearLayout>
