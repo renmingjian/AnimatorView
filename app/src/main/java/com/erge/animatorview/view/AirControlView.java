@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.text.style.WrapTogetherSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -32,6 +31,7 @@ public class AirControlView extends View {
     private LinearGradient mGradient2;
     private LinearGradient mGradient3;
     private LinearGradient mGradient4;
+
 
     public AirControlView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -105,8 +105,8 @@ public class AirControlView extends View {
         int rightY = (int) (Math.sin(rightAngle) * innerCircleRadius);
         Path path = new Path();
         path.moveTo(topX, topY);
-        path.lineTo(leftX,  leftY);
-        path.lineTo(rightX,  rightY);
+        path.lineTo(leftX, leftY);
+        path.lineTo(rightX, rightY);
         path.close();
         canvas.drawPath(path, mPaint);
     }
@@ -121,4 +121,5 @@ public class AirControlView extends View {
         this.progress = progress;
         invalidate();
     }
+
 }

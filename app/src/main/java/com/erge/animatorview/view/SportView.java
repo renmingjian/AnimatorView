@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -14,7 +13,7 @@ import com.erge.animatorview.utils.Utils;
 /**
  * Created by erge 2019-07-12 16:54
  */
-public class SportView extends View {
+public class SportView extends BaseCustomerView {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private static final float RADIUS = Utils.px2dp(150);
@@ -33,7 +32,6 @@ public class SportView extends View {
 
     public SportView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
     }
 
     @Override
@@ -73,4 +71,13 @@ public class SportView extends View {
         this.text = text;
     }
 
+    @Override
+    protected int getCustomerViewWidth() {
+        return (int) (RADIUS * 2 + RING_WIDTH * 2);
+    }
+
+    @Override
+    protected int getCustomerViewHeight() {
+        return getCustomerViewWidth();
+    }
 }

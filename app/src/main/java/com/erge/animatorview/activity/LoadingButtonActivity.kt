@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.R
 import com.erge.animatorview.view.LoadingButton
+import kotlinx.android.synthetic.main.activity_loading_button.*
 
 class LoadingButtonActivity : AppCompatActivity() {
 
@@ -21,6 +22,25 @@ class LoadingButtonActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_reset).setOnClickListener {
             loadingButton.state = LoadingButton.State.NORMAL
         }
+
+
+        // View位置参数测试
+        println("param-x = ${btn_reset.x}")
+        println("param-y = ${btn_reset.y}")
+        println("param-left= ${btn_reset.left}")
+        println("param-top = ${btn_reset.top}")
+
+        btn_reset.translationX = 100f
+        btn_reset.translationY = 100f
+
+        println("param-x1 = ${btn_reset.x}")
+        println("param-y1 = ${btn_reset.y}")
+        println("param-left2= ${btn_reset.left}")
+        println("param-top2 = ${btn_reset.top}")
+
+
+
+
 
         loadingButton.setOnLoadingListener { Toast.makeText(this@LoadingButtonActivity, "loading", Toast.LENGTH_SHORT).show() }
 
