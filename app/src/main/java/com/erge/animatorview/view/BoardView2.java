@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.erge.animatorview.utils.Utils;
@@ -191,4 +192,8 @@ public class BoardView2 extends View {
         animator.start();
     }
 
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+    }
 }

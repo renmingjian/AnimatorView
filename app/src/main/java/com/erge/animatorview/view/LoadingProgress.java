@@ -75,7 +75,6 @@ public class LoadingProgress extends View {
         PropertyValuesHolder holder2 = PropertyValuesHolder.ofKeyframe("progressEnd", keyframeEnd1,
                 keyframeEnd2, keyframeEnd3, keyframeEnd4);
 
-
         mAnimator = ObjectAnimator.ofPropertyValuesHolder(this, holder1, holder2);
         mAnimator.setDuration(1500);
         mAnimator.setRepeatCount(-1);

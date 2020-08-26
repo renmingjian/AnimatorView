@@ -1,16 +1,38 @@
 package com.erge.animatorview
 
 import android.content.Intent
+import android.graphics.PixelFormat
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var button: Button;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        button = Button(this)
+        button.text = "测试"
+        val layoutParams = WindowManager.LayoutParams()
+        layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+        layoutParams.width = 300
+        layoutParams.height = 300
+        layoutParams.format = PixelFormat.RGBA_8888;
+        layoutParams.gravity = Gravity.CENTER
+        windowManager.addView(button, layoutParams)
+        button.setOnClickListener {
+            Toast.makeText(this@MainActivity, "取消", Toast.LENGTH_LONG).show()
+            windowManager.removeView(button)
+        }
+
     }
 
     fun loadingButton(view: View) {
