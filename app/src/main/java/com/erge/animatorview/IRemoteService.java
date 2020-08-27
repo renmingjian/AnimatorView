@@ -37,7 +37,7 @@ public class IRemoteService extends Service {
     private Binder binder = new IMyAidlInterface.Stub() {
 
         @Override
-        public List<MyPerson> add(MyPerson person) throws RemoteException {
+        public List<MyPerson> add(MyPerson person, int num) throws RemoteException {
             list.add(person);
             return list;
         }

@@ -6,7 +6,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -54,19 +53,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_start = findViewById(R.id.btn_start);
 
         btn_start.setOnClickListener(this);
-        bindService();
+//        bindService();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startActivity(new Intent(this, MessengerActivity.class));
     }
 
     private void bindService() {
         Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.erge.animatorview",  "com.erge.animatorview.IRemoteService"));
+        intent.setComponent(new ComponentName("com.erge.animatorview", "com.erge.animatorview.IRemoteService"));
         bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
 
     @Override
     public void onClick(View v) {
         try {
-            List<MyPerson> list = iMyAidlInterface.add(new MyPerson("name" + click, click));
+            List<MyPerson> list = iMyAidlInterface.add(new MyPerson("name" + click, click), 1);
             System.out.println(list.toString());
         } catch (RemoteException e) {
             e.printStackTrace();
