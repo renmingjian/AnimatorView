@@ -1,11 +1,10 @@
 package com.erye.aidlclient;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -14,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.erge.animatorview.IMyAidlInterface;
 import com.erge.animatorview.MyPerson;
 
@@ -21,8 +22,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText et_num1, et_num2;
-    private TextView tv_add;
     private Button btn_start;
     IMyAidlInterface iMyAidlInterface;
     private int click;
@@ -41,19 +40,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("binder = onServiceDisconnected");
         }
     };
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        et_num1 = findViewById(R.id.et_num1);
-        et_num2 = findViewById(R.id.et_num2);
-        tv_add = findViewById(R.id.tv_add);
         btn_start = findViewById(R.id.btn_start);
 
         btn_start.setOnClickListener(this);
-//        bindService();
+        getSystemService(Context.WINDOW_SERVICE);
+
+        bindService();
+
+
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("bitmap", bitmap);
+        intent.putExtras(bundle);
+
     }
 
     @Override

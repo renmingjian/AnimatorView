@@ -1,88 +1,81 @@
 package com.erge.animatorview.view;
-
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.erge.animatorview.R;
 import com.erge.animatorview.utils.Utils;
 
 import java.util.List;
-
 /**
- * 九宫格图片显示
+ * 九宫格图⽚显示
  * Created by erge 2020-03-18 16:32
  */
 public class MultiImagesView extends ViewGroup implements View.OnClickListener {
-
-    // 图片集合
+    // 图⽚集合
     private List<String> mImgUrls;
-    // 单个图片的点击事件
+    // 单个图⽚的点击事件
     private OnImageClickListener mOnImageClickListener;
-    // 每个图片的间距
+    // 每个图⽚的间距
     private int mDividerSpace;
     // 排版模式
     private MODE mMode;
-    // 图片比例
+    // 图⽚⽐例
     private float mRatio = 343f / 160f;
-
+    // ⽗容器⾼度
+    private int mParentHeight;
     public MultiImagesView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MultiImagesView);
-        mDividerSpace = (int) typedArray.getDimension(R.styleable.MultiImagesView_dividerSpace, (int) Utils.dp2px(5));
+        mDividerSpace = (int) typedArray.getDimension(R.styleable.MultiImagesView_dividerSpace, Utils.dp2px(5));
         typedArray.recycle();
     }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int width = MeasureSpec.getSize(widthMeasureSpec);
-        final int height = MeasureSpec.getSize(heightMeasureSpec);
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            measureChildWithMargins(getChildAt(i), widthMeasureSpec, 0, heightMeasureSpec, 0);
+            measureChild(getChildAt(i), widthMeasureSpec, heightMeasureSpec);
         }
-        setMeasuredDimension(resolveSize(width, widthMeasureSpec), resolveSize(height, heightMeasureSpec));
+        setMeasuredDimension(resolveSize(width, widthMeasureSpec), resolveSize(mParentHeight, heightMeasureSpec));
     }
-
     @Override
-    protected void measureChildWithMargins(View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
-        // 父控件宽度
+    protected void measureChild(View child, int parentWidthMeasureSpec, int parentHeightMeasureSpec) {
+        // ⽗控件宽度
         int parentWidth = MeasureSpec.getSize(parentWidthMeasureSpec);
-        // 子控件宽高以及测量规则
-        int itemWidth;
-        int itemHeight;
-        int childWidthMeasureSpec;
-        int childHeightMeasureSpec;
+        // ⼦控件宽⾼以及测量规则
+        int childWidth;
+        int childHeight;
         if (mMode == MODE.ONE_FIXED_RADIO) {
-            // 单张图模式，具有一定的宽高比
-            itemWidth = parentWidth;
-            itemHeight = (int) (itemWidth / mRatio);
+            // 单张图模式，具有固定的宽⾼⽐
+            childWidth = parentWidth;
+            childHeight = (int) (childWidth / mRatio);
+            mParentHeight = childHeight;
         } else if (mMode == MODE.ONE_WRAP_CONTENT) {
-            // 单张图模式，宽度铺满，高度自适应
-            itemWidth = parentWidth;
-            itemHeight = (int) (itemWidth / mRatio);
+            // 单张图模式，宽度铺满，⾼度⾃适应
+            childWidth = parentWidth;
+            childHeight = (int) (childWidth / mRatio);
+            mParentHeight = childHeight;
         } else {
             // 多张图模式
-            itemWidth = (parentWidth - mDividerSpace * 2) / 3;
-            itemHeight = itemWidth;
+            int imageSize = (parentWidth - mDividerSpace * 2) / 3;
+            childWidth = imageSize;
+            childHeight = imageSize;
+            if (mMode == MODE.FOUR) {
+                mParentHeight = childHeight * 2 + mDividerSpace;
+            } else {
+                int count = getChildCount();
+                int a = count % 3 == 0 ? count / 3 : count / 3 + 1;
+                mParentHeight = a * childWidth + (a - 1) * mDividerSpace;
+            }
         }
-
-        childWidthMeasureSpec = getChildMeasureSpec(MeasureSpec.EXACTLY, 0, itemWidth);
-        childHeightMeasureSpec = getChildMeasureSpec(MeasureSpec.EXACTLY, 0, itemHeight);
-        // 测量子View
+        int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec, 0, childWidth);
+        int childHeightMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec, 0, childHeight);
+        // 测量⼦View
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if (mMode == MODE.ONE_FIXED_RADIO || mMode == MODE.ONE_WRAP_CONTENT) {
@@ -93,7 +86,18 @@ public class MultiImagesView extends ViewGroup implements View.OnClickListener {
             layoutMultiple();
         }
     }
-
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    }
+    @Override
+    public boolean shouldDelayChildPressedState() {
+        return false;
+    }
+    @Override
+    protected boolean checkLayoutParams(LayoutParams p) {
+        return p instanceof MarginLayoutParams;
+    }
     private void layoutOne() {
         final View view = getChildAt(0);
         int l = 0;
@@ -102,7 +106,6 @@ public class MultiImagesView extends ViewGroup implements View.OnClickListener {
         int b = view.getMeasuredHeight();
         view.layout(l, t, r, b);
     }
-
     private void layoutFour() {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
@@ -114,7 +117,6 @@ public class MultiImagesView extends ViewGroup implements View.OnClickListener {
             view.layout(l, t, r, b);
         }
     }
-
     private void layoutMultiple() {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
@@ -126,77 +128,106 @@ public class MultiImagesView extends ViewGroup implements View.OnClickListener {
             view.layout(l, t, r, b);
         }
     }
-
-    public void setImages(List<String> images, OnImageClickListener clickListener) {
-        setImages(images, false, clickListener);
-    }
-
     /**
-     * 设置图片
+     * 设置图⽚
      *
-     * @param images        图片集合
+     * @param images 图⽚集合
      * @param clickListener 事件监听
-     * @param wrap          图片宽高是否适应，true：适应，false：以固定比例显示
+     * @param wrap 图⽚宽⾼是否适应，true：适应，false：以固定⽐例显示
      */
     public void setImages(List<String> images, boolean wrap, OnImageClickListener clickListener) {
         if (images != null && !images.isEmpty()) {
+            if (getChildCount() > 0) removeAllViews();
             mImgUrls = images;
             mOnImageClickListener = clickListener;
             final int size = mImgUrls.size();
-            if (size == 1) {
-                mMode = wrap ? MODE.ONE_WRAP_CONTENT : MODE.ONE_FIXED_RADIO;
-            } else if (size == 4) {
-                mMode = MODE.FOUR;
-            } else {
-                mMode = MODE.MULTIPLE;
-            }
+            mMode = getMode(size, wrap);
             for (int i = 0; i < images.size(); i++) {
                 final ImageView imageView = new ImageView(getContext());
-
+                final String imageUrl = images.get(i);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                if (mMode == MODE.ONE_WRAP_CONTENT) {
-                    Glide.with(getContext()).asBitmap().load(images.get(i)).into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            int width = resource.getWidth();
-                            int height = resource.getHeight();
-                            if (height != 0) {
-                                mRatio = width * 1f / height;
-                            }
-                            imageView.setImageBitmap(resource);
-                        }
-                    });
-                } else {
-                    Glide.with(getContext()).load(mImgUrls.get(i)).into(imageView);
+                loadImage(imageUrl, imageView);
+                if (clickListener != null) {
+                    imageView.setOnClickListener(this);
                 }
-                imageView.setImageResource(R.color.colorAccent);
-                imageView.setOnClickListener(this);
                 imageView.setTag(i);
                 addView(imageView);
             }
         }
     }
-
+    /**
+     * 根据图⽚数量和是否⾃适应来获取图⽚模式
+     *
+     * @param imageSize 图⽚数量
+     * @param wrap 是否需要⾃适应
+     * @return 模式
+     */
+    private MODE getMode(int imageSize, boolean wrap) {
+        final MODE mode;
+        if (imageSize == 1) {
+            mode = wrap ? MODE.ONE_WRAP_CONTENT : MODE.ONE_FIXED_RADIO;
+        } else if (imageSize == 4) {
+            mode = MODE.FOUR;
+        } else {
+            mode = MODE.MULTIPLE;
+        }
+        return mode;
+    }
+    /**
+     * 加载图⽚
+     * ⾃适应图⽚需要先获取到图⽚的⼤⼩，从⽽确定⾃⼰的⼤⼩然后确定⽗控件的⼤⼩
+     *
+     * @param imageUrl 图⽚URL
+     * @param imageView 控件
+     */
+    private void loadImage(String imageUrl, ImageView imageView) {
+//        try {
+//            imageView.setImageResource(R.mipmap.iv_loading_round);
+//            Glide.with(getContext())
+//                    .load(imageUrl)
+//                    .placeholder(R.mipmap.iv_loading_round)
+//                    .error(R.mipmap.img_error)
+//                    .into(new SimpleTarget<GlideDrawable>() {
+//                        @Override
+//                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+//                            // ⾃适应图⽚，需要获取宽⾼并确定宽⾼⽐
+//                            if (mMode == MODE.ONE_WRAP_CONTENT) {
+//                                int width = resource.getIntrinsicWidth();
+//                                int height = resource.getIntrinsicHeight();
+//                                if (height != 0) {
+//                                    mRatio = width * 1f / height;
+//                                }
+//                            }
+//                            // 设置图⽚
+//                            imageView.setImageDrawable(resource);
+//                            // 如果随是GIF图，则开启多张图⽚的播放
+//                            if (resource instanceof GifDrawable) {
+//                                GifDrawable gifDrawable = (GifDrawable) resource;
+//                                gifDrawable.start();
+//                            }
+//                        }
+//                    });
+//        } catch (Exception e) {
+//            LogUtil.e("MultiImagesView--->loadImage--->" + e.getMessage());
+//        }
+    }
     @Override
     public void onClick(View v) {
         if (mOnImageClickListener != null) {
             mOnImageClickListener.onImageClick(mImgUrls, (Integer) v.getTag());
         }
     }
-
     public interface OnImageClickListener {
         void onImageClick(List<String> images, int position);
     }
-
     public enum MODE {
-        // 单张图--固定比例
+        // 单张图--固定⽐例
         ONE_FIXED_RADIO,
-        // 单张图--宽度固定，高度随图片变化
+        // 单张图--宽度固定，⾼度随图⽚变化
         ONE_WRAP_CONTENT,
         // 四张图
         FOUR,
         // 多张图
         MULTIPLE
     }
-
 }

@@ -22,6 +22,7 @@
 
     <com.erge.animatorview.view.AirControlView
             android:layout_width="300dp"
+            android:layout_marginTop="200dp"
             android:layout_height="300dp" />
 
 </LinearLayout>
