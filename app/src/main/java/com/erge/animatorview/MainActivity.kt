@@ -111,5 +111,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, CarControlGridActivity::class.java))
     }
 
+    fun refresh(view: View) {
+        startActivity(Intent(this, RefreshActivity::class.java))
+    }
+
 
 }

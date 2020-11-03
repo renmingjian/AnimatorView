@@ -125,6 +125,12 @@
                 android:onClick="carControl"
                 android:text="控车item" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="refresh"
+            android:text="刷新控件" />
+
     </LinearLayout>
 
 </ScrollView>
