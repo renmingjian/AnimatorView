@@ -146,6 +146,7 @@ public class VerticalScrollView extends FrameLayout {
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
             whenFingerUp();
+            System.out.println("onViewReleased");
         }
 
     };

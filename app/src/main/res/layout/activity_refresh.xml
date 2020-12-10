@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.RefreshActivity">
 
-    <com.erge.animatorview.view.RefreshView
+    <com.erge.animatorview.view.RefreshView2
         android:id="@+id/refreshView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +34,6 @@
             android:background="@color/colorAccent"
             android:layout_height="wrap_content" />
 
-    </com.erge.animatorview.view.RefreshView>
+    </com.erge.animatorview.view.RefreshView2>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

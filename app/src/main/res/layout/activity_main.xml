@@ -131,6 +131,19 @@
             android:onClick="refresh"
             android:text="刷新控件" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="verticle"
+            android:text="垂直布局" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="animation"
+            android:text="悬浮View" />
+
+
     </LinearLayout>
 
 </ScrollView>

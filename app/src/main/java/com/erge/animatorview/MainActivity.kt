@@ -115,5 +115,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, RefreshActivity::class.java))
     }
 
+    fun verticle(view: View) {
+        startActivity(Intent(this, VerticleActivity::class.java))
+
+    }
+
+    fun animation(view: View) {
+        startActivity(Intent(this, ViewGroupAnimationActivity::class.java))
+    }
+
 
 }

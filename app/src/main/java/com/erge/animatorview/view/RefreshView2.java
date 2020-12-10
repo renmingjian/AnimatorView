@@ -11,9 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.customview.widget.ViewDragHelper;
 
 /**
- * Created by erge 2020/10/22 11:09 AM
+ * Created by erge 2020/11/4 3:55 PM
  */
-public class RefreshView extends FrameLayout {
+public class RefreshView2 extends FrameLayout {
 
     // 刷新头部
     private RefreshHeaderView mRefreshHeaderView;
@@ -23,20 +23,12 @@ public class RefreshView extends FrameLayout {
     private View mBottomView;
 
     private ViewDragHelper mDragHelper;
-    private State mState = State.NORMAL;
+    private RefreshView.State mState = RefreshView.State.NORMAL;
 
-    public RefreshView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public RefreshView2(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mDragHelper = ViewDragHelper.create(this, callback);
-    }
 
-    public enum State {
-        // 普通状态
-        NORMAL,
-        // 刷新状态
-        REFRESH,
-        // 折叠状态
-        FOLD
+        mDragHelper = ViewDragHelper.create(this, callback);
     }
 
     @Override
@@ -74,7 +66,7 @@ public class RefreshView extends FrameLayout {
         this.mRefreshHeaderView = refreshHeaderView;
     }
 
-    public void setState(State state) {
+    public void setState(RefreshView.State state) {
         this.mState = state;
     }
 
@@ -89,29 +81,25 @@ public class RefreshView extends FrameLayout {
         return true;
     }
 
-    private final ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
-
+    ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
         @Override
-        public boolean tryCaptureView(View child, int pointerId) {
-            System.out.println("tryCaptureView = " + child);
+        public boolean tryCaptureView(@NonNull View child, int pointerId) {
             return true;
         }
 
         @Override
-        public int clampViewPositionHorizontal(View child, int left, int dx) {
+        public int getViewVerticalDragRange(@NonNull View child) {
+            System.out.println("getViewVerticalDragRange = ");
+            return mRefreshHeaderView.getMeasuredHeight() + mMiddleView.getMeasuredHeight();
+        }
+
+        @Override
+        public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
             return 0;
         }
 
         @Override
-        public int getViewVerticalDragRange(View child) {
-            return mRefreshHeaderView.getMeasuredHeight() + mMiddleView.getMeasuredHeight();
-        }
-
-        /**
-         * 限制mainView在垂直方向上滑动的距离
-         */
-        @Override
-        public int clampViewPositionVertical(View child, int top, int dy) {
+        public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
             System.out.println("clampViewPositionVertical");
             // 计算mainView的顶部将要变成的坐标值：当前的顶部坐标+滑动的距离
             int newTop = 0;
@@ -129,7 +117,7 @@ public class RefreshView extends FrameLayout {
         }
 
         @Override
-        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
             super.onViewPositionChanged(changedView, left, top, dx, dy);
             int newTop = top;
             if (changedView == mMiddleView) {
@@ -145,14 +133,10 @@ public class RefreshView extends FrameLayout {
             }
         }
 
-        /**
-         * 当手指抬起时执行这个方法
-         */
         @Override
-        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-            System.out.println("onViewReleased");
+
         }
     };
-
 }
