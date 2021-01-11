@@ -1,129 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:onClick="loadingButton"
+            android:text="loadingbutton" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="loadingButton"
-                android:text="loadingbutton" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="loadingView"
+            android:text="loadingview" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="loadingView"
-                android:text="loadingview" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sportView"
+            android:text="运动圆" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="sportView"
-                android:text="运动圆" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="progressBar"
+            android:text="进度条" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="progressBar"
-                android:text="进度条" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="pie"
+            android:text="饼状图" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="pie"
-                android:text="饼状图" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="histogram"
+            android:text="柱状图" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="histogram"
-                android:text="柱状图" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="longClickView"
+            android:text="长按放大" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="longClickView"
-                android:text="长按放大" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="boardView1"
+            android:text="仪表盘1" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="boardView1"
-                android:text="仪表盘1" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="boardView2"
+            android:text="仪表盘2" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="boardView2"
-                android:text="仪表盘2" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="charge"
+            android:text="充电" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="charge"
-                android:text="充电" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sky"
+            android:text="星空" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="sky"
-                android:text="星空" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="test"
+            android:text="测试" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="test"
-                android:text="测试" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="progress"
+            android:text="进度布局" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="progress"
-                android:text="进度布局" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="change"
+            android:text="换位" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="change"
-                android:text="换位" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="zan"
+            android:text="赞" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="zan"
-                android:text="赞" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="electric"
+            android:text="电量" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="electric"
-                android:text="电量" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewpager"
+            android:text="viewpager" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="viewpager"
-                android:text="viewpager" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="scroll"
+            android:text="垂直滑动" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="scroll"
-                android:text="垂直滑动" />
-
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="carControl"
-                android:text="控车item" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="carControl"
+            android:text="控车item" />
 
         <Button
             android:layout_width="match_parent"

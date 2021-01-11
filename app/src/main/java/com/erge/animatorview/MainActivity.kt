@@ -1,27 +1,32 @@
 package com.erge.animatorview
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
-import com.erge.animatorview.view.ViewTest
+import com.erye.annotation.Binding
+import com.erye.annotationj.BindView
 
 class MainActivity : AppCompatActivity() {
+
+    @BindView(R.id.tv_test)
+    var tv_test: TextView? = null
 
     private lateinit var button: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Binding.bind(this)
+
+        println("tv_test$tv_test")
+
 
         button = Button(this)
         button.text = "测试"

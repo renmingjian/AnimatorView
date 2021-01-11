@@ -25,7 +25,7 @@ public class RefreshActivity extends AppCompatActivity {
 
         List<String> data = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 30; i++) {
             data.add("item" + i);
         }
 

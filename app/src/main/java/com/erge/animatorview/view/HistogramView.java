@@ -11,7 +11,6 @@ import android.widget.OverScroller;
 
 import androidx.annotation.Nullable;
 
-import com.erge.animatorview.R;
 import com.erge.animatorview.utils.Utils;
 
 import java.util.List;
