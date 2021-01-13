@@ -63,12 +63,6 @@ public class BoardView extends View {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        System.out.println("onLayoutonLayout");
-    }
-
-    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mBigRadius = getHeight() * 0.5f;
@@ -221,7 +215,6 @@ public class BoardView extends View {
         animator.start();
     }
 
-    @SuppressWarnings("unused")
     public void setAngle(float angle) {
         this.angle = angle;
         invalidate();
@@ -231,7 +224,6 @@ public class BoardView extends View {
         this.count = count;
     }
 
-    @SuppressWarnings("unused")
     public void setCountText(int count) {
         this.count = count;
         pointerAnim();

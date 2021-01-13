@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -38,6 +39,7 @@ public class ChargeView extends View {
 
     public ChargeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+//        setBackgroundColor(Color.parseColor("#0a0206"));
     }
 
     @Override

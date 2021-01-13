@@ -6,30 +6,15 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
-import com.erye.annotation.Binding
-import com.erye.annotationj.BindView
 
 class MainActivity : AppCompatActivity() {
 
-    @BindView(R.id.tv_test)
-    var tv_test: TextView? = null
-
-    private lateinit var button: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Binding.bind(this)
-
-        println("tv_test$tv_test")
-
-
-        button = Button(this)
-        button.text = "测试"
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL

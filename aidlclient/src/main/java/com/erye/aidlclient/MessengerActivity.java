@@ -1,8 +1,5 @@
 package com.erye.aidlclient;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.erge.animatorview.MyPerson;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MessengerActivity extends AppCompatActivity implements View.OnClickListener {
 

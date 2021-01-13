@@ -1,6 +1,3 @@
-include ':annotationj'
-include ':annotation_proccessor'
-include ':annotation'
 include ':aidlclient'
 include ':app'
 rootProject.name='AnimatorView'
