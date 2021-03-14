@@ -19,11 +19,9 @@ public class MultiImagesView extends ViewGroup implements View.OnClickListener {
     // 单个图⽚的点击事件
     private OnImageClickListener mOnImageClickListener;
     // 每个图⽚的间距
-    private int mDividerSpace;
+    private final int mDividerSpace;
     // 排版模式
     private MODE mMode;
-    // 图⽚⽐例
-    private float mRatio = 343f / 160f;
     // ⽗容器⾼度
     private int mParentHeight;
     public MultiImagesView(Context context, AttributeSet attrs) {
@@ -48,6 +46,8 @@ public class MultiImagesView extends ViewGroup implements View.OnClickListener {
         // ⼦控件宽⾼以及测量规则
         int childWidth;
         int childHeight;
+        // 图⽚⽐例
+        float mRatio = 343f / 160f;
         if (mMode == MODE.ONE_FIXED_RADIO) {
             // 单张图模式，具有固定的宽⾼⽐
             childWidth = parentWidth;

@@ -13,6 +13,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="transition"
+            android:text="transition动画" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="loadingButton"
             android:text="loadingbutton" />
 
@@ -142,6 +148,11 @@
             android:onClick="animation"
             android:text="悬浮View" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="pullToRefresh"
+            android:text="下拉刷新" />
 
     </LinearLayout>
 

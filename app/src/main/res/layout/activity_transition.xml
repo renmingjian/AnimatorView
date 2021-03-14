@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TransitionActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_scene"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/scene1" />
+
+    </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:onClick="start"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:text="start" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:onClick="loading"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:text="loading" />
+
+</FrameLayout>

@@ -34,6 +34,10 @@
     <declare-styleable name="MultiImagesView">
         <attr name="dividerSpace" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="VerticalRefreshLayout">
+        <attr name="top_menu_scrollable" format="boolean"/>
+    </declare-styleable>
     
 <!--    <declare-styleable name="ElectricQuantity">-->
 <!--        <attr name=""-->

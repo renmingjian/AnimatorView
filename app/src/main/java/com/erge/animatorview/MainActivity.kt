@@ -114,5 +114,13 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, ViewGroupAnimationActivity::class.java))
     }
 
+    fun pullToRefresh(view: View) {
+        startActivity(Intent(this, VerticalScrollViewActivity::class.java))
+    }
+
+    fun transition(view: View) {
+        startActivity(Intent(this, TransitionActivity::class.java))
+    }
+
 
 }

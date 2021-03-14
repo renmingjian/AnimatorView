@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@android:color/white"
+            app:title="你大爷是程序员"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.erge.animatorview.view.VerticalRefreshLayout
+        android:id="@+id/verticalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:top_menu_scrollable="true">
+
+        <include layout="@layout/vertical_menu" />
+
+        <include layout="@layout/vertical_main" />
+
+    </com.erge.animatorview.view.VerticalRefreshLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
