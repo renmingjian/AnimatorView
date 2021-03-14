@@ -19,28 +19,13 @@ class LoadingButtonActivity : AppCompatActivity() {
 
         loadingButton = findViewById(R.id.lb)
 
+        lb2.setLoadingListener {
+            Toast.makeText(this, "loading", Toast.LENGTH_SHORT).show()
+        }
+
         findViewById<Button>(R.id.btn_reset).setOnClickListener {
             loadingButton.state = LoadingButton.State.NORMAL
         }
-
-
-        // View位置参数测试
-        println("param-x = ${btn_reset.x}")
-        println("param-y = ${btn_reset.y}")
-        println("param-left= ${btn_reset.left}")
-        println("param-top = ${btn_reset.top}")
-
-        btn_reset.translationX = 100f
-        btn_reset.translationY = 100f
-
-        println("param-x1 = ${btn_reset.x}")
-        println("param-y1 = ${btn_reset.y}")
-        println("param-left2= ${btn_reset.left}")
-        println("param-top2 = ${btn_reset.top}")
-
-
-
-
 
         loadingButton.setOnLoadingListener { Toast.makeText(this@LoadingButtonActivity, "loading", Toast.LENGTH_SHORT).show() }
 

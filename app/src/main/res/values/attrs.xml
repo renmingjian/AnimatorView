@@ -12,6 +12,15 @@
 
     <declare-styleable name="LoadingButton">
         <attr name="text" format="string" />
+        <attr name="text_color" format="color" />
+        <attr name="text_size" format="dimension" />
+        <attr name="fill_color" format="color" />
+        <attr name="loading_line_color" format="color" />
+        <attr name="gradientStyle" format="enum">
+            <enum name="left" value="0" />
+            <enum name="middle" value="1" />
+            <enum name="right" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="CheckScoreView">

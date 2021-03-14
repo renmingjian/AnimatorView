@@ -28,10 +28,16 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mDetector: GestureDetector
     private var mText: String? = null
-    private var mOnLoadingListener: OnLoadingListener? = null
+    private var mTextColor: Int? = null
+    private var mTextSize: Float? = null
+    private var mFillColor: Int? = null
+    private var mLoadingLineColor: Int? = null
     private var mOnClickListener: OnClickListener? = null
     private var mAnimator: ObjectAnimator? = null
     private var mNormalToLoading = false
+    private var mGradientStyle: Int = 1
+    private var onLoadingListener: () -> Unit = {}
+
     private var lineProgress = 1f
         set(value) {
             field = value
@@ -60,15 +66,26 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
 
     enum class State {
         // 正常的Button状态
-        NORMAL,  // Loading状态
-        LOADING,  // Loading完成状态
-        COMPLETE,  // Loaing错误状态
+        NORMAL,
+
+        // Loading状态
+        LOADING,
+
+        // Loading完成状态
+        COMPLETE,
+
+        // Loaing错误状态
         ERROR
     }
 
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingButton)
         mText = typedArray.getString(R.styleable.LoadingButton_text)
+        mGradientStyle = typedArray.getInt(R.styleable.LoadingButton_gradientStyle, 1)
+        mTextColor = typedArray.getColor(R.styleable.LoadingButton_text_color, Color.parseColor("#ffffff"))
+        mTextSize = typedArray.getDimension(R.styleable.LoadingButton_text_size, 14f)
+        mFillColor = typedArray.getColor(R.styleable.LoadingButton_fill_color, Color.parseColor("#ffd700"))
+        mLoadingLineColor = typedArray.getColor(R.styleable.LoadingButton_loading_line_color, Color.parseColor("#000000"))
         typedArray.recycle()
     }
 
@@ -76,8 +93,8 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
         setMeasuredDimension(
-            resolveSize(width, widthMeasureSpec),
-            resolveSize(height, heightMeasureSpec)
+                resolveSize(width, widthMeasureSpec),
+                resolveSize(height, heightMeasureSpec)
         )
     }
 
@@ -89,7 +106,8 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         super.onSizeChanged(w, h, oldw, oldh)
         mWidth = width
         mHeight = height
-        mRadius = (mHeight shr 1).toFloat()
+        val min = width.coerceAtMost(height)
+        mRadius = (min shr 1).toFloat()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -97,32 +115,16 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         when (mState) {
             State.NORMAL -> drawButton(canvas)
             State.LOADING -> drawLoading(canvas)
-            State.ERROR -> drawError(canvas)
         }
     }
 
     private fun drawButton(canvas: Canvas) {
         canvas.save()
-        mPaint.color = Color.parseColor("#ffd700")
+        mPaint.color = mFillColor!!
         mPaint.style = Paint.Style.FILL
-        val width = mWidth - 2 * mRadius
+
         if (mNormalToLoading) {
-            // 左侧半圆
-            canvas.drawArc(
-                width * (1f - lineProgress) / 2, 0f, width * (1f - lineProgress) / 2 + mRadius * 2,
-                mHeight.toFloat(), 90f, 180f, false, mPaint
-            )
-            // 中间矩形
-            canvas.drawRect(
-                width * (1f - lineProgress) / 2 + mRadius, 0f,
-                width * lineProgress / 2f + mWidth / 2f, mHeight.toFloat(), mPaint
-            )
-            // 右侧半圆
-            canvas.drawArc(
-                mWidth / 2f + width * lineProgress / 2f - mRadius, 0f,
-                mWidth / 2f + width * lineProgress / 2f + mRadius,
-                mHeight.toFloat(), 270f, 180f, false, mPaint
-            )
+            drawGradientButton(canvas)
         } else {
             canvas.drawRoundRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), 20f, 20f, mPaint)
             drawText(canvas)
@@ -130,11 +132,57 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         canvas.restore()
     }
 
+    private fun drawGradientButton(canvas: Canvas) {
+        var leftCircleLeft = 0f
+        var middleRectLeft = 0f
+        var rightCircleLeft = 0f
+        val top = 0f
+        var leftCircleRight = 0f
+        var middleRectRight = 0f
+        var rightCircleRight = 0f
+        val bottom = mHeight.toFloat()
+        when (mGradientStyle) {
+            0 -> {
+                leftCircleLeft = 0f
+                leftCircleRight = mRadius * 2
+                middleRectLeft = mRadius
+                middleRectRight = (mWidth - 2 * mRadius) * lineProgress + mRadius
+                rightCircleLeft = (mWidth - 2 * mRadius) * lineProgress
+                rightCircleRight = rightCircleLeft + 2 * mRadius
+            }
+            1 -> {
+                leftCircleLeft = (mRadius - mWidth / 2) * (lineProgress - 1)
+                leftCircleRight = leftCircleLeft + mRadius * 2
+                middleRectLeft = (mRadius - mWidth / 2) * lineProgress + mWidth / 2
+                middleRectRight = (mWidth / 2 - mRadius) * lineProgress + mWidth / 2
+                rightCircleLeft = (mWidth / 2 - mRadius) * (lineProgress + 1)
+                rightCircleRight = rightCircleLeft + mRadius * 2
+            }
+            2 -> {
+                leftCircleLeft = (2 * mRadius - mWidth) * (lineProgress - 1)
+                leftCircleRight = leftCircleLeft + 2 * mRadius
+                middleRectLeft = (2 * mRadius - mWidth) * lineProgress + mWidth - mRadius
+                middleRectRight = mWidth - mRadius
+                rightCircleLeft = mWidth - 2 * mRadius
+                rightCircleRight = mWidth.toFloat()
+            }
+        }
+
+        // 左侧半圆
+        canvas.drawArc(leftCircleLeft, top, leftCircleRight, bottom, 90f, 180f,
+                false, mPaint)
+        // 中间矩形
+        canvas.drawRect(middleRectLeft, top, middleRectRight, bottom, mPaint)
+        // 右侧半圆
+        canvas.drawArc(rightCircleLeft, top, rightCircleRight, bottom, 270f,
+                180f, false, mPaint)
+    }
+
     private fun drawText(canvas: Canvas) {
         // 画文字
         if (!TextUtils.isEmpty(mText)) {
-            mPaint.textSize = mHeight / 2f * lineProgress
-            mPaint.color = Color.parseColor("#ffffff")
+            mPaint.textSize = mTextSize!!
+            mPaint.color = mTextColor!!
             mPaint.textAlign = Paint.Align.CENTER
             val metrics = Paint.FontMetrics()
             mPaint.getFontMetrics(metrics)
@@ -149,43 +197,29 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
 
     private fun drawLoading(canvas: Canvas) {
         canvas.save()
-        mPaint.color = Color.parseColor("#ffd700")
+        var radiusX = 0f
+        val radiusY = mHeight / 2.toFloat()
+        when (mGradientStyle) {
+            0 -> radiusX = mRadius
+            1 -> radiusX = mWidth / 2.toFloat()
+            2 -> radiusX = mWidth - mRadius
+        }
+        mPaint.color = mFillColor!!
         mPaint.strokeWidth = 0f
         mPaint.style = Paint.Style.FILL
-        canvas.drawCircle(mWidth / 2f, mHeight / 2f, mRadius, mPaint)
-        mPaint.color = Color.parseColor("#000000")
+        canvas.drawCircle(radiusX, radiusY, mRadius, mPaint)
+        mPaint.color = mLoadingLineColor!!
         mPaint.strokeWidth = 6f
         mPaint.style = Paint.Style.STROKE
         canvas.drawArc(
-            mWidth / 2 - mRadius + mRadius / 2, mHeight / 2 - mRadius + mRadius / 2,
-            mWidth / 2 + mRadius - mRadius / 2, mHeight / 2 + mRadius - mRadius / 2,
-            progressStart * 360, (progressEnd - progressStart) * 360,
-            false, mPaint
+                radiusX - mRadius / 2, radiusY - mRadius / 2,
+                radiusX + mRadius / 2, radiusY + mRadius / 2,
+                progressStart * 360, (progressEnd - progressStart) * 360,
+                false, mPaint
         )
-        println("left = " + (mWidth / 2 - mRadius + 10) + "--right = " + (mWidth / 2 + mRadius - 10))
         canvas.restore()
     }
 
-    private fun drawError(canvas: Canvas) {
-        canvas.save()
-        mPaint.strokeWidth = PAINT_STROKE_WIDTH.toFloat()
-        mPaint.style = Paint.Style.STROKE
-        canvas.drawCircle(
-            (mWidth shr 1).toFloat(),
-            (mHeight shr 1).toFloat(),
-            mRadius - (PAINT_STROKE_WIDTH shr 1),
-            mPaint
-        )
-        canvas.drawLine(
-            (mWidth - mRadius) / 2, (mHeight - mRadius) / 2, (mWidth + mRadius) / 2,
-            (mHeight + mRadius) / 2, mPaint
-        )
-        canvas.drawLine(
-            (mWidth - mRadius) / 2, (mHeight + mRadius) / 2, (mWidth + mRadius) / 2,
-            (mHeight - mRadius) / 2, mPaint
-        )
-        canvas.restore()
-    }
 
     private fun startAlpha() {
         val animator = ObjectAnimator.ofInt(this, "textAlpha", 255, 0)
@@ -219,24 +253,24 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
      * loading过程动画
      */
     private fun startLoadingAnim() {
-        val keyframeStart1 = Keyframe.ofFloat(0.1f, 0.1f)
+        val keyframeStart1 = Keyframe.ofFloat(0.0f, 0.0f)
         val keyframeStart2 = Keyframe.ofFloat(0.2f, 0.2f)
         val keyframeStart3 = Keyframe.ofFloat(0.8f, 0.9f)
         val keyframeStart4 = Keyframe.ofFloat(1f, 1f)
         val holder1 = PropertyValuesHolder.ofKeyframe(
-            "progressStart", keyframeStart1,
-            keyframeStart2, keyframeStart3, keyframeStart4
+                "progressStart", keyframeStart1,
+                keyframeStart2, keyframeStart3, keyframeStart4
         )
         val keyframeEnd1 = Keyframe.ofFloat(0f, 0f)
-        val keyframeEnd2 = Keyframe.ofFloat(0.2f, 0.6f)
+        val keyframeEnd2 = Keyframe.ofFloat(0.2f, 0.7f)
         val keyframeEnd3 = Keyframe.ofFloat(0.6f, 0.8f)
-        val keyframeEnd4 = Keyframe.ofFloat(0.8f, 1f)
+        val keyframeEnd4 = Keyframe.ofFloat(0.9f, 1f)
         val holder2 = PropertyValuesHolder.ofKeyframe(
-            "progressEnd", keyframeEnd1,
-            keyframeEnd2, keyframeEnd3, keyframeEnd4
+                "progressEnd", keyframeEnd1,
+                keyframeEnd2, keyframeEnd3, keyframeEnd4
         )
         mAnimator = ObjectAnimator.ofPropertyValuesHolder(this, holder1, holder2)
-        mAnimator!!.duration = 1200
+        mAnimator!!.duration = 1000
         mAnimator!!.repeatCount = -1
         mAnimator!!.start()
     }
@@ -245,23 +279,23 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         get() = mState
         set(state) {
             mState = state
-            if (state == State.LOADING) {
-                startLoadingAnim()
-            } else if (state == State.NORMAL) {
-                lineProgress = 1f
-                circleProgress = 0f
-            } else if (state == State.COMPLETE) {
+            when (state) {
+                State.LOADING -> {
+                    startLoadingAnim()
+                    onLoadingListener.invoke()
+                }
+                State.NORMAL -> {
+                    lineProgress = 1f
+                    circleProgress = 0f
+                }
+                State.COMPLETE -> {
+                }
             }
             invalidate()
         }
 
-    fun setOnLoadingListener(onLoadingListener: OnLoadingListener?) {
-        mOnLoadingListener = onLoadingListener
-    }
-
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-
         if (visibility == VISIBLE) {
             mAnimator?.start()
         } else {
@@ -269,42 +303,14 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         }
     }
 
+    fun setLoadingListener(listener: () -> Unit) {
+        onLoadingListener = listener
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         mAnimator?.pause()
         mAnimator = null
-    }
-
-    fun setOnClickListener(onClickListener: OnClickListener?) {
-        mOnClickListener = onClickListener
-    }
-
-    /**
-     * Loading监听
-     */
-    interface OnLoadingListener {
-        fun onStartLoading()
-    }
-
-    /**
-     * 点击事件监听
-     */
-    interface OnClickListener {
-        // 正常状态下的点击事件
-        fun onNormalClick()
-
-        // Loading状态下的点击事件
-        fun onLoadingClick()
-
-        // 加载完成后的点击事件
-        fun onCompleteClick()
-
-        // 加载错误情况下的点击事件
-        fun onErrorClick()
-    }
-
-    companion object {
-        private const val PAINT_STROKE_WIDTH = 4
     }
 
     init {
@@ -315,29 +321,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             }
 
             override fun onSingleTapUp(e: MotionEvent): Boolean {
-                when (mState) {
-                    State.NORMAL -> {
-                        if (mOnClickListener != null) {
-                            mOnClickListener!!.onNormalClick()
-                        }
-                        //                        startGradientAnim();
-                        startAlpha()
-                    }
-                    State.LOADING -> {
-                        if (mOnLoadingListener != null) {
-                            mOnLoadingListener!!.onStartLoading()
-                        }
-                        if (mOnClickListener != null) {
-                            mOnClickListener!!.onLoadingClick()
-                        }
-                    }
-                    State.COMPLETE -> if (mOnClickListener != null) {
-                        mOnClickListener!!.onCompleteClick()
-                    }
-                    State.ERROR -> if (mOnClickListener != null) {
-                        mOnClickListener!!.onErrorClick()
-                    }
-                }
+                if (mState == State.NORMAL) startAlpha()
                 return super.onSingleTapUp(e)
             }
         })
