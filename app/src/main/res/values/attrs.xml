@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LoadingView">
-        <attr name="dotColor" format="color"/>
-        <attr name="dotRadius" format="dimension"/>
+        <attr name="dotColor" format="color" />
+        <attr name="dotRadius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="LongClickView">
-        <attr name="bgSrc" format="reference"/>
-        <attr name="src" format="reference"/>
+        <attr name="bgSrc" format="reference" />
+        <attr name="src" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="LoadingButton">
@@ -17,7 +17,7 @@
         <attr name="fill_color" format="color" />
         <attr name="loading_line_color" format="color" />
         <attr name="corner_size" format="dimension" />
-        <attr name="gradientStyle" format="enum">
+        <attr name="gradientStyle" format="enum|string|reference">
             <enum name="left" value="0" />
             <enum name="middle" value="1" />
             <enum name="right" value="2" />
@@ -30,7 +30,7 @@
     </declare-styleable>
 
     <declare-styleable name="ProgressLayoutView">
-        <attr name="img" format="reference"/>
+        <attr name="img" format="reference" />
         <attr name="imgWidth" format="dimension" />
         <attr name="imgHeight" format="dimension" />
         <attr name="desc" format="string" />
@@ -46,11 +46,11 @@
     </declare-styleable>
 
     <declare-styleable name="VerticalRefreshLayout">
-        <attr name="top_menu_scrollable" format="boolean"/>
+        <attr name="top_menu_scrollable" format="boolean" />
     </declare-styleable>
-    
-<!--    <declare-styleable name="ElectricQuantity">-->
-<!--        <attr name=""-->
-<!--    </declare-styleable>-->
+
+    <!--    <declare-styleable name="ElectricQuantity">-->
+    <!--        <attr name=""-->
+    <!--    </declare-styleable>-->
 
 </resources>

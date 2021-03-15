@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
 
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +21,9 @@ class MainActivity : AppCompatActivity() {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
         layoutParams.width = 300
         layoutParams.height = 300
-        layoutParams.format = PixelFormat.RGBA_8888;
+        layoutParams.format = PixelFormat.RGBA_8888
         layoutParams.gravity = Gravity.CENTER
+
     }
 
     fun loadingButton(view: View) {
@@ -120,6 +122,18 @@ class MainActivity : AppCompatActivity() {
 
     fun transition(view: View) {
         startActivity(Intent(this, TransitionActivity::class.java))
+    }
+
+    fun motionLayout(view: View) {
+        startActivity(Intent(this, MotionLayoutActivity::class.java))
+    }
+
+    fun shareElement(view: View) {
+        startActivity(Intent(this, ShareElementActivity::class.java))
+    }
+
+    fun lottie(view: View) {
+        startActivity(Intent(this, LottieActivity::class.java))
     }
 
 

@@ -19,6 +19,24 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="motionLayout"
+            android:text="motionLayout动画" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="shareElement"
+            android:text="共享动画" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="lottie"
+            android:text="lottie动画" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="loadingButton"
             android:text="loadingbutton" />
 
