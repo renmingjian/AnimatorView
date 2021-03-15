@@ -8,31 +8,38 @@
     tools:context=".activity.MotionLayoutActivity">
 
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/root"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/scene2">
+        android:layout_height="150dp">
 
-        <View
+        <ImageView
             android:id="@+id/v_test"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="100dp"
-            android:background="#00ff00"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_bills_payment_complete" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:background="#33ff0000" />
+    </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center_vertical"
+        android:text="text1" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center_vertical"
+        android:text="text1" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center_vertical"
+        android:text="text1" />
 
 </LinearLayout>
