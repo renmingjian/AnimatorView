@@ -32,7 +32,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
     private var mTextSize: Float? = null
     private var mFillColor: Int? = null
     private var mLoadingLineColor: Int? = null
-    private var mOnClickListener: OnClickListener? = null
+    private var mCornerSize: Float? = null
     private var mAnimator: ObjectAnimator? = null
     private var mNormalToLoading = false
     private var mGradientStyle: Int = 1
@@ -65,16 +65,9 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         }
 
     enum class State {
-        // 正常的Button状态
         NORMAL,
-
-        // Loading状态
         LOADING,
-
-        // Loading完成状态
         COMPLETE,
-
-        // Loaing错误状态
         ERROR
     }
 
@@ -86,6 +79,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         mTextSize = typedArray.getDimension(R.styleable.LoadingButton_text_size, 14f)
         mFillColor = typedArray.getColor(R.styleable.LoadingButton_fill_color, Color.parseColor("#ffd700"))
         mLoadingLineColor = typedArray.getColor(R.styleable.LoadingButton_loading_line_color, Color.parseColor("#000000"))
+        mCornerSize = typedArray.getDimension(R.styleable.LoadingButton_corner_size, 0f)
         typedArray.recycle()
     }
 
@@ -126,7 +120,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         if (mNormalToLoading) {
             drawGradientButton(canvas)
         } else {
-            canvas.drawRoundRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), 20f, 20f, mPaint)
+            canvas.drawRoundRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), mCornerSize!!, mCornerSize!!, mPaint)
             drawText(canvas)
         }
         canvas.restore()
@@ -190,8 +184,6 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             val offset = (metrics.ascent + metrics.descent) / 2
             val baseLine = (mHeight shr 1) - offset
             canvas.drawText(mText!!, (mWidth shr 1).toFloat(), baseLine, mPaint)
-        } else {
-            startGradientAnim()
         }
     }
 
