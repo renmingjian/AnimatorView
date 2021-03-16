@@ -35,6 +35,7 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
                 lottieContainer.alpha = 0f
+                lottieContainer.visibility = View.GONE
                 targetStartView.visibility = View.VISIBLE
                 targetStartView.performClick()
             }
@@ -43,17 +44,18 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
         motionLayout.addTransitionListener(object : TransitionAdapter() {
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
                 super.onTransitionCompleted(motionLayout, currentId)
-                contentParent!!.removeView(loadingLayout)
+//                contentParent!!.removeView(loadingLayout)
+                loadingLayout.alpha = 0.3f
             }
         })
 
         targetStartView.postDelayed({
-            reConstraint()
+//            reConstraint()
         }, 400)
     }
 
     private fun reConstraint() {
-        val constraintSet = motionLayout.getConstraintSet(R.xml.scene)
+        val constraintSet = motionLayout.getConstraintSet(R.xml.pay_scene)
         val contentArray = IntArray(2)
         contentParent!!.getLocationInWindow(contentArray)
         targetEndView.getLocationInWindow(targetEndViewLocation)

@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LottieActivity"></activity>
+        <activity android:name=".activity.MotionLayoutActivity2"></activity>
+        <activity android:name=".activity.LottieActivity" />
         <activity android:name=".activity.ShareElementActivity2" />
         <activity android:name=".activity.ShareElementActivity" />
         <activity android:name=".activity.TransitionActivity" />

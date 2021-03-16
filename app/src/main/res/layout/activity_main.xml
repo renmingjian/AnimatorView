@@ -25,6 +25,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="motionLayout2"
+            android:text="motionLayout动画2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="shareElement"
             android:text="共享动画" />
 

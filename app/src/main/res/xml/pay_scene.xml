@@ -5,44 +5,42 @@
     <Transition
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="700">
+        app:duration="2000">
 
         <OnClick
-            app:clickAction="transitionToEnd"
+            app:clickAction="toggle"
             app:targetId="@+id/iv_holder" />
 
         <KeyFrameSet>
             <KeyAttribute
-                android:scaleX="1.1"
-                android:scaleY="1.1"
+                android:scaleX="1.0"
+                android:scaleY="1.0"
                 app:framePosition="90"
                 app:motionTarget="@+id/iv_holder" />
         </KeyFrameSet>
 
     </Transition>
 
-    <ConstraintSet
-        android:id="@+id/start"
-        app:transitionEasing="decelerate">
+    <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/iv_holder"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:alpha="1"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 
-    <ConstraintSet
-        android:id="@+id/end"
-        app:transitionEasing="decelerate">
+    <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/iv_holder"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:alpha="1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>

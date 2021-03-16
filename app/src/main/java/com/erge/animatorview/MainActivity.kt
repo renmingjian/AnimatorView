@@ -136,5 +136,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, LottieActivity::class.java))
     }
 
+    fun motionLayout2(view: View) {
+        startActivity(Intent(this, MotionLayoutActivity2::class.java))
+    }
+
 
 }

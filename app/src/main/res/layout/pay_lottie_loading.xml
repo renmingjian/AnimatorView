@@ -5,14 +5,20 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    app:layoutDescription="@xml/scene">
+    android:background="#22ffff00"
+    app:layoutDescription="@xml/pay_scene">
+
+    <View
+        android:id="@+id/test"
+        android:background="#ff0000"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
     <ImageView
         android:id="@+id/iv_holder"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="100dp"
         android:src="@drawable/ic_bills_payment_complete"
         tools:ignore="ContentDescription" />
 
