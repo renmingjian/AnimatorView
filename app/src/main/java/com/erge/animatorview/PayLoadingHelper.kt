@@ -7,77 +7,71 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Toast
+import android.widget.FrameLayout
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.constraintlayout.widget.ConstraintSet
 import com.airbnb.lottie.LottieAnimationView
 
-class LoadingHelper(activity: Activity, private val targetEndView: View) {
-
-    private var root: MotionLayout
+class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
+    private var motionLayout: MotionLayout
     private var targetStartView: View
-    private val array = IntArray(2)
+    private val targetEndViewLocation = IntArray(2)
     private var contentParent: ViewGroup? = null
     private var lottieView: LottieAnimationView
+    private var lottieContainer: FrameLayout
 
     init {
         contentParent = activity.window.decorView.findViewById(Window.ID_ANDROID_CONTENT)
         val loadingLayout = LayoutInflater.from(activity)
-            .inflate(R.layout.lottie_loading, contentParent, false) as ViewGroup
+            .inflate(R.layout.pay_lottie_loading, contentParent, false) as ViewGroup
         contentParent!!.addView(loadingLayout)
-        root = contentParent!!.findViewById(R.id.root)
-        targetStartView = contentParent!!.findViewById(R.id.view)
+        motionLayout = contentParent!!.findViewById(R.id.root)
+        targetStartView = contentParent!!.findViewById(R.id.iv_holder)
+        lottieContainer = contentParent!!.findViewById(R.id.fl_lottie_container)
         lottieView = contentParent!!.findViewById(R.id.lottieView)
 
         lottieView.addAnimatorListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
-                // 给view设置最后一帧时图片的大小
+                lottieContainer.alpha = 0f
                 targetStartView.visibility = View.VISIBLE
-                lottieView.visibility = View.INVISIBLE
-
-
                 targetStartView.performClick()
-                Toast.makeText(activity, "onAnimationEnd", Toast.LENGTH_SHORT).show()
-
             }
         })
 
-        root.addTransitionListener(object : TransitionAdapter() {
+        motionLayout.addTransitionListener(object : TransitionAdapter() {
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
                 super.onTransitionCompleted(motionLayout, currentId)
-                lottieView.visibility = View.GONE
                 contentParent!!.removeView(loadingLayout)
             }
         })
 
-        // loading过程
         targetStartView.postDelayed({
-            start()
-        }, 300)
+            reConstraint()
+        }, 400)
     }
 
-    fun start() {
-        val constraintSet = root.getConstraintSet(R.xml.scene1)
+    private fun reConstraint() {
+        val constraintSet = motionLayout.getConstraintSet(R.xml.scene)
         val contentArray = IntArray(2)
         contentParent!!.getLocationInWindow(contentArray)
-        targetEndView.getLocationInWindow(array)
+        targetEndView.getLocationInWindow(targetEndViewLocation)
         constraintSet.connect(
-            R.id.view,
+            R.id.iv_holder,
             ConstraintSet.TOP,
             ConstraintSet.PARENT_ID,
             ConstraintSet.TOP,
-            array[1] - contentArray[1]
+            targetEndViewLocation[1] - contentArray[1]
         )
         constraintSet.connect(
-            R.id.view,
+            R.id.iv_holder,
             ConstraintSet.START,
             ConstraintSet.PARENT_ID,
             ConstraintSet.START,
-            array[0]
+            targetEndViewLocation[0]
         )
-        constraintSet.applyTo(root)
+        constraintSet.applyTo(motionLayout)
     }
 
 }

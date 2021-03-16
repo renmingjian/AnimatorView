@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    app:layoutDescription="@xml/scene2">
+    app:layoutDescription="@xml/scene">
 
     <ImageView
-        android:id="@+id/view"
+        android:id="@+id/iv_holder"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="100dp"
-        android:src="@drawable/ic_bills_payment_complete" />
+        android:src="@drawable/ic_bills_payment_complete"
+        tools:ignore="ContentDescription" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/fl_lottie_container"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="successful.json" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="successful.json" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
