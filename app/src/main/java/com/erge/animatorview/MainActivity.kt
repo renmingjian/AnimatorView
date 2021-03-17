@@ -1,15 +1,15 @@
 package com.erge.animatorview
 
-import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.os.Vibrator
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
+import java.time.Instant
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +25,25 @@ class MainActivity : AppCompatActivity() {
         layoutParams.height = 300
         layoutParams.format = PixelFormat.RGBA_8888
         layoutParams.gravity = Gravity.CENTER
+
+        println("current = ${System.nanoTime()}")
+        println("current = ${System.currentTimeMillis()}")
+
+        println("current = ${Date().time}")
+
+
+        val alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        val numbers = "0123456789"
+        val codeMap = mutableMapOf<String, Int>()
+
+        numbers.forEach {
+            codeMap[it.toString()] = it.toString().toInt()
+        }
+        alphabets.forEach {
+            codeMap[it.toString()] = it.toInt() - 55
+        }
+
+        println(codeMap.toString())
 
     }
 
@@ -128,6 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     fun motionLayout(view: View) {
         startActivity(Intent(this, MotionLayoutActivity::class.java))
+        overridePendingTransition(0, 0)
     }
 
     fun shareElement(view: View) {

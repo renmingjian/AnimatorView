@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.R
 import com.erge.animatorview.view.LoadingButton
+import com.erge.animatorview.view.LoadingButton2
 import kotlinx.android.synthetic.main.activity_loading_button.*
 
 class LoadingButtonActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class LoadingButtonActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btn_reset).setOnClickListener {
-            loadingButton.state = LoadingButton.State.NORMAL
+            lb2.state = LoadingButton2.State.NORMAL
         }
 
         loadingButton.setOnLoadingListener { Toast.makeText(this@LoadingButtonActivity, "loading", Toast.LENGTH_SHORT).show() }
