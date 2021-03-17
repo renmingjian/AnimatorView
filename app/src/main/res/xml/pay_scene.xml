@@ -5,18 +5,19 @@
     <Transition
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="2000">
-
-        <OnClick
-            app:clickAction="toggle"
-            app:targetId="@+id/iv_holder" />
+        app:duration="700">
 
         <KeyFrameSet>
             <KeyAttribute
-                android:scaleX="1.0"
-                android:scaleY="1.0"
-                app:framePosition="90"
+                android:scaleX="1"
+                android:scaleY="1"
+                app:framePosition="80"
                 app:motionTarget="@+id/iv_holder" />
+
+            <KeyAttribute
+                android:alpha="1.0"
+                app:framePosition="90"
+                app:motionTarget="@+id/backgroundView" />
         </KeyFrameSet>
 
     </Transition>
@@ -31,18 +32,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/backgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/iv_holder"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleX="0.55"
+            android:scaleY="0.55"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/constraintView"
+            app:layout_constraintEnd_toEndOf="@+id/constraintView"
+            app:layout_constraintStart_toStartOf="@+id/constraintView"
+            app:layout_constraintTop_toTopOf="@+id/constraintView" />
+
+        <Constraint
+            android:id="@+id/backgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </ConstraintSet>
 
 </MotionScene>

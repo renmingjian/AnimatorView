@@ -5,15 +5,21 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#22ffff00"
     app:layoutDescription="@xml/pay_scene">
 
     <View
-        android:id="@+id/test"
-        android:background="#ff0000"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/backgroundView"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="match_parent"
+        android:background="#ffffff"/>
+
+    <!-- 下面的iv_holder需要以此View为约束（在pay_scene中） -->
+    <!-- 该View的约束以代码动态控制，目的是动态确定该View的位置为动画结束后目标View的位置 -->
+    <View
+        android:id="@+id/constraintView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/iv_holder"
@@ -22,23 +28,16 @@
         android:src="@drawable/ic_bills_payment_complete"
         tools:ignore="ContentDescription" />
 
-    <FrameLayout
-        android:id="@+id/fl_lottie_container"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieView"
         android:layout_width="220dp"
         android:layout_height="220dp"
         android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="successful.json" />
-
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="successful.json" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
