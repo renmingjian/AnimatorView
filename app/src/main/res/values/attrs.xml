@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="LoadingView">
         <attr name="dotColor" format="color" />
         <attr name="dotRadius" format="dimension" />
@@ -17,6 +18,7 @@
         <attr name="fill_color" format="color" />
         <attr name="loading_line_color" format="color" />
         <attr name="corner_size" format="dimension" />
+        <attr name="loading_line_size" format="dimension" />
         <attr name="gradientStyle" format="enum|string|reference">
             <enum name="left" value="0" />
             <enum name="middle" value="1" />
@@ -48,9 +50,5 @@
     <declare-styleable name="VerticalRefreshLayout">
         <attr name="top_menu_scrollable" format="boolean" />
     </declare-styleable>
-
-    <!--    <declare-styleable name="ElectricQuantity">-->
-    <!--        <attr name=""-->
-    <!--    </declare-styleable>-->
 
 </resources>

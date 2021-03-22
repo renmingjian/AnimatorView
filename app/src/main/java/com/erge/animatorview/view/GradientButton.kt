@@ -1,8 +1,6 @@
 package com.erge.animatorview.view
 
-import android.animation.Keyframe
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -19,7 +17,7 @@ import com.erge.animatorview.R
 /**
  * Created by erge 2019-08-28 17:21
  */
-class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class GradientButton(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var mState = State.NORMAL
     private var mWidth = 0
     private var mHeight = 0
@@ -27,17 +25,14 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mDetector: GestureDetector
-    var mText: String? = null
-    var mTextColor: Int? = null
-    var mTextSize: Float? = null
-    var mFillColor: Int? = null
-    var mLoadingLineColor: Int? = null
-    var mCornerSize: Float? = null
+    var text: String? = null
+    var textColor: Int? = null
+    var textSize: Float? = null
+    var fillColor: Int? = null
+    var cornerSize: Float? = null
 
-    // 最后的loading转圈动画
-    private var mAnimator: ObjectAnimator? = null
-    private var mGradientStyle: Int = 1
-    private var onLoadingListener: () -> Unit = {}
+    var gradientStyle: Int = 1
+    var onLoadingListener: () -> Unit = {}
 
     private var lineProgress = 1f
         set(value) {
@@ -45,16 +40,6 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             invalidate()
         }
     private var circleProgress = 0f
-        set(value) {
-            field = value
-            invalidate()
-        }
-    private var progressStart = 0f
-        set(value) {
-            field = value
-            invalidate()
-        }
-    private var progressEnd = 0f
         set(value) {
             field = value
             invalidate()
@@ -74,18 +59,14 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
 
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingButton)
-        mText = typedArray.getString(R.styleable.LoadingButton_text)
-        mGradientStyle = typedArray.getInt(R.styleable.LoadingButton_gradientStyle, 1)
-        mTextColor =
+        text = typedArray.getString(R.styleable.LoadingButton_text)
+        gradientStyle = typedArray.getInt(R.styleable.LoadingButton_gradientStyle, 1)
+        textColor =
             typedArray.getColor(R.styleable.LoadingButton_text_color, Color.parseColor("#ffffff"))
-        mTextSize = typedArray.getDimension(R.styleable.LoadingButton_text_size, 14f)
-        mFillColor =
+        textSize = typedArray.getDimension(R.styleable.LoadingButton_text_size, 14f)
+        fillColor =
             typedArray.getColor(R.styleable.LoadingButton_fill_color, Color.parseColor("#ffd700"))
-        mLoadingLineColor = typedArray.getColor(
-            R.styleable.LoadingButton_loading_line_color,
-            Color.parseColor("#000000")
-        )
-        mCornerSize = typedArray.getDimension(R.styleable.LoadingButton_corner_size, 0f)
+        cornerSize = typedArray.getDimension(R.styleable.LoadingButton_corner_size, 0f)
         typedArray.recycle()
     }
 
@@ -116,20 +97,21 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             State.NORMAL -> drawButton(canvas)
             State.NORMAL_TO_LOADING -> drawGradientButton(canvas)
             State.LOADING -> drawLoading(canvas)
+            else -> {}
         }
     }
 
     private fun drawButton(canvas: Canvas) {
         canvas.save()
-        mPaint.color = mFillColor!!
+        mPaint.color = fillColor!!
         mPaint.style = Paint.Style.FILL
         canvas.drawRoundRect(
             0f,
             0f,
             mWidth.toFloat(),
             mHeight.toFloat(),
-            mCornerSize!!,
-            mCornerSize!!,
+            cornerSize!!,
+            cornerSize!!,
             mPaint
         )
         textAlpha = 255
@@ -138,7 +120,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
     }
 
     private fun drawGradientButton(canvas: Canvas) {
-        mPaint.color = mFillColor!!
+        mPaint.color = fillColor!!
         mPaint.style = Paint.Style.FILL
         var leftCircleLeft = 0f
         var middleRectLeft = 0f
@@ -148,7 +130,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         var middleRectRight = 0f
         var rightCircleRight = 0f
         val bottom = mHeight.toFloat()
-        when (mGradientStyle) {
+        when (gradientStyle) {
             0 -> {
                 leftCircleLeft = 0f
                 leftCircleRight = mRadius * 2
@@ -191,16 +173,16 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
 
     private fun drawText(canvas: Canvas) {
         // 画文字
-        if (!TextUtils.isEmpty(mText)) {
-            mPaint.textSize = mTextSize!!
-            mPaint.color = mTextColor!!
+        if (!TextUtils.isEmpty(text)) {
+            mPaint.textSize = textSize!!
+            mPaint.color = textColor!!
             mPaint.textAlign = Paint.Align.CENTER
             val metrics = Paint.FontMetrics()
             mPaint.getFontMetrics(metrics)
             mPaint.alpha = textAlpha
             val offset = (metrics.ascent + metrics.descent) / 2
             val baseLine = (mHeight shr 1) - offset
-            canvas.drawText(mText!!, (mWidth shr 1).toFloat(), baseLine, mPaint)
+            canvas.drawText(text!!, (mWidth shr 1).toFloat(), baseLine, mPaint)
         }
     }
 
@@ -208,24 +190,15 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         canvas.save()
         var radiusX = 0f
         val radiusY = mHeight / 2.toFloat()
-        when (mGradientStyle) {
+        when (gradientStyle) {
             0 -> radiusX = mRadius
             1 -> radiusX = mWidth / 2.toFloat()
             2 -> radiusX = mWidth - mRadius
         }
-        mPaint.color = mFillColor!!
+        mPaint.color = fillColor!!
         mPaint.strokeWidth = 0f
         mPaint.style = Paint.Style.FILL
         canvas.drawCircle(radiusX, radiusY, mRadius, mPaint)
-        mPaint.color = mLoadingLineColor!!
-        mPaint.strokeWidth = 6f
-        mPaint.style = Paint.Style.STROKE
-        canvas.drawArc(
-            radiusX - mRadius / 2, radiusY - mRadius / 2,
-            radiusX + mRadius / 2, radiusY + mRadius / 2,
-            progressStart * 360, (progressEnd - progressStart) * 360,
-            false, mPaint
-        )
         canvas.restore()
     }
 
@@ -248,7 +221,8 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
     private fun startGradientAnim() {
         state = State.NORMAL_TO_LOADING
         val animator = ObjectAnimator.ofFloat(this, "lineProgress", 1f, 0f)
-        animator.duration = 400
+        animator.interpolator = LinearInterpolator()
+        animator.duration = 300
         animator.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
             if (value == 0f) {
@@ -258,39 +232,12 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         animator.start()
     }
 
-    /**
-     * loading过程动画
-     */
-    private fun startLoadingAnim() {
-        val keyframeStart1 = Keyframe.ofFloat(0.0f, 0.0f)
-        val keyframeStart2 = Keyframe.ofFloat(0.2f, 0.2f)
-        val keyframeStart3 = Keyframe.ofFloat(0.8f, 0.9f)
-        val keyframeStart4 = Keyframe.ofFloat(1f, 1f)
-        val holder1 = PropertyValuesHolder.ofKeyframe(
-            "progressStart", keyframeStart1,
-            keyframeStart2, keyframeStart3, keyframeStart4
-        )
-        val keyframeEnd1 = Keyframe.ofFloat(0f, 0f)
-        val keyframeEnd2 = Keyframe.ofFloat(0.2f, 0.7f)
-        val keyframeEnd3 = Keyframe.ofFloat(0.6f, 0.8f)
-        val keyframeEnd4 = Keyframe.ofFloat(0.9f, 1f)
-        val holder2 = PropertyValuesHolder.ofKeyframe(
-            "progressEnd", keyframeEnd1,
-            keyframeEnd2, keyframeEnd3, keyframeEnd4
-        )
-        mAnimator = ObjectAnimator.ofPropertyValuesHolder(this, holder1, holder2)
-        mAnimator!!.duration = 1000
-        mAnimator!!.repeatCount = -1
-        mAnimator!!.start()
-    }
-
     var state: State
         get() = mState
         set(state) {
             mState = state
             when (state) {
                 State.LOADING -> {
-                    startLoadingAnim()
                     onLoadingListener.invoke()
                 }
                 State.NORMAL -> {
@@ -299,28 +246,10 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
                 }
                 State.COMPLETE -> {
                 }
+                else -> {}
             }
             invalidate()
         }
-
-    override fun onVisibilityChanged(changedView: View, visibility: Int) {
-        super.onVisibilityChanged(changedView, visibility)
-        if (visibility == VISIBLE) {
-            mAnimator?.start()
-        } else {
-            mAnimator?.pause()
-        }
-    }
-
-    fun setLoadingListener(listener: () -> Unit) {
-        onLoadingListener = listener
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        mAnimator?.pause()
-        mAnimator = null
-    }
 
     init {
         initAttrs(context, attrs)

@@ -8,8 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
-import java.time.Instant
-import java.util.*
+import java.lang.StringBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,25 +25,19 @@ class MainActivity : AppCompatActivity() {
         layoutParams.format = PixelFormat.RGBA_8888
         layoutParams.gravity = Gravity.CENTER
 
-        println("current = ${System.nanoTime()}")
-        println("current = ${System.currentTimeMillis()}")
 
-        println("current = ${Date().time}")
+        val time = getMicroSecond()
+        println("time = $time")
 
+        val builder = StringBuilder(time.toString())
+        builder.insert(10, ".")
+        println("time - builder = $builder")
+    }
 
-        val alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val numbers = "0123456789"
-        val codeMap = mutableMapOf<String, Int>()
-
-        numbers.forEach {
-            codeMap[it.toString()] = it.toString().toInt()
-        }
-        alphabets.forEach {
-            codeMap[it.toString()] = it.toInt() - 55
-        }
-
-        println(codeMap.toString())
-
+    private fun getMicroSecond(): Long {
+        val millTime = System.currentTimeMillis() * 1000 // 微秒
+        val nanoTime = System.nanoTime() // 纳秒
+        return millTime + (nanoTime - nanoTime / 1000000 * 1000000) / 1000
     }
 
     fun loadingButton(view: View) {
@@ -159,7 +152,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun motionLayout2(view: View) {
-        startActivity(Intent(this, MotionLayoutActivity2::class.java))
+        // "^[A-Z]{1,2}[0-9]{6}[0-9A]$"
+        println("isValidate: ${HKID().isValidate("SS5815034")}")
+//        startActivity(Intent(this, MotionLayoutActivity2::class.java))
     }
 
 

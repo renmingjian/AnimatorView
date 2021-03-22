@@ -55,7 +55,7 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
         }, 400)
 
         val vibrate: Vibrator = activity.getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
-        vibrate.vibrate(200)
+        vibrate.vibrate(100)
     }
 
     /**
