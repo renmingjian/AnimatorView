@@ -15,12 +15,253 @@
         android:src="@drawable/ic_bills_payment_complete"
         tools:ignore="ContentDescription" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:gravity="center_vertical"
-        android:text="text1" />
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="阿萨德了看法了" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical"
+            android:text="地方是是" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

@@ -222,7 +222,7 @@ class GradientButton(context: Context, attrs: AttributeSet?) : View(context, att
         state = State.NORMAL_TO_LOADING
         val animator = ObjectAnimator.ofFloat(this, "lineProgress", 1f, 0f)
         animator.interpolator = LinearInterpolator()
-        animator.duration = 300
+        animator.duration = 250
         animator.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
             if (value == 0f) {

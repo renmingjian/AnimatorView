@@ -7,6 +7,10 @@ public class CarControlInfo {
 
     private String name;
 
+    public CarControlInfo() {
+
+    }
+
     public CarControlInfo(String name) {
         this.name = name;
     }

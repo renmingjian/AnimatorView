@@ -39,6 +39,7 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
                 motionLayout.transitionToEnd()
             }
         })
+        // 如果真是这样的话，那就难搞了。这也是当时纠结要去哪个公司的一个点
 
         // MotionLayout动画结束后，移除动画布局，展示原Activity的布局
         motionLayout.addTransitionListener(object : TransitionAdapter() {
@@ -55,7 +56,7 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
         }, 400)
 
         val vibrate: Vibrator = activity.getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
-        vibrate.vibrate(100)
+        vibrate.vibrate(50)
     }
 
     /**

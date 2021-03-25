@@ -5,7 +5,7 @@
     <Transition
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="700">
+        app:duration="550">
 
         <KeyFrameSet>
             <KeyAttribute
@@ -15,8 +15,13 @@
                 app:motionTarget="@+id/iv_holder" />
 
             <KeyAttribute
-                android:alpha="1.0"
-                app:framePosition="90"
+                android:alpha="0"
+                app:framePosition="45"
+                app:motionTarget="@+id/backgroundView" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="100"
                 app:motionTarget="@+id/backgroundView" />
         </KeyFrameSet>
 
@@ -58,7 +63,7 @@
             android:id="@+id/backgroundView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.0"
+            android:alpha="1"
             app:layout_constraintBottom_toBottomOf="parent" />
     </ConstraintSet>
 

@@ -8,6 +8,9 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
+import com.erge.animatorview.bean.CarControlInfo
+import com.google.gson.Gson
+import org.json.JSONObject
 import java.lang.StringBuilder
 
 
@@ -17,28 +20,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val layoutParams = WindowManager.LayoutParams()
-        layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-        layoutParams.width = 300
-        layoutParams.height = 300
-        layoutParams.format = PixelFormat.RGBA_8888
-        layoutParams.gravity = Gravity.CENTER
 
 
-        val time = getMicroSecond()
-        println("time = $time")
 
-        val builder = StringBuilder(time.toString())
-        builder.insert(10, ".")
-        println("time - builder = $builder")
     }
 
-    private fun getMicroSecond(): Long {
-        val millTime = System.currentTimeMillis() * 1000 // 微秒
-        val nanoTime = System.nanoTime() // 纳秒
-        return millTime + (nanoTime - nanoTime / 1000000 * 1000000) / 1000
+    fun test() {
+        val control = CarControlInfo("erye")
+        val json = Gson().toJson(control)
+        val jsonObject = JSONObject()
+
     }
+
 
     fun loadingButton(view: View) {
         startActivity(Intent(this, LoadingButtonActivity::class.java))
