@@ -152,5 +152,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, NestedScrollActivity::class.java))
     }
 
+    fun zoom(view: View) {
+        startActivity(Intent(this, ZoomActivity::class.java))
+    }
+
 
 }
