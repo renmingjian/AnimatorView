@@ -1,16 +1,11 @@
 package com.erge.animatorview.fragment;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.erge.animatorview.R;
-import com.erge.animatorview.utils.Utils;
-import com.erge.animatorview.view.ChargeProgressView;
-import com.erge.animatorview.view.MultiImagesView;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -32,9 +24,7 @@ import java.util.List;
  */
 public class TestFragment extends Fragment implements View.OnClickListener {
 
-
     private Banner recommend_banner;
-
 
     @Nullable
     @Override

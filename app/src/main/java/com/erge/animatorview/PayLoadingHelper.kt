@@ -39,7 +39,6 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
                 motionLayout.transitionToEnd()
             }
         })
-        // 如果真是这样的话，那就难搞了。这也是当时纠结要去哪个公司的一个点
 
         // MotionLayout动画结束后，移除动画布局，展示原Activity的布局
         motionLayout.addTransitionListener(object : TransitionAdapter() {
@@ -68,25 +67,27 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
      * 来确定
      */
     private fun reConstraint() {
-        val constraintSet = motionLayout.getConstraintSet(R.xml.pay_scene)
         val contentArray = IntArray(2)
         contentParent!!.getLocationInWindow(contentArray)
         targetEndView.getLocationInWindow(targetEndViewLocation)
-        constraintSet.connect(
-            R.id.constraintView,
-            ConstraintSet.TOP,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.TOP,
-            targetEndViewLocation[1] - contentArray[1]
-        )
-        constraintSet.connect(
-            R.id.constraintView,
-            ConstraintSet.START,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.START,
-            targetEndViewLocation[0]
-        )
-        constraintSet.applyTo(motionLayout)
+        val constraintSet = motionLayout.getConstraintSet(R.xml.pay_scene)
+        with(constraintSet) {
+            connect(
+                R.id.constraintView,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.TOP,
+                targetEndViewLocation[1] - contentArray[1]
+            )
+            connect(
+                R.id.constraintView,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START,
+                targetEndViewLocation[0]
+            )
+            applyTo(motionLayout)
+        }
     }
 
 }

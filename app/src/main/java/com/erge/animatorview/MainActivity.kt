@@ -145,9 +145,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun motionLayout2(view: View) {
-        // "^[A-Z]{1,2}[0-9]{6}[0-9A]$"
-        println("isValidate: ${HKID().isValidate("SS5815034")}")
-//        startActivity(Intent(this, MotionLayoutActivity2::class.java))
+        startActivity(Intent(this, MotionLayoutActivity2::class.java))
+    }
+
+    fun nestedScroll(view: View) {
+        startActivity(Intent(this, NestedScrollActivity::class.java))
     }
 
 

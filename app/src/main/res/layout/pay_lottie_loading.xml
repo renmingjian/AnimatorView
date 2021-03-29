@@ -11,7 +11,7 @@
         android:id="@+id/backgroundView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"/>
+        android:background="#ffffff" />
 
     <!-- 下面的iv_holder需要以此View为约束（在pay_scene中） -->
     <!-- 该View的约束以代码动态控制，目的是动态确定该View的位置为动画结束后目标View的位置 -->

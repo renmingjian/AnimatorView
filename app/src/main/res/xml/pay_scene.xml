@@ -5,13 +5,14 @@
     <Transition
         app:constraintSetEnd="@+id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="550">
+        app:duration="550"
+        app:motionInterpolator="linear">
 
         <KeyFrameSet>
             <KeyAttribute
                 android:scaleX="1"
                 android:scaleY="1"
-                app:framePosition="80"
+                app:framePosition="70"
                 app:motionTarget="@+id/iv_holder" />
 
             <KeyAttribute
