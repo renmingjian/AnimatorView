@@ -114,7 +114,6 @@ class GradientButton(context: Context, attrs: AttributeSet?) : View(context, att
             cornerSize!!,
             mPaint
         )
-        textAlpha = 255
         drawText(canvas)
         canvas.restore()
     }
@@ -212,6 +211,7 @@ class GradientButton(context: Context, attrs: AttributeSet?) : View(context, att
                 startGradientAnim()
             }
         }
+        animator.duration = 2000
         animator.start()
     }
 
@@ -243,6 +243,7 @@ class GradientButton(context: Context, attrs: AttributeSet?) : View(context, att
                 State.NORMAL -> {
                     lineProgress = 1f
                     circleProgress = 0f
+                    textAlpha = 255
                 }
                 State.COMPLETE -> {
                 }

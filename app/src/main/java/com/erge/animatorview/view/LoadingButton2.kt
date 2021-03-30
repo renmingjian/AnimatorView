@@ -116,6 +116,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             State.NORMAL -> drawButton(canvas)
             State.NORMAL_TO_LOADING -> drawGradientButton(canvas)
             State.LOADING -> drawLoading(canvas)
+            else -> {}
         }
     }
 
@@ -132,7 +133,6 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             mCornerSize!!,
             mPaint
         )
-        textAlpha = 255
         drawText(canvas)
         canvas.restore()
     }
@@ -197,6 +197,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             mPaint.textAlign = Paint.Align.CENTER
             val metrics = Paint.FontMetrics()
             mPaint.getFontMetrics(metrics)
+            println("textAlpha = $textAlpha")
             mPaint.alpha = textAlpha
             val offset = (metrics.ascent + metrics.descent) / 2
             val baseLine = (mHeight shr 1) - offset
@@ -234,11 +235,13 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         val animator = ObjectAnimator.ofInt(this, "textAlpha", 255, 0)
         animator.interpolator = LinearInterpolator()
         animator.addUpdateListener { animation ->
+            println("textAlpha--$textAlpha")
             val value = animation.animatedValue as Int
             if (value == 0) {
                 startGradientAnim()
             }
         }
+        animator.duration = 2000
         animator.start()
     }
 
@@ -299,15 +302,14 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
                 }
                 State.COMPLETE -> {
                 }
+                else -> {}
             }
             invalidate()
         }
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-        if (visibility == VISIBLE) {
-            mAnimator?.start()
-        } else {
+        if (visibility == GONE) {
             mAnimator?.pause()
         }
     }

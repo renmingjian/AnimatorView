@@ -11,7 +11,10 @@ import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.constraintlayout.widget.ConstraintSet
 import com.airbnb.lottie.LottieAnimationView
 
-class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
+class PayLoadingHelper(
+    private val activity: Activity,
+    private val targetEndView: View
+) {
     private var motionLayout: MotionLayout
     private var targetStartView: View
     private val targetEndViewLocation = IntArray(2)
@@ -33,6 +36,7 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
         lottieView.addAnimatorListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
+                reConstraint()
                 lottieView.alpha = 0f
                 lottieView.visibility = View.GONE
                 targetStartView.visibility = View.VISIBLE
@@ -50,10 +54,10 @@ class PayLoadingHelper(activity: Activity, private val targetEndView: View) {
         })
 
         targetEndView.visibility = View.INVISIBLE
-        targetStartView.postDelayed({
-            reConstraint()
-        }, 400)
+        vibrate()
+    }
 
+    private fun vibrate() {
         val vibrate: Vibrator = activity.getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
         vibrate.vibrate(50)
     }
