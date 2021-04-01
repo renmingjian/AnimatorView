@@ -1,22 +1,20 @@
 package com.erge.animatorview.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erge.animatorview.R
 import com.erge.animatorview.adapter.TagRvAdapter
 import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.bean.TagLocation
-import com.erge.animatorview.utils.TagHelper
-import com.erge.animatorview.view.TagsLayout
+import com.erge.animatorview.utils.Utils
 
 class TagsActivity : AppCompatActivity() {
     private lateinit var targetView: ImageView
-    private lateinit var tagsLayout: TagsLayout
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,24 +22,20 @@ class TagsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tags)
 
 //        targetView = findViewById(R.id.iv_tag)
-        tagsLayout = findViewById(R.id.tagsLayout)
         recyclerView = findViewById(R.id.recyclerView)
-        tagsLayout.itemTagClick = {
-            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun getData1(): MutableList<TagLocation> {
         return mutableListOf<TagLocation>().apply {
-            add(TagLocation(200f, 200f, "tips"))
-            add(TagLocation(1040f, 300f, "links_merchant"))
+            add(TagLocation(200f, 200f, "tips", offset = Utils.dp2px(10f)))
+            add(TagLocation(1040f, 300f, "links_merchant", offset = Utils.dp2px(10f)))
         }
     }
 
     private fun getData2(): MutableList<TagLocation> {
         return mutableListOf<TagLocation>().apply {
-            add(TagLocation(300f, 100f, "my name"))
-            add(TagLocation(400f, 600f, "happy new year"))
+            add(TagLocation(300f, 100f, "my name", offset = Utils.dp2px(10f)))
+            add(TagLocation(400f, 600f, "happy new year", offset = Utils.dp2px(10f)))
         }
     }
 
@@ -49,8 +43,10 @@ class TagsActivity : AppCompatActivity() {
         return mutableListOf<MerchantItem>().apply {
             add(MerchantItem(455, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
             add(MerchantItem(533, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
-            add(MerchantItem(123, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
-            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
+//            add(MerchantItem(123, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
+//            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
+//            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
+//            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
         }
     }
 

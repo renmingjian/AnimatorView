@@ -28,26 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_tag" />
 
-    <com.erge.animatorview.view.TagsLayout
-        android:id="@+id/tagsLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        app:layout_constraintDimensionRatio="w, 1: 1"
-        android:layout_height="0dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ff0000"
-            android:onClick="imageClick"
-            android:src="@mipmap/test"
-            android:scaleType="fitXY"/>
-
-    </com.erge.animatorview.view.TagsLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

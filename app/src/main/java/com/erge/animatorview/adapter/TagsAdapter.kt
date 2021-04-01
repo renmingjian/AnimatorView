@@ -29,7 +29,7 @@ class TagsAdapter(private var list: List<TagLocation>): ListAdapter {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         if (convertView == null) {
-            view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_tag, null)
+            view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_tag_left_to_right, null)
         }
         val tvTagName = view!!.findViewById<TextView>(R.id.tv_tag_name)
         tvTagName.text = getItem(position).name
