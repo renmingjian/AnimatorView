@@ -32,16 +32,16 @@ class TagLocationProvider1(override var itemClick: (TagLocation) -> Unit) : TagL
         tagLocation.rectT = tagLocation.y - tagView.height / 2
         if (tagLocation.x - tagLocation.offset + tagView.width <= parentView.width) {
             tagLocation.rectL = tagLocation.x - tagLocation.offset
-            tagLocation.type = LEFT_TO_RIGHT
+            tagLocation.typeH = LEFT_TO_RIGHT
         } else {
             tagLocation.rectL = tagLocation.x - (tagView.width - tagLocation.offset)
-            tagLocation.type = RIGHT_TO_LEFT
+            tagLocation.typeH = RIGHT_TO_LEFT
         }
         shouldReplace(tagLocation, parentView, tagView)
     }
 
     private fun shouldReplace(tagLocation: TagLocation, parentView: ViewGroup, tagView: View) {
-        if (tagLocation.type == RIGHT_TO_LEFT) {
+        if (tagLocation.typeH == RIGHT_TO_LEFT) {
             parentView.removeView(tagView)
             val itemView = LayoutInflater.from(parentView.context)
                 .inflate(R.layout.item_tag_right_to_left, parentView, false)

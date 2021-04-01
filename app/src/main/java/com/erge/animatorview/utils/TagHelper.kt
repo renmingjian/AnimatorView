@@ -31,6 +31,7 @@ class TagHelper {
 
             addTagViews()
         }
+        tagsView?.setBackgroundColor(Color.parseColor("#330000ff"))
     }
 
     private fun addTagViews() {

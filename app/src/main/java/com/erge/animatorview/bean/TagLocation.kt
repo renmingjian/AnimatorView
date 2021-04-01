@@ -14,9 +14,12 @@ data class TagLocation(
     var x: Float,
     var y: Float,
     var name: String,
-    var type: Int = LEFT_TO_RIGHT,
+    var typeH: Int = LEFT_TO_RIGHT,
+    var typeV: Int = 0,
     var leftMargin: Float = 0f,
+    var topMargin: Float = 0f,
     var rightMargin: Float = 0f,
+    var bottomMargin: Float = 0f,
     var offset: Float = 0f,
 
     var rectL: Float = 0f,

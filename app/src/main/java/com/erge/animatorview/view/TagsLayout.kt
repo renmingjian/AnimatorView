@@ -49,13 +49,13 @@ class TagsLayout(context: Context) : FrameLayout(context) {
     }
 
     private fun replaceTag(item: TagLocation, view: View) {
-        removeView(view)
-        val itemView = provider.getViewReplace(this)
-        itemView.setOnClickListener { itemTagClick.invoke(item) }
-        val tvTagName = itemView.findViewById<TextView>(R.id.tv_tag_name)
-        tvTagName.text = item.name
-        addView(itemView)
-        resetLocation(item, view)
+//        removeView(view)
+//        val itemView = provider.getViewReplace(this)
+//        itemView.setOnClickListener { itemTagClick.invoke(item) }
+//        val tvTagName = itemView.findViewById<TextView>(R.id.tv_tag_name)
+//        tvTagName.text = item.name
+//        addView(itemView)
+//        resetLocation(item, view)
     }
 
     private fun resetLocation(item: TagLocation, itemView: View) {

@@ -11,6 +11,8 @@ import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.utils.TagHelper
 import com.erge.animatorview.utils.TagLocationProvider1
+import com.erge.animatorview.utils.TagLocationProvider2
+import com.erge.animatorview.utils.TagLocationProvider3
 
 /**
  * Created by erge 3/31/21 6:17 PM
@@ -42,15 +44,12 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
 
         fun bindData(data: MerchantItem) {
-            tagHelper.drawTags(ivMerchant, data.list, TagLocationProvider1() {
+            tagHelper.drawTags(ivMerchant, data.list, TagLocationProvider1 {
                 Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
             })
             tvLike.text = "${data.likes} likes"
             tvDesc.text = data.description
-            if (adapterPosition % 2 == 0) {
-                val viewGroup = itemView as ViewGroup
-                viewGroup.removeView(tvLike)
-            }
+
             ivMerchant.setOnClickListener {
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }

@@ -16,7 +16,7 @@ import com.erge.animatorview.utils.Utils;
 public class SportView extends BaseCustomerView {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private static final float RADIUS = Utils.px2dp(150);
+    private static final float RADIUS = Utils.px2dip(150);
     private static final float RING_WIDTH = Utils.dp2px(20);
     private static final int CIRCLE_COLOR = Color.parseColor("#90A4AE");
     private static final int HIGHLIGHT_COLOR = Color.parseColor("#FF4081");
@@ -25,7 +25,7 @@ public class SportView extends BaseCustomerView {
     private Paint.FontMetrics metrics = new Paint.FontMetrics();
 
     {
-        paint.setTextSize(Utils.px2dp(60));
+        paint.setTextSize(Utils.px2dip(60));
         // 设置字体居中对齐，缺省是居左对齐
         paint.setTextAlign(Paint.Align.CENTER);
     }

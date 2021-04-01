@@ -27,15 +27,16 @@ class TagsActivity : AppCompatActivity() {
 
     private fun getData1(): MutableList<TagLocation> {
         return mutableListOf<TagLocation>().apply {
-            add(TagLocation(200f, 200f, "tips", offset = Utils.dp2px(10f)))
-            add(TagLocation(1040f, 300f, "links_merchant", offset = Utils.dp2px(10f)))
+            add(TagLocation(200f, 200f, "tips", offset = Utils.dp2px(10f), leftMargin = Utils.dp2px(10f), rightMargin = Utils.dp2px(10f)))
+            add(TagLocation(1000f, 300f, "links_merchant", offset = Utils.dp2px(10f), leftMargin = Utils.dp2px(10f), rightMargin = Utils.dp2px(10f)))
+            add(TagLocation(100f, 800f, "You Love Me! HaHa! Yes", offset = Utils.dp2px(10f), leftMargin = Utils.dp2px(10f), rightMargin = Utils.dp2px(10f)))
         }
     }
 
     private fun getData2(): MutableList<TagLocation> {
         return mutableListOf<TagLocation>().apply {
-            add(TagLocation(300f, 100f, "my name", offset = Utils.dp2px(10f)))
-            add(TagLocation(400f, 600f, "happy new year", offset = Utils.dp2px(10f)))
+            add(TagLocation(300f, 100f, "my name", offset = Utils.dp2px(10f), leftMargin = Utils.dp2px(10f), rightMargin = Utils.dp2px(10f)))
+            add(TagLocation(400f, 600f, "happy new year", offset = Utils.dp2px(10f), leftMargin = Utils.dp2px(10f), rightMargin = Utils.dp2px(10f)))
         }
     }
 
