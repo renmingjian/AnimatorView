@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.erge.animatorview.view.TagsLayout
+        android:id="@+id/tagsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="w, 1: 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:location_offset="10dp">
+
+        <ImageView
+            android:id="@+id/iv_merchant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff0000"
+            android:scaleType="fitXY"
+            android:src="@mipmap/test" />
+
+    </com.erge.animatorview.view.TagsLayout>
+
+    <ImageView
+        android:id="@+id/iv_like"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/sun"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
+
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="523 likes"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_like"
+        app:layout_constraintStart_toEndOf="@+id/iv_like"
+        app:layout_constraintTop_toTopOf="@+id/iv_like" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="阿胜利大街开发拉绝对路径啊了点击法拉盛捡垃圾链接啊链接啊解放啦多发点防寒服拉京东方了氨基酸的放辣椒是劳动法加上两地分居案例是打飞机垃圾袋弗拉聚少离多阿里就开始到付款啦"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_like" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

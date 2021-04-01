@@ -19,6 +19,16 @@ public class Utils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
     }
 
+    public static float px2sp(float pxValue) {
+        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
+        return pxValue / fontScale;
+    }
+
+    public static float sp2px(float spValue) {
+        final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
+        return spValue * fontScale ;
+    }
+
     /**
      * 获取屏幕宽高：高度不包含虚拟导航栏高度
      *

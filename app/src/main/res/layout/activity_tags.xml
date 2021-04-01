@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#55000000"
+    tools:context=".activity.TagsActivity">
+
+    <ImageView
+        android:id="@+id/iv_tag"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:onClick="image"
+        android:scaleType="fitXY"
+        android:src="@mipmap/programmer"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="test"
+        android:text="文字内容"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_tag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_tag" />
+
+    <com.erge.animatorview.view.TagsLayout
+        android:id="@+id/tagsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        app:layout_constraintDimensionRatio="w, 1: 1"
+        android:layout_height="0dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff0000"
+            android:onClick="imageClick"
+            android:src="@mipmap/test"
+            android:scaleType="fitXY"/>
+
+    </com.erge.animatorview.view.TagsLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

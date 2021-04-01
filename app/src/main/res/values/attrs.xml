@@ -15,7 +15,7 @@
         <attr name="text" format="string" />
         <attr name="text_color" format="color" />
         <attr name="text_size" format="dimension" />
-        <attr name="fill_color" format="color" />
+        <attr name="fill_color" format="color|reference" />
         <attr name="loading_line_color" format="color" />
         <attr name="corner_size" format="dimension" />
         <attr name="loading_line_size" format="dimension" />
@@ -49,6 +49,10 @@
 
     <declare-styleable name="VerticalRefreshLayout">
         <attr name="top_menu_scrollable" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TagsLayout">
+        <attr name="location_offset" format="dimension" />
     </declare-styleable>
 
 </resources>

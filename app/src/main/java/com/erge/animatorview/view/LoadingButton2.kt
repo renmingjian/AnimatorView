@@ -4,6 +4,7 @@ import android.animation.Keyframe
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -30,7 +31,8 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
     var mText: String? = null
     var mTextColor: Int? = null
     var mTextSize: Float? = null
-    var mFillColor: Int? = null
+    var mFillColor: ColorStateList? = null
+    var mFillColorInt: Int = Color.parseColor("#ff0000")
     var mLoadingLineColor: Int? = null
     var mCornerSize: Float? = null
 
@@ -80,7 +82,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             typedArray.getColor(R.styleable.LoadingButton_text_color, Color.parseColor("#ffffff"))
         mTextSize = typedArray.getDimension(R.styleable.LoadingButton_text_size, 14f)
         mFillColor =
-            typedArray.getColor(R.styleable.LoadingButton_fill_color, Color.parseColor("#ffd700"))
+            typedArray.getColorStateList(R.styleable.LoadingButton_fill_color)
         mLoadingLineColor = typedArray.getColor(
             R.styleable.LoadingButton_loading_line_color,
             Color.parseColor("#000000")
@@ -110,6 +112,18 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
         mRadius = (min shr 1).toFloat()
     }
 
+    override fun drawableStateChanged() {
+        super.drawableStateChanged()
+        val color: Int? = mFillColor?.getColorForState(drawableState, 0)
+        println("color = $color")
+        color?.let {
+            if (mFillColorInt != color) {
+                mFillColorInt = color
+                invalidate()
+            }
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         when (mState) {
@@ -122,7 +136,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
 
     private fun drawButton(canvas: Canvas) {
         canvas.save()
-        mPaint.color = mFillColor!!
+        mPaint.color = mFillColorInt
         mPaint.style = Paint.Style.FILL
         canvas.drawRoundRect(
             0f,
@@ -138,7 +152,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
     }
 
     private fun drawGradientButton(canvas: Canvas) {
-        mPaint.color = mFillColor!!
+        mPaint.color = mFillColorInt
         mPaint.style = Paint.Style.FILL
         var leftCircleLeft = 0f
         var middleRectLeft = 0f
@@ -197,7 +211,6 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             mPaint.textAlign = Paint.Align.CENTER
             val metrics = Paint.FontMetrics()
             mPaint.getFontMetrics(metrics)
-            println("textAlpha = $textAlpha")
             mPaint.alpha = textAlpha
             val offset = (metrics.ascent + metrics.descent) / 2
             val baseLine = (mHeight shr 1) - offset
@@ -214,7 +227,7 @@ class LoadingButton2(context: Context, attrs: AttributeSet?) : View(context, att
             1 -> radiusX = mWidth / 2.toFloat()
             2 -> radiusX = mWidth - mRadius
         }
-        mPaint.color = mFillColor!!
+        mPaint.color = mFillColorInt
         mPaint.strokeWidth = 0f
         mPaint.style = Paint.Style.FILL
         canvas.drawCircle(radiusX, radiusY, mRadius, mPaint)

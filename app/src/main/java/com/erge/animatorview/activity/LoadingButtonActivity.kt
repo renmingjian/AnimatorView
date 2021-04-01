@@ -95,4 +95,8 @@ class LoadingButtonActivity : AppCompatActivity() {
             a++
         }, 3000)
     }
+
+    fun switchEnable(view: View) {
+        lb2.isEnabled = !lb2.isEnabled
+    }
 }

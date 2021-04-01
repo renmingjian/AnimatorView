@@ -156,5 +156,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, ZoomActivity::class.java))
     }
 
+    fun tag(view: View) {
+        startActivity(Intent(this, TagsActivity::class.java))
+    }
+
 
 }

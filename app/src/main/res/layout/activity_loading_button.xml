@@ -20,7 +20,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         app:corner_size="10dp"
-        app:fill_color="#00ff00"
+        app:fill_color="@color/selector_test"
         app:gradientStyle="right"
         app:loading_line_color="#ffffff"
         app:text="@string/app_name"
@@ -78,6 +78,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="重置" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="switchEnable"
+        android:text="enable切换" />
 
     <com.erge.animatorview.view.AirControlView
         android:layout_width="300dp"
