@@ -23,6 +23,7 @@ class TriangleView(context: Context, attributeSet: AttributeSet): View(context, 
         val color = ta.getColor(R.styleable.TriangleView_triangle_fill_color, Color.parseColor("#000000"));
         paint.color = color
         paint.style = Paint.Style.FILL
+        ta.recycle()
     }
 
     override fun onDraw(canvas: Canvas?) {

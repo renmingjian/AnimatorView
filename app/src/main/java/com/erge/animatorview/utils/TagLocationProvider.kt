@@ -15,4 +15,6 @@ interface TagLocationProvider {
 
     fun calculateLocation(tagLocation: TagLocation, parentView: ViewGroup, tagView: View)
 
+    fun anim(tagLocation: TagLocation, itemView: View)
+
 }

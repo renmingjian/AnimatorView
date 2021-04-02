@@ -85,6 +85,10 @@ class TagLocationProvider2(override var itemClick: (TagLocation) -> Unit) : TagL
         resetInnerViewsLocation(tagLocation, parentView, tagView)
     }
 
+    override fun anim(tagLocation: TagLocation, itemView: View) {
+        TODO("Not yet implemented")
+    }
+
     private fun resetInnerViewsLocation(
         tagLocation: TagLocation,
         parentView: ViewGroup,

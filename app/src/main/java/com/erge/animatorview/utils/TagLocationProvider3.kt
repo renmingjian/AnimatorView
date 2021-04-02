@@ -1,5 +1,6 @@
 package com.erge.animatorview.utils
 
+import android.animation.ValueAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         println("leftBoundary = $leftBoundary, rightBoundary = $rightBoundary, parentWidth = $parentWidth, itemWidth = ${tagView.width}, name = ${tagLocation.name}")
         if (rightBoundary <= parentWidth && leftBoundary >= 0) {  // 布局居中
             tagLocation.rectL = tagLocation.x - itemWidth / 2
+            tagLocation.rectR = tagLocation.rectL + itemWidth
             tagLocation.typeH = DEVIATION_MIDDLE
         } else if (rightBoundary > parentHeight) { // 布局偏右
             tagLocation.rectR = parentWidth - tagLocation.rightMargin
@@ -60,6 +62,7 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             tagLocation.typeH = DEVIATION_RIGHT
         } else if (leftBoundary < 0) { // 布局偏左
             tagLocation.rectL = tagLocation.leftMargin
+            tagLocation.rectR = tagLocation.rectL + itemWidth
             tagLocation.typeH = DEVIATION_LEFT
         }
 
@@ -68,6 +71,7 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - tagLocation.topMargin - DOT_TRIANBLE_MARGIN >= 0 -> {
                 tagLocation.rectT =
                     tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - DOT_TRIANBLE_MARGIN
+//                tagLocation.rectB = vDot.height + ivTriangle.height + tvTagName.height
                 tagLocation.typeV = SWOP_DOWN
                 ivTriangle.rotationX = 180f
             }
@@ -108,9 +112,8 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
                 textLayoutParams.topMargin = vDot.height + ivTriangle.height + DOT_TRIANBLE_MARGIN.toInt()
             }
         }
-
-        vDot.layoutParams = dotLayoutParams
-        ivTriangle.layoutParams = triangleLayoutParams
+        parentView.requestLayout()
+        anim(tagLocation, itemView = tagView)
         println("x = ${tagLocation.x}, left = ${tagLocation.rectL}, dotwidth = ${vDot.width}, width = ${tagView.width}, name = ${tagLocation.name}")
     }
 
@@ -120,6 +123,23 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         layoutParams.leftMargin = item.rectL.toInt()
         layoutParams.topMargin = item.rectT.toInt()
         itemView.layoutParams = layoutParams
+    }
+
+    override fun anim(tagLocation: TagLocation, itemView: View) {
+        itemView.postDelayed({
+            val layoutParams = itemView.layoutParams
+            if (tagLocation.typeV == SWOP_DOWN) {
+
+            }
+            val valueAnimator = ValueAnimator.ofInt(0, itemView.height)
+            valueAnimator.duration = 800
+            valueAnimator.addUpdateListener {
+                val value: Int = it.animatedValue as Int
+                layoutParams.height = value
+                itemView.layoutParams = layoutParams
+            }
+            valueAnimator.start()
+        }, 17)
     }
 
 }

@@ -40,6 +40,10 @@ class TagLocationProvider1(override var itemClick: (TagLocation) -> Unit) : TagL
         shouldReplace(tagLocation, parentView, tagView)
     }
 
+    override fun anim(tagLocation: TagLocation, itemView: View) {
+        TODO("Not yet implemented")
+    }
+
     private fun shouldReplace(tagLocation: TagLocation, parentView: ViewGroup, tagView: View) {
         if (tagLocation.typeH == RIGHT_TO_LEFT) {
             parentView.removeView(tagView)
