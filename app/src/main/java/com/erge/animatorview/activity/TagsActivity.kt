@@ -10,21 +10,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aghajari.zoomhelper.ZoomHelper
 import com.erge.animatorview.R
+import com.erge.animatorview.adapter.RVZoomAdapter
 import com.erge.animatorview.adapter.TagRvAdapter
 import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.bean.TagLocation
 import com.erge.animatorview.utils.Utils
 
 class TagsActivity : AppCompatActivity() {
-    private lateinit var targetView: ImageView
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tags)
 
-//        targetView = findViewById(R.id.iv_tag)
         recyclerView = findViewById(R.id.recyclerView)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = TagRvAdapter(getData())
     }
 
     private fun getData1(): MutableList<TagLocation> {
@@ -51,19 +53,6 @@ class TagsActivity : AppCompatActivity() {
             add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
             add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
         }
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-//        val tagHelper = TagHelper()
-//
-//        tagHelper.itemTagClick = {
-//            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-//        }
-//        tagHelper.drawTags(targetView, getData())
-//        tagsLayout.data = getData()
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = TagRvAdapter(getData())
     }
 
     fun test(view: View) {

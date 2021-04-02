@@ -36,7 +36,7 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         parent.postDelayed({
             calculateLocation(tagLocation, parent, itemView)
             resetLocation(tagLocation, itemView)
-        }, 34)
+        }, 17)
     }
 
     override fun calculateLocation(tagLocation: TagLocation, parentView: ViewGroup, tagView: View) {
@@ -51,7 +51,6 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         // 横向位置确定
         val leftBoundary = tagLocation.x - itemWidth / 2 - tagLocation.leftMargin
         val rightBoundary = tagLocation.x + itemWidth / 2 + tagLocation.rightMargin
-        println("leftBoundary = $leftBoundary, rightBoundary = $rightBoundary, parentWidth = $parentWidth, itemWidth = ${tagView.width}, name = ${tagLocation.name}")
         if (rightBoundary <= parentWidth && leftBoundary >= 0) {  // 布局居中
             tagLocation.rectL = tagLocation.x - itemWidth / 2
             tagLocation.rectR = tagLocation.rectL + itemWidth
@@ -71,7 +70,6 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - tagLocation.topMargin - DOT_TRIANBLE_MARGIN >= 0 -> {
                 tagLocation.rectT =
                     tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - DOT_TRIANBLE_MARGIN
-//                tagLocation.rectB = vDot.height + ivTriangle.height + tvTagName.height
                 tagLocation.typeV = SWOP_DOWN
                 ivTriangle.rotationX = 180f
             }
@@ -83,6 +81,9 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         resetInnerViewsLocation(tagLocation, parentView, tagView)
     }
 
+    /**
+     * 计算Tag内部各个View的位置
+     */
     private fun resetInnerViewsLocation(
         tagLocation: TagLocation,
         parentView: ViewGroup,
@@ -94,8 +95,10 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         val dotLayoutParams = vDot.layoutParams as FrameLayout.LayoutParams
         val textLayoutParams = tvTagName.layoutParams as FrameLayout.LayoutParams
         val triangleLayoutParams = ivTriangle.layoutParams as FrameLayout.LayoutParams
+        // 圆点dotView在水平方向的位置跟typeH无关，三种类型的计算方式是一样的
         dotLayoutParams.leftMargin =
             (tagLocation.x - tagLocation.rectL - vDot.width / 2).toInt()
+        // 三角形的水平位置也与类型无关，三种类型的计算方式一样
         triangleLayoutParams.leftMargin =
             (tagLocation.x - tagLocation.rectL - ivTriangle.width / 2).toInt()
         when (tagLocation.typeV) {
@@ -114,9 +117,11 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         }
         parentView.requestLayout()
         anim(tagLocation, itemView = tagView)
-        println("x = ${tagLocation.x}, left = ${tagLocation.rectL}, dotwidth = ${vDot.width}, width = ${tagView.width}, name = ${tagLocation.name}")
     }
 
+    /**
+     * 对整个tag外层布局确定位置
+     */
     private fun resetLocation(item: TagLocation, itemView: View) {
         val layoutParams: FrameLayout.LayoutParams =
             itemView.layoutParams as FrameLayout.LayoutParams
@@ -128,7 +133,10 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     override fun anim(tagLocation: TagLocation, itemView: View) {
         itemView.postDelayed({
             val layoutParams = itemView.layoutParams
+            // 根据类型不同做不同动画
             if (tagLocation.typeV == SWOP_DOWN) {
+
+            } else {
 
             }
             val valueAnimator = ValueAnimator.ofInt(0, itemView.height)

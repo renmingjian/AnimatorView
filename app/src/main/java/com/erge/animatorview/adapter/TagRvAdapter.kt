@@ -11,8 +11,6 @@ import com.aghajari.zoomhelper.ZoomHelper
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.utils.TagHelper
-import com.erge.animatorview.utils.TagLocationProvider1
-import com.erge.animatorview.utils.TagLocationProvider2
 import com.erge.animatorview.utils.TagLocationProvider3
 
 /**
@@ -43,6 +41,22 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
         private val ivMerchant: ImageView = itemView.findViewById(R.id.iv_merchant)
         private val tagHelper = TagHelper()
 
+        init {
+            ZoomHelper.getInstance().addOnZoomStateChangedListener(object :
+                ZoomHelper.OnZoomStateChangedListener {
+                override fun onZoomStateChanged(
+                    zoomHelper: ZoomHelper,
+                    zoomableView: View,
+                    isZooming: Boolean
+                ) {
+                    if (isZooming) {
+                        tagHelper.setTagsInvisible()
+                    } else {
+                        tagHelper.setTagsVisible()
+                    }
+                }
+            })
+        }
 
         fun bindData(data: MerchantItem) {
             tagHelper.drawTags(ivMerchant, data.list, TagLocationProvider3 {
