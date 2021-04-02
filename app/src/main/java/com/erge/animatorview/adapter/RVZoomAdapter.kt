@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.ZoomData
@@ -28,6 +29,12 @@ class RVZoomAdapter(val data: MutableList<ZoomData>) :
         private var iv_bg: ImageView = itemView.findViewById(R.id.iv_bg)
         private var iv_1: ImageView = itemView.findViewById(R.id.iv_1)
         private var iv_2: ImageView = itemView.findViewById(R.id.iv_2)
+
+        init {
+            iv_bg.setOnClickListener {
+                Toast.makeText(itemView.context, "click", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         fun bindData(data: ZoomData) {
             tv_name.text = data.name
@@ -69,4 +76,5 @@ class RVZoomAdapter(val data: MutableList<ZoomData>) :
     override fun getItemCount(): Int {
         return data.size
     }
+
 }

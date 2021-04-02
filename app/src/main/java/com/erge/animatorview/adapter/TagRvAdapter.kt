@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.aghajari.zoomhelper.ZoomHelper
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.utils.TagHelper
@@ -44,12 +45,11 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
 
         fun bindData(data: MerchantItem) {
-            tagHelper.drawTags(ivMerchant, data.list, TagLocationProvider1 {
+            tagHelper.drawTags(ivMerchant, data.list, TagLocationProvider3 {
                 Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
             })
             tvLike.text = "${data.likes} likes"
             tvDesc.text = data.description
-
             ivMerchant.setOnClickListener {
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }

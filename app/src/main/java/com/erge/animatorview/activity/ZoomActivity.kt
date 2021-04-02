@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aghajari.zoomhelper.ZoomHelper
 import com.erge.animatorview.R
@@ -17,7 +18,7 @@ class ZoomActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = RVZoomAdapter(getData())
 
     }
@@ -35,5 +36,11 @@ class ZoomActivity : AppCompatActivity() {
         return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(
             ev
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ZoomHelper.getInstance().release()
+        ZoomHelper.getInstance().dismiss()
     }
 }

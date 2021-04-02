@@ -72,7 +72,6 @@ class TagsView(context: Context) : View(context) {
 
     var dispatch = true
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
-        Log.e("tagView", "onTouchEvent")
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 downX = event.x

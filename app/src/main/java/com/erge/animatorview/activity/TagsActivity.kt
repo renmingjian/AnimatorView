@@ -1,12 +1,14 @@
 package com.erge.animatorview.activity
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aghajari.zoomhelper.ZoomHelper
 import com.erge.animatorview.R
 import com.erge.animatorview.adapter.TagRvAdapter
 import com.erge.animatorview.bean.MerchantItem
@@ -44,10 +46,10 @@ class TagsActivity : AppCompatActivity() {
         return mutableListOf<MerchantItem>().apply {
             add(MerchantItem(455, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
             add(MerchantItem(533, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
-//            add(MerchantItem(123, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
-//            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
-//            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
-//            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
+            add(MerchantItem(123, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
+            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
+            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData1()))
+            add(MerchantItem(33, "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了", getData2()))
         }
     }
 
@@ -74,5 +76,17 @@ class TagsActivity : AppCompatActivity() {
 
     fun imageClick(view: View) {
         Toast.makeText(this, "image", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(
+            ev
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ZoomHelper.getInstance().release()
+        ZoomHelper.getInstance().dismiss()
     }
 }

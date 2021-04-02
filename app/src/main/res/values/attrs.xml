@@ -55,4 +55,8 @@
         <attr name="location_offset" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="TriangleView">
+        <attr name="triangle_fill_color" format="color|reference" />
+    </declare-styleable>
+
 </resources>

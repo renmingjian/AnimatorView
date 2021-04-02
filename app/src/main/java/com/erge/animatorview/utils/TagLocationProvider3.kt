@@ -4,13 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import com.erge.animatorview.R
-import com.erge.animatorview.bean.LEFT_TO_RIGHT
-import com.erge.animatorview.bean.RIGHT_TO_LEFT
 import com.erge.animatorview.bean.TagLocation
 
 /**
@@ -23,23 +18,18 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     private val DEVIATION_LEFT = 10
     private val DEVIATION_MIDDLE = 11
     private val DEVIATION_RIGHT = 12
+    private val DOT_TRIANBLE_MARGIN = Utils.dp2px(4f)
     private lateinit var tagLocation: TagLocation
     private lateinit var parentView: ViewGroup
-    private lateinit var tagView: FrameLayout
-    private lateinit var tvTagName: TextView
-    private lateinit var vDot: View
-    private lateinit var ivTriangle: ImageView
+
 
     override fun addView(tagLocation: TagLocation, parent: ViewGroup) {
         this.tagLocation = tagLocation
         this.parentView = parent
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_tag4, parent, false) as FrameLayout
-        tagView = itemView
         itemView.setOnClickListener { itemClick.invoke(tagLocation) }
-        tvTagName = itemView.findViewById(R.id.tv_tag_name)
-        vDot = itemView.findViewById(R.id.v_dot)
-        ivTriangle = itemView.findViewById(R.id.iv_triangle)
+        val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
         tvTagName.text = tagLocation.name
         parent.addView(itemView)
         parent.postDelayed({
@@ -52,6 +42,10 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         val parentWidth = parentView.width
         val parentHeight = parentView.height
         val itemWidth = tagView.width
+
+        val tvTagName: TextView = tagView.findViewById(R.id.tv_tag_name)
+        val vDot: View = tagView.findViewById(R.id.v_dot)
+        val ivTriangle: View = tagView.findViewById(R.id.iv_triangle)
 
         // 横向位置确定
         val leftBoundary = tagLocation.x - itemWidth / 2 - tagLocation.leftMargin
@@ -71,10 +65,11 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
 
         // 竖向位置确定
         when {
-            tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - tagLocation.topMargin >= 0 -> {
+            tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - tagLocation.topMargin - DOT_TRIANBLE_MARGIN >= 0 -> {
                 tagLocation.rectT =
-                    tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height
+                    tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - DOT_TRIANBLE_MARGIN
                 tagLocation.typeV = SWOP_DOWN
+                ivTriangle.rotationX = 180f
             }
             else -> {
                 tagLocation.rectT = tagLocation.y - vDot.height / 2
@@ -89,12 +84,34 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         parentView: ViewGroup,
         tagView: View
     ) {
-        val dotLayoutParams = vDot.layoutParams
-        when(tagLocation.typeH) {
-            DEVIATION_LEFT -> {
-
+        val tvTagName: TextView = tagView.findViewById(R.id.tv_tag_name)
+        val vDot: View = tagView.findViewById(R.id.v_dot)
+        val ivTriangle: View = tagView.findViewById(R.id.iv_triangle)
+        val dotLayoutParams = vDot.layoutParams as FrameLayout.LayoutParams
+        val textLayoutParams = tvTagName.layoutParams as FrameLayout.LayoutParams
+        val triangleLayoutParams = ivTriangle.layoutParams as FrameLayout.LayoutParams
+        dotLayoutParams.leftMargin =
+            (tagLocation.x - tagLocation.rectL - vDot.width / 2).toInt()
+        triangleLayoutParams.leftMargin =
+            (tagLocation.x - tagLocation.rectL - ivTriangle.width / 2).toInt()
+        when (tagLocation.typeV) {
+            SWOP_DOWN -> {
+                dotLayoutParams.topMargin =
+                    (tagLocation.y - tagLocation.rectT - vDot.height / 2).toInt()
+                triangleLayoutParams.topMargin = tvTagName.height
+                triangleLayoutParams.bottomMargin = DOT_TRIANBLE_MARGIN.toInt()
+                textLayoutParams.topMargin = 0
+            }
+            else -> {
+                dotLayoutParams.topMargin = 0
+                triangleLayoutParams.topMargin= vDot.height + DOT_TRIANBLE_MARGIN.toInt()
+                textLayoutParams.topMargin = vDot.height + ivTriangle.height + DOT_TRIANBLE_MARGIN.toInt()
             }
         }
+
+        vDot.layoutParams = dotLayoutParams
+        ivTriangle.layoutParams = triangleLayoutParams
+        println("x = ${tagLocation.x}, left = ${tagLocation.rectL}, dotwidth = ${vDot.width}, width = ${tagView.width}, name = ${tagLocation.name}")
     }
 
     private fun resetLocation(item: TagLocation, itemView: View) {
