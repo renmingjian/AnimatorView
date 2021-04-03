@@ -6,5 +6,7 @@ package com.erge.animatorview.bean
 data class MerchantItem(
     val likes: Int = 0,
     val description: String = "",
-    val list: MutableList<TagLocation>
+    val list: MutableList<TagLocation>,
+    val linkName: String,
+    val link: String = "",
 )

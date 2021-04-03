@@ -1,5 +1,6 @@
 package com.erge.animatorview.adapter
 
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,9 +37,12 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private var data: MerchantItem? = null
         private val tvLike: TextView = itemView.findViewById(R.id.tv_like)
         private val tvDesc: TextView = itemView.findViewById(R.id.tv_desc)
         private val ivMerchant: ImageView = itemView.findViewById(R.id.iv_merchant)
+        private val tvLink: TextView = itemView.findViewById(R.id.tv_link)
+        private val clLink: View = itemView.findViewById(R.id.cl_link)
         private val tagHelper = TagHelper()
 
         init {
@@ -56,9 +60,14 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                     }
                 }
             })
+            clLink.setOnClickListener {
+                Toast.makeText(itemView.context, data?.linkName, Toast.LENGTH_SHORT).show()
+            }
         }
 
+        // O9828649
         fun bindData(data: MerchantItem) {
+            this.data = data
             tagHelper.drawTags(ivMerchant, data.list, TagLocationProvider3 {
                 Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
             })
@@ -67,6 +76,11 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
             ivMerchant.setOnClickListener {
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }
+            tvLink.text = data.linkName
+        }
+
+        private fun linAnim() {
+            val animator = ObjectAnimator.ofFloat()
         }
     }
 }
