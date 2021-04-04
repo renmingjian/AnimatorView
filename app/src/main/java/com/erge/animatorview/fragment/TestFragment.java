@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.erge.animatorview.R;
 import com.youth.banner.Banner;
-import com.youth.banner.loader.ImageLoader;
+//import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +46,15 @@ public class TestFragment extends Fragment implements View.OnClickListener {
             list.add("https://www.keaidian.com/uploads/allimg/190430/30113448_0.jpg");
         }
 
-
-        recommend_banner.setImages(list);
-        recommend_banner.isAutoPlay(true);
-        recommend_banner.setDelayTime(2000);
-        recommend_banner.setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, Object path, ImageView imageView) {
-                System.out.println("displayImage:");
-                Glide.with(context).load(path).into(imageView);
-            }
-        });
+//        recommend_banner.set(list);
+//        recommend_banner.isAutoPlay(true);
+//        recommend_banner.setDelayTime(2000);
+//        recommend_banner.setImageLoader(new ImageLoader() {
+//            @Override
+//            public void displayImage(Context context, Object path, ImageView imageView) {
+//                Glide.with(context).load(path).into(imageView);
+//            }
+//        });
         recommend_banner.start();
     }
 

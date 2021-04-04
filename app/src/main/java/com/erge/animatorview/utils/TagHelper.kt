@@ -22,20 +22,21 @@ class TagHelper {
      * 拿到targetView的parent，在他上面添加一个FrameLayout，该FrameLayout用来盛放所有的标签。并且给FrameLayout
      * 设置大小和targetView一样，其实就是覆盖在targetView上
      */
-    fun drawTags(view: View, data: MutableList<TagLocation>, provider: TagLocationProvider) {
+    fun drawTags(view: View, data: MutableList<TagLocation>?, provider: TagLocationProvider) {
+        if (data == null) return
         targetView = view
         this.data = data
         this.provider = provider
         parentView = targetView?.parent as ViewGroup
-        if (tagsView === null) {
-            tagsView = FrameLayout(view.context)
-            val index = parentView?.indexOfChild(targetView)
-            val layoutParams = view.layoutParams
-            if (index == -1) return
-            parentView?.addView(tagsView, index!! + 1, layoutParams)
+        if (tagsView != null) parentView?.removeView(tagsView)
+        tagsView = FrameLayout(view.context)
+        val index = parentView?.indexOfChild(targetView)
+        val layoutParams = view.layoutParams
+        if (index == -1) return
+        parentView?.addView(tagsView, index!! + 1, layoutParams)
 
-            addTagViews()
-        }
+        addTagViews()
+
     }
 
     fun startAnim(tagLocation: TagLocation, tagView: View) {

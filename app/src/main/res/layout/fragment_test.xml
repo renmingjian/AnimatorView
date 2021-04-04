@@ -8,7 +8,7 @@
     <com.youth.banner.Banner
         android:id="@+id/recommend_banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="400dp"
         android:background="#123456"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
