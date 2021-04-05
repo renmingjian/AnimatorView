@@ -71,8 +71,8 @@ data class MerchantImage(
             for (tag in list) {
                 tag.relocation(width, height, realWidth, realHeight)
             }
-            width = realWidth
-            height = realHeight
         }
+        width = realWidth
+        height = realHeight
     }
 }

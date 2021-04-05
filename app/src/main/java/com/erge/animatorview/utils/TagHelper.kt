@@ -23,7 +23,12 @@ class TagHelper {
      * 设置大小和targetView一样，其实就是覆盖在targetView上
      */
     fun drawTags(view: View, data: MutableList<TagLocation>?, provider: TagLocationProvider) {
-        if (data == null) return
+        if (data == null) {
+            if (targetView != null) {
+                parentView?.removeView(targetView)
+            }
+            return
+        }
         targetView = view
         this.data = data
         this.provider = provider
@@ -34,13 +39,15 @@ class TagHelper {
         val layoutParams = view.layoutParams
         if (index == -1) return
         parentView?.addView(tagsView, index!! + 1, layoutParams)
-
         addTagViews()
-
     }
 
-    fun startAnim(tagLocation: TagLocation, tagView: View) {
-        provider?.anim(tagLocation, tagView)
+    fun startAnim(tagList: MutableList<TagLocation>?) {
+        if (tagList != null && tagList.size > 0) {
+            for ((index, tagLocation) in tagList.withIndex()) {
+                provider?.anim(tagLocation, tagsView?.getChildAt(index)!!)
+            }
+        }
     }
 
     private fun addTagViews() {

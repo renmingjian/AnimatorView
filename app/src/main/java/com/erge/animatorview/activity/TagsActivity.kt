@@ -105,10 +105,10 @@ class TagsActivity : AppCompatActivity() {
 
     private fun getImage1(): MutableList<MerchantImage> {
         return mutableListOf<MerchantImage>().apply {
-            add(MerchantImage(1000, 972, "https://img0.baidu.com/it/u=1505799353,2691569779&fm=26&fmt=auto&gp=0.jpg", "Good Like1", list = getData1()))
-            add(MerchantImage(820, 512, "https://img1.baidu.com/it/u=3032317551,3314409878&fm=26&fmt=auto&gp=0.jpg", "Good Like2", list = getData2()))
+            add(MerchantImage(1000, 972, "https://img0.baidu.com/it/u=1505799353,2691569779&fm=26&fmt=auto&gp=0.jpg", "Good Like1", link = "123", list = getData1()))
+            add(MerchantImage(820, 512, "https://img1.baidu.com/it/u=3032317551,3314409878&fm=26&fmt=auto&gp=0.jpg", "Good Like2", link = "http:/www.erye.com", list = getData2()))
             add(MerchantImage(658, 987, "https://img2.baidu.com/it/u=3576358313,3239146876&fm=26&fmt=auto&gp=0.jpg", "Good Like3", list = getData1()))
-            add(MerchantImage(360, 360, "https://img0.baidu.com/it/u=1563838440,2025992817&fm=11&fmt=auto&gp=0.jpg", "Good Like4", list =  getData3()))
+            add(MerchantImage(360, 360, "https://img0.baidu.com/it/u=1563838440,2025992817&fm=11&fmt=auto&gp=0.jpg", "Good Like4", list =  null))
         }
     }
 
@@ -134,41 +134,41 @@ class TagsActivity : AppCompatActivity() {
                     imgList = getImage1()
                 )
             )
-            add(
-                MerchantItem(
-                    533,
-                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-                    imgList = getImage2()
-                )
-            )
-            add(
-                MerchantItem(
-                    123,
-                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-                    imgList = getImage3()
-                )
-            )
-            add(
-                MerchantItem(
-                    33,
-                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-                    imgList = getImage1()
-                )
-            )
-            add(
-                MerchantItem(
-                    453,
-                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-                    imgList = getImage2()
-                )
-            )
-            add(
-                MerchantItem(
-                    353,
-                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-                    imgList = getImage2()
-                )
-            )
+//            add(
+//                MerchantItem(
+//                    533,
+//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+//                    imgList = getImage2()
+//                )
+//            )
+//            add(
+//                MerchantItem(
+//                    123,
+//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+//                    imgList = getImage3()
+//                )
+//            )
+//            add(
+//                MerchantItem(
+//                    33,
+//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+//                    imgList = getImage1()
+//                )
+//            )
+//            add(
+//                MerchantItem(
+//                    453,
+//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+//                    imgList = getImage2()
+//                )
+//            )
+//            add(
+//                MerchantItem(
+//                    353,
+//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+//                    imgList = getImage2()
+//                )
+//            )
         }
     }
 

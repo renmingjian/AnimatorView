@@ -1,5 +1,7 @@
 package com.erge.animatorview.utils
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.view.LayoutInflater
 import android.view.View
@@ -116,7 +118,7 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             }
         }
         parentView.requestLayout()
-        anim(tagLocation, itemView = tagView)
+//        anim(tagLocation, itemView = tagView)
     }
 
     /**
@@ -133,12 +135,6 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     override fun anim(tagLocation: TagLocation, itemView: View) {
         itemView.postDelayed({
             val layoutParams = itemView.layoutParams
-            // 根据类型不同做不同动画
-            if (tagLocation.typeV == SWOP_DOWN) {
-
-            } else {
-
-            }
             val valueAnimator = ValueAnimator.ofInt(0, itemView.height)
             valueAnimator.duration = 800
             valueAnimator.addUpdateListener {
@@ -146,8 +142,14 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
                 layoutParams.height = value
                 itemView.layoutParams = layoutParams
             }
+            valueAnimator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator?) {
+                    super.onAnimationStart(animation)
+                    parentView.visibility = View.VISIBLE
+                }
+            })
             valueAnimator.start()
-        }, 17)
+        }, 34)
     }
 
 }
