@@ -39,6 +39,12 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         tvTagName.text = tagLocation.name
         parent.addView(itemView)
 
+        if (tagLocation.animated) {
+            tvTagName.visibility = View.VISIBLE
+        } else {
+            tvTagName.visibility = View.INVISIBLE
+        }
+
         parent.postDelayed({
             calculateLocation(tagLocation, parent, itemView)
             resetLocation(tagLocation, itemView)
@@ -138,12 +144,12 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     }
 
     override fun anim(tagLocation: TagLocation, itemView: View) {
-        if (tagLocation.animated) return
-        tagLocation.animated = true
         val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
-        itemView.postDelayed( {
-
-        }, 34)
+        if (tagLocation.animated) {
+            tvTagName.visibility = View.VISIBLE
+            return
+        }
+        tagLocation.animated = true
 
         when (tagLocation.typeH) {
             DEVIATION_LEFT -> leftToRightAnim(tvTagName)

@@ -60,11 +60,9 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
                 override fun onPageSelected(position: Int) {
                     currentImageIndex = position
-                    println("onPageScrollStateChanged-position = $position")
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
-                    println("onPageScrollStateChanged = $state")
                     if (state == ViewPager2.SCROLL_STATE_IDLE) {
                         adapter.anim(currentImageIndex)
                     }
@@ -77,13 +75,11 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
             ivMerchant.setOnClickListener {
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }
-            itemView.postDelayed({
+            itemView.post {
                 resetBannerSize()
-                bannerMerchant.setStartPosition(0)
                 adapter.notifyDataSetChanged()
                 adapter.anim(0)
-                bannerMerchant.setCurrentItem(1)
-            }, 17)
+            }
         }
 
         private fun resetBannerSize() {

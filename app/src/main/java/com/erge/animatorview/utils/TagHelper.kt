@@ -28,20 +28,20 @@ class TagHelper {
             if (tagsView != null) {
                 parentView?.removeView(tagsView)
             }
-            return
+        } else {
+            targetView = view
+            this.data = data
+            this.provider = provider
+            parentView = targetView?.parent as ViewGroup
+            if (tagsView != null) parentView?.removeView(tagsView)
+            tagsView = FrameLayout(view.context)
+            val index = parentView?.indexOfChild(targetView)
+            val layoutParams = view.layoutParams
+            if (index == -1) return
+            parentView?.addView(tagsView, index!! + 1, layoutParams)
+            addTagViews()
+            tagsView?.setBackgroundColor(Color.parseColor("#44ff0000"))
         }
-        targetView = view
-        this.data = data
-        this.provider = provider
-        parentView = targetView?.parent as ViewGroup
-        if (tagsView != null) parentView?.removeView(tagsView)
-        tagsView = FrameLayout(view.context)
-        val index = parentView?.indexOfChild(targetView)
-        val layoutParams = view.layoutParams
-        if (index == -1) return
-        parentView?.addView(tagsView, index!! + 1, layoutParams)
-        addTagViews()
-        tagsView?.setBackgroundColor(Color.parseColor("#44ff0000"))
     }
 
     fun startAnim(tagList: MutableList<TagLocation>?) {

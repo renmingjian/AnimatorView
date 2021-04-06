@@ -80,23 +80,27 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
 
         fun bindData(data: MerchantImage) {
             this.data = data
-            // 设置tag
-            tagHelper.drawTags(imageView, data.list, TagLocationProvider3 {
-                Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
-            })
-//            tagHelper.setTagsInvisible()
-
+            println("bindData--position = $adapterPosition")
             val layoutParams = imageView.layoutParams
             layoutParams.width = data.width
             layoutParams.height = data.height
             imageView.layoutParams = layoutParams
             Glide.with(imageView.context).load(data.imgUrl).into(imageView)
             tvLink.text = data.linkName
-            if (adapterPosition == 0) {
-                itemView.postDelayed({
-                    tagAnim()
-                }, 17)
+            if (data.list != null && data.list.size >0) {
+                // 设置tag
+                tagHelper.drawTags(imageView, data.list, TagLocationProvider3 {
+                    Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
+                })
 
+                if (adapterPosition == 0) {
+                    itemView.postDelayed({
+                        tagAnim()
+                    }, 17)
+                }
+                tagHelper.setTagsVisible()
+            } else {
+                tagHelper.setTagsInvisible()
             }
         }
 
@@ -107,12 +111,10 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
         fun tagAnim() {
             if (data?.list != null && data?.list!!.size > 0) {
                 tagHelper.startAnim(data?.list)
-                println("tagAnim--tag = $adapterPosition")
             }
         }
 
         fun linkAnim() {
-            println("tagAnim--linkAnim = $adapterPosition")
             // 没有link内容，则不显示
             if (TextUtils.isEmpty(data?.linkName) || TextUtils.isEmpty(data?.link)) return
             clLink.visibility = View.VISIBLE
