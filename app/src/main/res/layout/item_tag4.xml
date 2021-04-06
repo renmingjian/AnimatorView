@@ -18,6 +18,7 @@
         android:singleLine="true"
         android:textColor="#ffffff"
         android:textSize="12sp"
+        android:visibility="invisible"
         tools:text="LipStick" />
 
     <com.erge.animatorview.view.TriangleView

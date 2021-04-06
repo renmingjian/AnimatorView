@@ -40,14 +40,15 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
         private val tvLike: TextView = itemView.findViewById(R.id.tv_like)
         private val tvDesc: TextView = itemView.findViewById(R.id.tv_desc)
         private val ivMerchant: ImageView = itemView.findViewById(R.id.iv_merchant)
-        private var adapter: MerchantBannerAdapter? = null
-        private val imageList: MutableList<MerchantImage> = mutableListOf()
         private var currentImageIndex = 0
 
         private val bannerMerchant: Banner<MerchantImage, MerchantBannerAdapter> =
             itemView.findViewById(R.id.banner_merchant)
 
-        init {
+        fun bindData(data: MerchantItem) {
+            this.data = data
+            println("tagAnim--bindData = $layoutPosition")
+            val adapter = MerchantBannerAdapter(data.imgList)
             bannerMerchant.addOnPageChangeListener(object : OnPageChangeListener {
                 override fun onPageScrolled(
                     position: Int,
@@ -58,7 +59,6 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                 }
 
                 override fun onPageSelected(position: Int) {
-//                    adapter!!.anim(position)
                     currentImageIndex = position
                     println("onPageScrollStateChanged-position = $position")
                 }
@@ -66,19 +66,12 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                 override fun onPageScrollStateChanged(state: Int) {
                     println("onPageScrollStateChanged = $state")
                     if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                        adapter?.anim(currentImageIndex)
+                        adapter.anim(currentImageIndex)
                     }
                 }
             })
-            adapter = MerchantBannerAdapter(imageList)
-            bannerMerchant.setAdapter(adapter, false)
-        }
 
-        fun bindData(data: MerchantItem) {
-            this.data = data
-            imageList.clear()
-            imageList.addAll(data.imgList)
-
+            bannerMerchant.adapter = adapter
             tvLike.text = "${data.likes} likes"
             tvDesc.text = data.description
             ivMerchant.setOnClickListener {
@@ -87,8 +80,9 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
             itemView.postDelayed({
                 resetBannerSize()
                 bannerMerchant.setStartPosition(0)
-                adapter?.notifyDataSetChanged()
-                adapter?.anim(0)
+                adapter.notifyDataSetChanged()
+                adapter.anim(0)
+                bannerMerchant.setCurrentItem(1)
             }, 17)
         }
 

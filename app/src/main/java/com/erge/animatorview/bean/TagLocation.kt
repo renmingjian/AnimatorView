@@ -31,6 +31,8 @@ data class TagLocation(
     var textX: Float = 0f,
 
     var textStart: Float = 0f,
+    var animated: Boolean = false
+
 ) {
     fun relocation(
         originalImageWidth: Int,

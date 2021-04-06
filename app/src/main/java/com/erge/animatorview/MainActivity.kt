@@ -160,5 +160,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, TagsActivity::class.java))
     }
 
+    fun bannerTest(view: View) {
+        startActivity(Intent(this, BannerTestActivity::class.java))
+    }
+
 
 }

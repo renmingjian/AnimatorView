@@ -1,5 +1,6 @@
 package com.erge.animatorview.utils
 
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -24,8 +25,8 @@ class TagHelper {
      */
     fun drawTags(view: View, data: MutableList<TagLocation>?, provider: TagLocationProvider) {
         if (data == null) {
-            if (targetView != null) {
-                parentView?.removeView(targetView)
+            if (tagsView != null) {
+                parentView?.removeView(tagsView)
             }
             return
         }
@@ -40,9 +41,15 @@ class TagHelper {
         if (index == -1) return
         parentView?.addView(tagsView, index!! + 1, layoutParams)
         addTagViews()
+        tagsView?.setBackgroundColor(Color.parseColor("#44ff0000"))
+        tagsView?.postDelayed({
+            println("width == ${view.width}, height = ${view.height}, ${tagsView?.width}")
+        }, 17)
+
     }
 
     fun startAnim(tagList: MutableList<TagLocation>?) {
+        println("width===>>>>>>>>>>>>>>>>anim = ${tagsView?.width}")
         if (tagList != null && tagList.size > 0) {
             for ((index, tagLocation) in tagList.withIndex()) {
                 provider?.anim(tagLocation, tagsView?.getChildAt(index)!!)

@@ -2,14 +2,16 @@ package com.erge.animatorview.utils
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ValueAnimator
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.TagLocation
+
 
 /**
  * Created by erge 4/1/21 1:41 PM
@@ -113,12 +115,12 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             }
             else -> {
                 dotLayoutParams.topMargin = 0
-                triangleLayoutParams.topMargin= vDot.height + DOT_TRIANBLE_MARGIN.toInt()
-                textLayoutParams.topMargin = vDot.height + ivTriangle.height + DOT_TRIANBLE_MARGIN.toInt()
+                triangleLayoutParams.topMargin = vDot.height + DOT_TRIANBLE_MARGIN.toInt()
+                textLayoutParams.topMargin =
+                    vDot.height + ivTriangle.height + DOT_TRIANBLE_MARGIN.toInt()
             }
         }
         parentView.requestLayout()
-//        anim(tagLocation, itemView = tagView)
     }
 
     /**
@@ -133,23 +135,59 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     }
 
     override fun anim(tagLocation: TagLocation, itemView: View) {
-        itemView.postDelayed({
-            val layoutParams = itemView.layoutParams
-            val valueAnimator = ValueAnimator.ofInt(0, itemView.height)
-            valueAnimator.duration = 800
-            valueAnimator.addUpdateListener {
-                val value: Int = it.animatedValue as Int
-                layoutParams.height = value
-                itemView.layoutParams = layoutParams
+        if (tagLocation.animated) return
+        tagLocation.animated = true
+        val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
+        itemView.postDelayed( {
+            when (tagLocation.typeH) {
+                DEVIATION_LEFT -> leftToRightAnim(tvTagName)
+                DEVIATION_MIDDLE -> middleToLeftAndRightAnim(tvTagName)
+                else -> rightToLeftAnim(tvTagName)
             }
-            valueAnimator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    super.onAnimationStart(animation)
-                    parentView.visibility = View.VISIBLE
-                }
-            })
-            valueAnimator.start()
         }, 34)
+    }
+
+    private fun middleToLeftAndRightAnim(textView: TextView) {
+        textView.visibility = View.VISIBLE
+        val animator = AnimationUtils.loadAnimation(textView.context, R.anim.middle_scale)
+        animator.fillAfter = true
+        textView.startAnimation(animator)
+        textView.invalidate()
+    }
+
+    private fun leftToRightAnim(textView: TextView) {
+        val animator: ObjectAnimator = ObjectAnimator.ofFloat(
+            textView,
+            "translationX",
+            -textView.width.toFloat(),
+            0f
+        )
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                super.onAnimationStart(animation)
+                textView.visibility = View.VISIBLE
+            }
+        })
+        animator.duration = 500
+        animator.start()
+
+    }
+
+    private fun rightToLeftAnim(textView: TextView) {
+        val animator: ObjectAnimator = ObjectAnimator.ofFloat(
+            textView,
+            "translationX",
+            textView.width.toFloat(),
+            0f
+        )
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                super.onAnimationStart(animation)
+                textView.visibility = View.VISIBLE
+            }
+        })
+        animator.duration = 500
+        animator.start()
     }
 
 }

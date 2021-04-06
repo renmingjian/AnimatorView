@@ -45,7 +45,6 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
         val preHolder = viewHolderMap[prePosition]
         val currentHolder = viewHolderMap[currentPosition]
         preHolder?.hideLink()
-        preHolder?.hideTag()
         currentHolder?.linkAnim()
         currentHolder?.tagAnim()
         prePosition = currentPosition
@@ -85,8 +84,7 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
             tagHelper.drawTags(imageView, data.list, TagLocationProvider3 {
                 Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
             })
-            tagHelper.setTagsInvisible()
-            println("tagAnim-bindData-position = $adapterPosition")
+//            tagHelper.setTagsInvisible()
 
             val layoutParams = imageView.layoutParams
             layoutParams.width = data.width
@@ -96,9 +94,9 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
             tvLink.text = data.linkName
             if (adapterPosition == 0) {
                 itemView.postDelayed({
-
+                    tagAnim()
                 }, 17)
-                tagAnim()
+
             }
         }
 
@@ -106,18 +104,15 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
             clLink.visibility = View.GONE
         }
 
-        fun hideTag() {
-            tagHelper.setTagsInvisible()
-        }
-
         fun tagAnim() {
             if (data?.list != null && data?.list!!.size > 0) {
                 tagHelper.startAnim(data?.list)
-                println("tagAnim--position = $layoutPosition")
+                println("tagAnim--tag = $adapterPosition")
             }
         }
 
         fun linkAnim() {
+            println("tagAnim--linkAnim = $adapterPosition")
             // 没有link内容，则不显示
             if (TextUtils.isEmpty(data?.linkName) || TextUtils.isEmpty(data?.link)) return
             clLink.visibility = View.VISIBLE

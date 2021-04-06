@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:background="#44ff0000"
             app:banner_auto_loop="false"
-            app:banner_loop_time="2000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
