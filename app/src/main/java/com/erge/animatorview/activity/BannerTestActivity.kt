@@ -1,5 +1,8 @@
 package com.erge.animatorview.activity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -40,12 +43,25 @@ class BannerTestActivity : AppCompatActivity() {
             }
         })
 
-        val tv_test: TextView = findViewById(R.id.tv_test)
-        tv_test.visibility = View.VISIBLE
-        val animator = AnimationUtils.loadAnimation(tv_test.context, R.anim.middle_scale)
-        animator.fillAfter = true
-        tv_test.startAnimation(animator)
 
+        val textView: TextView = findViewById(R.id.tv_test)
+        textView.post{
+            val layoutParams = textView.layoutParams
+            val animator = ValueAnimator.ofFloat(0f, textView.width.toFloat())
+            animator.duration = 3000
+            animator.addUpdateListener {
+                val value = it.animatedValue as Float
+                layoutParams.width = value.toInt()
+                textView.layoutParams = layoutParams
+            }
+            animator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator?) {
+                    super.onAnimationStart(animation)
+                    textView.visibility = View.VISIBLE
+                }
+            })
+            animator.start()
+        }
     }
 
     private fun getData(): MutableList<String> {

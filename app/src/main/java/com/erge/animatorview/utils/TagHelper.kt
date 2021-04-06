@@ -42,14 +42,9 @@ class TagHelper {
         parentView?.addView(tagsView, index!! + 1, layoutParams)
         addTagViews()
         tagsView?.setBackgroundColor(Color.parseColor("#44ff0000"))
-        tagsView?.postDelayed({
-            println("width == ${view.width}, height = ${view.height}, ${tagsView?.width}")
-        }, 17)
-
     }
 
     fun startAnim(tagList: MutableList<TagLocation>?) {
-        println("width===>>>>>>>>>>>>>>>>anim = ${tagsView?.width}")
         if (tagList != null && tagList.size > 0) {
             for ((index, tagLocation) in tagList.withIndex()) {
                 provider?.anim(tagLocation, tagsView?.getChildAt(index)!!)
