@@ -16,24 +16,18 @@ data class MerchantItem(
      * 设置整个Banner的大小
      */
     fun resizeBanner(viewWidth: Int) {
-        // banner的高度取决于最大图片的高度
-        var maxHeight = 0
-        for (image in imgList) {
-            if (image.height > maxHeight) {
-                maxHeight = image.height
-            }
-        }
+        var bannerHeight = imgList[0].height
 
         // 拿到最大高度后，就可以先确定最初始时banner的宽高(此时对比例没有任何限制).之后要考虑最大和最小高度
-        if (maxHeight > 838) {
-            maxHeight = 838
+        if (bannerHeight > 838) {
+            bannerHeight = 838
         }
-        if (maxHeight < 536) {
-            maxHeight = 536
+        if (bannerHeight < 536) {
+            bannerHeight = 536
         }
-        height = maxHeight
+        height = bannerHeight
         for (image in imgList) {
-            image.resizeImage(viewWidth, maxHeight)
+            image.resizeImage(viewWidth, bannerHeight)
         }
     }
 }
