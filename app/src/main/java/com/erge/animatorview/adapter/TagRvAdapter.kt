@@ -8,11 +8,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.erge.animatorview.BannerAttacher
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantImage
 import com.erge.animatorview.bean.MerchantItem
 import com.youth.banner.Banner
 import com.youth.banner.listener.OnPageChangeListener
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
 
 /**
  * Created by erge 3/31/21 6:17 PM
@@ -40,6 +42,7 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
         private val tvLike: TextView = itemView.findViewById(R.id.tv_like)
         private val tvDesc: TextView = itemView.findViewById(R.id.tv_desc)
         private val ivMerchant: ImageView = itemView.findViewById(R.id.iv_merchant)
+        private val indicator: ScrollingPagerIndicator = itemView.findViewById(R.id.indicator)
         private var currentImageIndex = 0
 
         private val bannerMerchant: Banner<MerchantImage, MerchantBannerAdapter> =
@@ -68,8 +71,14 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                     }
                 }
             })
-
+            if (data.imgList != null && data.imgList.size > 0) {
+                indicator.visibility = View.VISIBLE
+                indicator.attachToPager(bannerMerchant, BannerAttacher())
+            } else {
+                indicator.visibility = View.GONE
+            }
             bannerMerchant.adapter = adapter
+            bannerMerchant.viewPager2.offscreenPageLimit = data.imgList.size
             tvLike.text = "${data.likes} likes"
             tvDesc.text = data.description
             ivMerchant.setOnClickListener {

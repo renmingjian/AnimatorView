@@ -16,11 +16,11 @@
             android:id="@+id/v_holder"
             android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/iv_merchant"
             app:layout_constraintEnd_toEndOf="@+id/iv_merchant"
             app:layout_constraintStart_toStartOf="@+id/iv_merchant"
-            app:layout_constraintTop_toTopOf="@+id/iv_merchant"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="@+id/iv_merchant" />
 
         <ImageView
             android:id="@+id/iv_merchant"
@@ -28,10 +28,10 @@
             android:layout_height="400dp"
             android:scaleType="fitXY"
             android:src="@mipmap/test"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone">
+            app:layout_constraintTop_toTopOf="parent">
 
             <tag
                 android:id="@+id/zoomable"
@@ -51,6 +51,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_top" />
 
     <ImageView
         android:id="@+id/iv_like"

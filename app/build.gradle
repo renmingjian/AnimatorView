@@ -49,4 +49,6 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.6.1'
 
     implementation 'com.aghajari.zoomhelper:ZoomHelper:1.0.2'
+
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.0"
 }
