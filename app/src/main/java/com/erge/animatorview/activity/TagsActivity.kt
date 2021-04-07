@@ -33,7 +33,7 @@ class TagsActivity : AppCompatActivity() {
             add(
                 TagLocation(
                     200f,
-                    200f,
+                    100f,
                     "tips",
                     offset = Utils.dp2px(10f),
                     leftMargin = Utils.dp2px(10f),
@@ -114,7 +114,7 @@ class TagsActivity : AppCompatActivity() {
 
     private fun getImage2(): MutableList<MerchantImage> {
         return mutableListOf<MerchantImage>().apply {
-            add(MerchantImage(490, 333, "https://img2.baidu.com/it/u=2113462401,745705505&fm=26&fmt=auto&gp=0.jpg", "Good Like", list = getData3()))
+            add(MerchantImage(800, 800, "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=39604184,2683877292&fm=26&gp=0.jpg", "Good Like", list = getData3()))
         }
     }
 
@@ -134,13 +134,13 @@ class TagsActivity : AppCompatActivity() {
                     imgList = getImage1()
                 )
             )
-//            add(
-//                MerchantItem(
-//                    533,
-//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-//                    imgList = getImage2()
-//                )
-//            )
+            add(
+                MerchantItem(
+                    533,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage2()
+                )
+            )
 //            add(
 //                MerchantItem(
 //                    123,

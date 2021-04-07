@@ -13,7 +13,6 @@ import com.erge.animatorview.R
 import com.erge.animatorview.bean.TagLocation
 import com.erge.animatorview.view.TriangleView
 
-
 /**
  * Created by erge 4/1/21 1:41 PM
  */
@@ -130,12 +129,16 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
                 triangleLayoutParams.topMargin = TEXT_HEIGHT.toInt()
                 triangleLayoutParams.bottomMargin = DOT_TRIANBLE_MARGIN.toInt()
                 textLayoutParams.topMargin = 0
+                tagLocation.textRectT = 0f
+                tagLocation.textRectB = TEXT_HEIGHT
             }
             else -> {
                 dotLayoutParams.topMargin = 0
                 triangleLayoutParams.topMargin = (DOT_HEIGHT + DOT_TRIANBLE_MARGIN).toInt()
-                textLayoutParams.topMargin =
-                    (DOT_HEIGHT + TRIANGLE_HEIGHT + DOT_TRIANBLE_MARGIN).toInt()
+                val marginTop = DOT_HEIGHT + TRIANGLE_HEIGHT + DOT_TRIANBLE_MARGIN
+                textLayoutParams.topMargin = marginTop.toInt()
+                tagLocation.textRectT = marginTop
+                tagLocation.textRectB = marginTop + TEXT_HEIGHT
             }
         }
         parentView.requestLayout()
@@ -154,7 +157,6 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     }
 
     override fun anim(tagLocation: TagLocation, itemView: View) {
-        println("anim--")
         val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
         val vDot: View = itemView.findViewById(R.id.v_dot)
         val ivTriangle: TriangleView = itemView.findViewById(R.id.iv_triangle)
@@ -180,21 +182,40 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
                 else -> rightToLeftAnim(tagLocation, tvTagName, value)
             }
         }
-        animator.duration = 2000
+        animator.duration = 500
         animator.start()
     }
 
-    private fun middleToLeftAndRightAnim(tagLocation: TagLocation, textView: TextView, progress: Float) {
+    private fun middleToLeftAndRightAnim(
+        tagLocation: TagLocation,
+        textView: TextView,
+        progress: Float
+    ) {
         val middle: Int = (tagLocation.getWidth() / 2).toInt()
-        textView.layout(middle - (middle * progress).toInt(), 0, middle + (middle * progress).toInt(), textView.bottom)
+        textView.layout(
+            middle - (middle * progress).toInt(),
+            tagLocation.textRectT.toInt(),
+            middle + (middle * progress).toInt(),
+            tagLocation.textRectB.toInt()
+        )
     }
 
     private fun leftToRightAnim(tagLocation: TagLocation, textView: TextView, progress: Float) {
-        textView.layout(0, 0, (tagLocation.getWidth() * progress).toInt(), textView.bottom)
+        textView.layout(
+            0,
+            tagLocation.textRectT.toInt(),
+            (tagLocation.getWidth() * progress).toInt(),
+            tagLocation.textRectB.toInt()
+        )
     }
 
     private fun rightToLeftAnim(tagLocation: TagLocation, textView: TextView, progress: Float) {
-        textView.layout((tagLocation.getWidth().toInt()-tagLocation.getWidth() * progress).toInt(), 0, tagLocation.getWidth().toInt(), textView.bottom)
+        textView.layout(
+            (tagLocation.getWidth().toInt() - tagLocation.getWidth() * progress).toInt(),
+            tagLocation.textRectT.toInt(),
+            tagLocation.getWidth().toInt(),
+            tagLocation.textRectB.toInt()
+        )
     }
 
 }

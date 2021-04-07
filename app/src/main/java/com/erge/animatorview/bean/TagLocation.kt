@@ -28,6 +28,12 @@ data class TagLocation(
     var rectT: Float = 0f,
     var rectR: Float = 0f,
     var rectB: Float = 0f,
+
+    var textRectL: Float = 0f,
+    var textRectT: Float = 0f,
+    var textRectR: Float = 0f,
+    var textRectB: Float = 0f,
+
     var textX: Float = 0f,
 
     var parentWidth: Float = 0f,
