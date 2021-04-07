@@ -1,6 +1,5 @@
 package com.erge.animatorview.adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,20 +73,25 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                     }
                 }
             })
-            if (data.imgList.size > 0) {
-                indicator.visibility = View.VISIBLE
-                indicator.attachToPager(bannerMerchant, BannerAttacher())
-            } else {
-                indicator.visibility = View.GONE
-            }
+
             bannerMerchant.currentItem = 0
-            bannerMerchant.adapter = adapter
+            bannerMerchant.setAdapter(adapter, false)
 //            bannerMerchant.viewPager2.offscreenPageLimit = data.imgList.size
             tvLike.text = "${data.likes} likes"
             tvDesc.text = data.description
             ivMerchant.setOnClickListener {
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }
+
+            if (data.imgList.size > 0) {
+                indicator.visibility = View.VISIBLE
+                indicator.attachToPager(bannerMerchant, BannerAttacher(data.imgList.size))
+            } else {
+                indicator.visibility = View.GONE
+            }
+
+            println("viewpager = ${bannerMerchant.viewPager2.adapter?.itemCount}")
+            println("viewpager = ${bannerMerchant.itemCount}")
         }
 
         private fun resetBannerSize() {
