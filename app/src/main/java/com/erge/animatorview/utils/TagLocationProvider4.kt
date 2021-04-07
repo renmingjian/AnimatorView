@@ -1,9 +1,13 @@
 package com.erge.animatorview.utils
 
+/**
+ * Created by erge 4/7/21 1:57 PM
+ */
+
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.graphics.Paint
+import android.animation.ValueAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,19 +22,13 @@ import com.erge.animatorview.view.TriangleView
 /**
  * Created by erge 4/1/21 1:41 PM
  */
-class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagLocationProvider {
+class TagLocationProvider4(override var itemClick: (TagLocation) -> Unit) : TagLocationProvider {
 
     private val SWOP_DOWN = 0
     private val SWOP_UP = 1
     private val DEVIATION_LEFT = 10
     private val DEVIATION_MIDDLE = 11
     private val DEVIATION_RIGHT = 12
-
-    private val DOT_HEIGHT = Utils.dp2px(10f)
-    private val TRIANGLE_HEIGHT = Utils.dp2px(5f)
-    private val TRIANGLE_WIDTH = Utils.dp2px(10f)
-    private val TEXT_HEIGHT = Utils.dp2px(28f)
-
     private val DOT_TRIANBLE_MARGIN = Utils.dp2px(4f)
     private lateinit var tagLocation: TagLocation
     private lateinit var parentView: ViewGroup
@@ -58,16 +56,16 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             ivTriangle.visibility = View.INVISIBLE
         }
 
-        calculateLocation(tagLocation, parent, itemView)
-        resetLocation(tagLocation, itemView)
+        parent.postDelayed({
+            calculateLocation(tagLocation, parent, itemView)
+            resetLocation(tagLocation, itemView)
+        }, 17)
     }
 
     override fun calculateLocation(tagLocation: TagLocation, parentView: ViewGroup, tagView: View) {
-        val parentWidth = tagLocation.parentWidth
-        val parentHeight = tagLocation.parentHeight
-        val paint = Paint()
-        paint.textSize = Utils.sp2px(12f)
-        val itemWidth = paint.measureText(tagLocation.name) + Utils.dp2px(20f)
+        val parentWidth = parentView.width
+        val parentHeight = parentView.height
+        val itemWidth = tagView.width
 
         val tvTagName: TextView = tagView.findViewById(R.id.tv_tag_name)
         val vDot: View = tagView.findViewById(R.id.v_dot)
@@ -92,14 +90,14 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
 
         // 竖向位置确定
         when {
-            tagLocation.y - DOT_HEIGHT / 2 - TRIANGLE_HEIGHT - TEXT_HEIGHT - tagLocation.topMargin - DOT_TRIANBLE_MARGIN >= 0 -> {
+            tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - tagLocation.topMargin - DOT_TRIANBLE_MARGIN >= 0 -> {
                 tagLocation.rectT =
-                    tagLocation.y - DOT_HEIGHT / 2 - TRIANGLE_HEIGHT - TEXT_HEIGHT - DOT_TRIANBLE_MARGIN
+                    tagLocation.y - vDot.height / 2 - ivTriangle.height - tvTagName.height - DOT_TRIANBLE_MARGIN
                 tagLocation.typeV = SWOP_DOWN
                 ivTriangle.rotationX = 180f
             }
             else -> {
-                tagLocation.rectT = tagLocation.y - DOT_HEIGHT / 2
+                tagLocation.rectT = tagLocation.y - vDot.height / 2
                 tagLocation.typeV = SWOP_UP
             }
         }
@@ -122,23 +120,23 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         val triangleLayoutParams = ivTriangle.layoutParams as FrameLayout.LayoutParams
         // 圆点dotView在水平方向的位置跟typeH无关，三种类型的计算方式是一样的
         dotLayoutParams.leftMargin =
-            (tagLocation.x - tagLocation.rectL - DOT_HEIGHT / 2).toInt()
+            (tagLocation.x - tagLocation.rectL - vDot.width / 2).toInt()
         // 三角形的水平位置也与类型无关，三种类型的计算方式一样
         triangleLayoutParams.leftMargin =
-            (tagLocation.x - tagLocation.rectL - TRIANGLE_WIDTH / 2).toInt()
+            (tagLocation.x - tagLocation.rectL - ivTriangle.width / 2).toInt()
         when (tagLocation.typeV) {
             SWOP_DOWN -> {
                 dotLayoutParams.topMargin =
-                    (tagLocation.y - tagLocation.rectT - DOT_HEIGHT / 2).toInt()
-                triangleLayoutParams.topMargin = TEXT_HEIGHT.toInt()
+                    (tagLocation.y - tagLocation.rectT - vDot.height / 2).toInt()
+                triangleLayoutParams.topMargin = tvTagName.height
                 triangleLayoutParams.bottomMargin = DOT_TRIANBLE_MARGIN.toInt()
                 textLayoutParams.topMargin = 0
             }
             else -> {
                 dotLayoutParams.topMargin = 0
-                triangleLayoutParams.topMargin = (DOT_HEIGHT + DOT_TRIANBLE_MARGIN).toInt()
+                triangleLayoutParams.topMargin = vDot.height + DOT_TRIANBLE_MARGIN.toInt()
                 textLayoutParams.topMargin =
-                    (DOT_HEIGHT + TRIANGLE_HEIGHT + DOT_TRIANBLE_MARGIN).toInt()
+                    vDot.height + ivTriangle.height + DOT_TRIANBLE_MARGIN.toInt()
             }
         }
         parentView.requestLayout()

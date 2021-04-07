@@ -21,7 +21,6 @@
         android:id="@+id/fl_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#9900ff00"
         app:layout_constraintBottom_toBottomOf="@id/iv_merchant"
         app:layout_constraintEnd_toEndOf="@id/iv_merchant"
         app:layout_constraintStart_toStartOf="@id/iv_merchant"

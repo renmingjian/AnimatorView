@@ -16,6 +16,7 @@ import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantImage
 import com.erge.animatorview.utils.TagHelper
 import com.erge.animatorview.utils.TagLocationProvider3
+import com.erge.animatorview.utils.TagLocationProvider4
 import com.erge.animatorview.utils.Utils
 import com.erge.animatorview.view.TagLayout
 import com.youth.banner.adapter.BannerAdapter
