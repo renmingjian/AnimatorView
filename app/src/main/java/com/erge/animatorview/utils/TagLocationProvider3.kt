@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.TagLocation
+import com.erge.animatorview.view.TriangleView
 
 
 /**
@@ -36,13 +37,19 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             .inflate(R.layout.item_tag4, parent, false) as FrameLayout
         itemView.setOnClickListener { itemClick.invoke(tagLocation) }
         val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
+        val vDot: View = itemView.findViewById(R.id.v_dot)
+        val ivTriangle: TriangleView = itemView.findViewById(R.id.iv_triangle)
         tvTagName.text = tagLocation.name
         parent.addView(itemView)
 
         if (tagLocation.animated) {
             tvTagName.visibility = View.VISIBLE
+            vDot.visibility = View.VISIBLE
+            ivTriangle.visibility = View.VISIBLE
         } else {
             tvTagName.visibility = View.INVISIBLE
+            vDot.visibility = View.INVISIBLE
+            ivTriangle.visibility = View.INVISIBLE
         }
 
         parent.postDelayed({
@@ -144,7 +151,12 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     }
 
     override fun anim(tagLocation: TagLocation, itemView: View) {
+        println("anim--")
         val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
+        val vDot: View = itemView.findViewById(R.id.v_dot)
+        val ivTriangle: TriangleView = itemView.findViewById(R.id.iv_triangle)
+        vDot.visibility = View.VISIBLE
+        ivTriangle.visibility = View.VISIBLE
         if (tagLocation.animated) {
             tvTagName.visibility = View.VISIBLE
             return

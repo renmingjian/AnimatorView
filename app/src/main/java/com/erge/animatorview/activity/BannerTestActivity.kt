@@ -6,9 +6,11 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.R
+import com.erge.animatorview.view.TagLayout
 import com.youth.banner.Banner
 import com.youth.banner.listener.OnPageChangeListener
 
@@ -20,6 +22,13 @@ class BannerTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_banner_test)
+
+        val fl = findViewById<FrameLayout>(R.id.fl)
+        fl.addView(TagLayout(this))
+
+
+
+
 
         val banner: Banner<String, BannerTestAdapter> = findViewById(R.id.banner)
         banner.isAutoLoop(false)
@@ -43,6 +52,7 @@ class BannerTestActivity : AppCompatActivity() {
             }
         })
 
+        banner.setCurrentItem(0)
 
         val textView: TextView = findViewById(R.id.tv_test)
         textView.post{

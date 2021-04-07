@@ -39,7 +39,8 @@ data class MerchantImage(
     val linkName: String,
     val link: String = "",
     val list: MutableList<TagLocation>?,
-    var hasSetTags: Boolean = false
+    var hasSetTags: Boolean = false,
+    var animated: Boolean = false
 ) {
 
     /**

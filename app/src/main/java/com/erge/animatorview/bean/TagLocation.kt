@@ -30,6 +30,9 @@ data class TagLocation(
     var rectB: Float = 0f,
     var textX: Float = 0f,
 
+    var parentWidth: Float = 0f,
+    var parentHeight: Float = 0f,
+
     var textStart: Float = 0f,
     var animated: Boolean = false
 
@@ -40,6 +43,8 @@ data class TagLocation(
         realImageWidth: Int,
         realImageHeight: Int
     ) {
+        parentWidth = realImageWidth.toFloat()
+        parentHeight = realImageHeight.toFloat()
         val realX = realImageWidth.toFloat() / originalImageWidth.toFloat() * x
         val realY = realImageHeight.toFloat() / originalImageHeight.toFloat() * y
         Log.e("resize", "originalImageWidth = $originalImageWidth, originalImageHeight = $originalImageHeight, realImageWidth = $realImageWidth, realImageHeight = $realImageHeight, realX = $realX, realY = $realY, x = $x, y = $y")

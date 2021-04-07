@@ -1,5 +1,6 @@
 package com.erge.animatorview.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.erge.animatorview.BannerAttacher
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantImage
 import com.erge.animatorview.bean.MerchantItem
+import com.erge.animatorview.utils.Utils
 import com.youth.banner.Banner
 import com.youth.banner.listener.OnPageChangeListener
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
@@ -49,8 +51,9 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
             itemView.findViewById(R.id.banner_merchant)
 
         fun bindData(data: MerchantItem) {
+
             this.data = data
-            println("tagAnim--bindData = $layoutPosition")
+            resetBannerSize()
             val adapter = MerchantBannerAdapter(data.imgList)
             bannerMerchant.addOnPageChangeListener(object : OnPageChangeListener {
                 override fun onPageScrolled(
@@ -71,29 +74,25 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                     }
                 }
             })
-            if (data.imgList != null && data.imgList.size > 0) {
+            if (data.imgList.size > 0) {
                 indicator.visibility = View.VISIBLE
                 indicator.attachToPager(bannerMerchant, BannerAttacher())
             } else {
                 indicator.visibility = View.GONE
             }
+            bannerMerchant.currentItem = 0
             bannerMerchant.adapter = adapter
-            bannerMerchant.viewPager2.offscreenPageLimit = data.imgList.size
+//            bannerMerchant.viewPager2.offscreenPageLimit = data.imgList.size
             tvLike.text = "${data.likes} likes"
             tvDesc.text = data.description
             ivMerchant.setOnClickListener {
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }
-            itemView.post {
-                resetBannerSize()
-                adapter.notifyDataSetChanged()
-                adapter.anim(0)
-            }
         }
 
         private fun resetBannerSize() {
             data?.let {
-                it.resizeBanner(itemView.width)
+                it.resizeBanner((Utils.getScreen(itemView.context).right - Utils.dp2px(20f)).toInt())
                 val layoutParams = bannerMerchant.layoutParams
                 layoutParams.height = it.height
                 bannerMerchant.layoutParams = layoutParams
