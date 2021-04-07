@@ -63,7 +63,10 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         val parentHeight = tagLocation.parentHeight
         val paint = Paint()
         paint.textSize = Utils.sp2px(12f)
-        val itemWidth = paint.measureText(tagLocation.name) + Utils.dp2px(20f)
+        var itemWidth = paint.measureText(tagLocation.name) + Utils.dp2px(21f)
+        if (itemWidth > parentWidth - Utils.dp2px(20f)) {
+            itemWidth = parentWidth - Utils.dp2px(20f)
+        }
 
         val tvTagName: TextView = tagView.findViewById(R.id.tv_tag_name)
         val vDot: View = tagView.findViewById(R.id.v_dot)

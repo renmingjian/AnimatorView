@@ -44,7 +44,7 @@ class TagsActivity : AppCompatActivity() {
                 TagLocation(
                     900f,
                     300f,
-                    "links_merchant",
+                    "links_merchant_links_merchant_links_merchant_links_merchant",
                     offset = Utils.dp2px(10f),
                     leftMargin = Utils.dp2px(10f),
                     rightMargin = Utils.dp2px(10f)
