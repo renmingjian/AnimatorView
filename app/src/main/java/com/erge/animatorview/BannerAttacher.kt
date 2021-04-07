@@ -10,7 +10,8 @@ import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
 /**
  * Created by erge 4/6/21 7:27 PM
  */
-class BannerAttacher(val count: Int): ScrollingPagerIndicator.PagerAttacher<Banner<MerchantImage, MerchantBannerAdapter>> {
+class BannerAttacher(val count: Int, val pageListener: OnPageChangeListener) :
+    ScrollingPagerIndicator.PagerAttacher<Banner<MerchantImage, MerchantBannerAdapter>> {
 
     private lateinit var banner: Banner<MerchantImage, MerchantBannerAdapter>
 
@@ -30,16 +31,19 @@ class BannerAttacher(val count: Int): ScrollingPagerIndicator.PagerAttacher<Bann
                 positionOffsetPixels: Int
             ) {
                 updateIndicatorOnPagerScrolled(indicator, position, positionOffset)
+                pageListener.onPageScrolled(position, positionOffset, positionOffsetPixels)
             }
 
             override fun onPageSelected(position: Int) {
                 if (idleState) {
                     updateIndicatorDotsAndPosition(indicator)
                 }
+                pageListener.onPageSelected(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
                 idleState = state == ViewPager2.SCROLL_STATE_IDLE
+                pageListener.onPageScrollStateChanged(state)
             }
 
         })

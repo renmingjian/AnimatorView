@@ -54,24 +54,15 @@ class BannerTestActivity : AppCompatActivity() {
 
         banner.setCurrentItem(0)
 
+
         val textView: TextView = findViewById(R.id.tv_test)
-        textView.post{
-            val layoutParams = textView.layoutParams
-            val animator = ValueAnimator.ofFloat(0f, textView.width.toFloat())
-            animator.duration = 3000
-            animator.addUpdateListener {
-                val value = it.animatedValue as Float
-                layoutParams.width = value.toInt()
-                textView.layoutParams = layoutParams
-            }
-            animator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    super.onAnimationStart(animation)
-                    textView.visibility = View.VISIBLE
-                }
-            })
-            animator.start()
+        val animator = ValueAnimator.ofInt(0 , 300)
+        animator.addUpdateListener {
+            val value = it.animatedValue as Int
+            textView.layout(0, 0, value, 200)
         }
+        animator.duration = 3000
+        animator.start()
     }
 
     private fun getData(): MutableList<String> {

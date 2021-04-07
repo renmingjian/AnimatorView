@@ -51,4 +51,6 @@ data class TagLocation(
         x = realX
         y = realY
     }
+
+    fun getWidth(): Float = rectR - rectL
 }

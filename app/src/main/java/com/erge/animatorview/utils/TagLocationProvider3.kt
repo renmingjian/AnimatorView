@@ -2,12 +2,11 @@ package com.erge.animatorview.utils
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.erge.animatorview.R
@@ -32,12 +31,10 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     private val TEXT_HEIGHT = Utils.dp2px(28f)
 
     private val DOT_TRIANBLE_MARGIN = Utils.dp2px(4f)
-    private lateinit var tagLocation: TagLocation
     private lateinit var parentView: ViewGroup
 
 
     override fun addView(tagLocation: TagLocation, parent: ViewGroup) {
-        this.tagLocation = tagLocation
         this.parentView = parent
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_tag4, parent, false) as FrameLayout
@@ -168,70 +165,36 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
             return
         }
         tagLocation.animated = true
-
-        when (tagLocation.typeH) {
-            DEVIATION_LEFT -> leftToRightAnim(tvTagName)
-            DEVIATION_MIDDLE -> middleToLeftAndRightAnim(tvTagName)
-            else -> rightToLeftAnim(tvTagName)
+        val animator = ValueAnimator.ofFloat(0f, 1f)
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                super.onAnimationStart(animation)
+                tvTagName.visibility = View.VISIBLE
+            }
+        })
+        animator.addUpdateListener {
+            val value = it.animatedValue as Float
+            when (tagLocation.typeH) {
+                DEVIATION_LEFT -> leftToRightAnim(tagLocation, tvTagName, value)
+                DEVIATION_MIDDLE -> middleToLeftAndRightAnim(tagLocation, tvTagName, value)
+                else -> rightToLeftAnim(tagLocation, tvTagName, value)
+            }
         }
-    }
-
-    private fun middleToLeftAndRightAnim(textView: TextView) {
-//        val layoutParams = textView.layoutParams
-//        val animator = ValueAnimator.ofFloat(0f, textView.width.toFloat())
-//        animator.duration = 500
-//        animator.addUpdateListener {
-//            val value = it.animatedValue as Float
-//            layoutParams.width = value.toInt()
-//            textView.layoutParams = layoutParams
-//        }
-//        animator.addListener(object : AnimatorListenerAdapter() {
-//            override fun onAnimationStart(animation: Animator?) {
-//                super.onAnimationStart(animation)
-//                textView.visibility = View.VISIBLE
-//            }
-//        })
-//        animator.start()
-        textView.visibility = View.VISIBLE
-        val animator = AnimationUtils.loadAnimation(textView.context, R.anim.middle_scale)
-        animator.fillAfter = true
-        textView.startAnimation(animator)
-        textView.invalidate()
-    }
-
-    private fun leftToRightAnim(textView: TextView) {
-        val animator: ObjectAnimator = ObjectAnimator.ofFloat(
-            textView,
-            "translationX",
-            -textView.width.toFloat(),
-            0f
-        )
-        animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                super.onAnimationStart(animation)
-                textView.visibility = View.VISIBLE
-            }
-        })
-        animator.duration = 500
+        animator.duration = 2000
         animator.start()
-
     }
 
-    private fun rightToLeftAnim(textView: TextView) {
-        val animator: ObjectAnimator = ObjectAnimator.ofFloat(
-            textView,
-            "translationX",
-            textView.width.toFloat(),
-            0f
-        )
-        animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                super.onAnimationStart(animation)
-                textView.visibility = View.VISIBLE
-            }
-        })
-        animator.duration = 500
-        animator.start()
+    private fun middleToLeftAndRightAnim(tagLocation: TagLocation, textView: TextView, progress: Float) {
+        val middle: Int = (tagLocation.getWidth() / 2).toInt()
+        textView.layout(middle - (middle * progress).toInt(), 0, middle + (middle * progress).toInt(), textView.bottom)
+    }
+
+    private fun leftToRightAnim(tagLocation: TagLocation, textView: TextView, progress: Float) {
+        textView.layout(0, 0, (tagLocation.getWidth() * progress).toInt(), textView.bottom)
+    }
+
+    private fun rightToLeftAnim(tagLocation: TagLocation, textView: TextView, progress: Float) {
+        textView.layout((tagLocation.getWidth().toInt()-tagLocation.getWidth() * progress).toInt(), 0, tagLocation.getWidth().toInt(), textView.bottom)
     }
 
 }

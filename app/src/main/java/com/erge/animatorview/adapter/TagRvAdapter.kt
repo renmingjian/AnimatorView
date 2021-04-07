@@ -54,25 +54,6 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
             this.data = data
             resetBannerSize()
             val adapter = MerchantBannerAdapter(data.imgList)
-            bannerMerchant.addOnPageChangeListener(object : OnPageChangeListener {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-
-                }
-
-                override fun onPageSelected(position: Int) {
-                    currentImageIndex = position
-                }
-
-                override fun onPageScrollStateChanged(state: Int) {
-                    if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                        adapter.anim(currentImageIndex)
-                    }
-                }
-            })
 
             bannerMerchant.currentItem = 0
             bannerMerchant.setAdapter(adapter, false)
@@ -85,13 +66,29 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
             if (data.imgList.size > 0) {
                 indicator.visibility = View.VISIBLE
-                indicator.attachToPager(bannerMerchant, BannerAttacher(data.imgList.size))
+                indicator.attachToPager(bannerMerchant, BannerAttacher(data.imgList.size, object : OnPageChangeListener {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {
+
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        currentImageIndex = position
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {
+                        if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                            adapter.anim(currentImageIndex)
+                        }
+                    }
+
+                }))
             } else {
                 indicator.visibility = View.GONE
             }
-
-            println("viewpager = ${bannerMerchant.viewPager2.adapter?.itemCount}")
-            println("viewpager = ${bannerMerchant.itemCount}")
         }
 
         private fun resetBannerSize() {
