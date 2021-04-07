@@ -43,8 +43,6 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
     }
 
     fun anim(currentPosition: Int) {
-        if (currentPosition == prePosition) return
-        val preHolder = viewHolderMap[prePosition]
         val currentHolder = viewHolderMap[currentPosition]
         currentHolder?.linkAnim()
         currentHolder?.tagAnim()
@@ -59,7 +57,7 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
         private val tagHelper = TagHelper()
         private var data: MerchantImage? = null
         private val provider3 = TagLocationProvider3 {
-
+            Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
         }
 
         init {
@@ -104,16 +102,6 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
             tvLink.text = data.linkName
             if (data.list != null && data.list.size > 0) {
                 // 设置tag
-//                tagHelper.drawTags(imageView, data.list, TagLocationProvider3 {
-//                    Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
-//                })
-//
-//                if (realPosition == 0) {
-//                    itemView.postDelayed({
-//                        tagAnim()
-//                    }, 17)
-//                }
-//                tagHelper.setTagsVisible()
                 val flContainerLayoutParams = flContainer.layoutParams
                 flContainerLayoutParams.width = data.width
                 flContainerLayoutParams.height = data.height
@@ -123,10 +111,8 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
                 for (tag in data.list) {
                     provider3.addView(tag, flContainer)
                 }
-                println("child = ${flContainer.childCount}")
             } else {
                 flContainer.visibility = View.GONE
-//                tagHelper.setTagsInvisible()
             }
             if (realPosition == 0) {
                 tagAnim()
@@ -137,7 +123,6 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
 
         fun tagAnim() {
             if (data?.list != null && data?.list!!.size > 0) {
-//                tagHelper.startAnim(data?.list)
                 val list = data?.list
                 for ((index, value) in list!!.withIndex()) {
                     provider3.anim(value, flContainer.getChildAt(index))
