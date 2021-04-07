@@ -16,9 +16,6 @@ import com.erge.animatorview.R
 import com.erge.animatorview.bean.MerchantImage
 import com.erge.animatorview.utils.TagHelper
 import com.erge.animatorview.utils.TagLocationProvider3
-import com.erge.animatorview.utils.TagLocationProvider4
-import com.erge.animatorview.utils.Utils
-import com.erge.animatorview.view.TagLayout
 import com.youth.banner.adapter.BannerAdapter
 
 class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
@@ -119,7 +116,6 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
                 tagAnim()
                 linkAnim()
             }
-            println("real-position = ${getRealPosition(adapterPosition)}")
         }
 
         fun tagAnim() {
@@ -134,19 +130,16 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
         fun linkAnim() {
             // 没有link内容，则不显示
             val animated = data?.animated ?: false
-            println("animated = $animated, position = ${getRealPosition(adapterPosition)}")
             if (animated || TextUtils.isEmpty(data?.linkName) || TextUtils.isEmpty(data?.link)) return
             clLink.visibility = View.VISIBLE
             data?.animated = true
             val animator: ObjectAnimator = ObjectAnimator.ofFloat(
                 clLink,
-                "translationY",
-                Utils.dp2px(46f),
+                "alpha",
                 0f,
-                -Utils.dp2px(5f),
-                0f
+                1f
             )
-            animator.duration = 800
+            animator.duration = 500
             animator.start()
         }
     }
