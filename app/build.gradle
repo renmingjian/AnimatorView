@@ -51,4 +51,7 @@ dependencies {
     implementation 'com.aghajari.zoomhelper:ZoomHelper:1.0.2'
     implementation 'com.github.zhpanvip:BannerViewPager:3.0.1'
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.0"
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+
+    implementation "org.greenrobot:eventbus:3.2.0"
 }

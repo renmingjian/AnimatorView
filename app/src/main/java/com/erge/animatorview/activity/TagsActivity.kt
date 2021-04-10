@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aghajari.zoomhelper.ZoomHelper
 import com.erge.animatorview.R
 import com.erge.animatorview.adapter.TagRvAdapter
+import com.erge.animatorview.adapter.TagRvAdapter2
 import com.erge.animatorview.bean.MerchantImage
 import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.bean.TagLocation
 import com.erge.animatorview.utils.Utils
+import org.greenrobot.eventbus.EventBus
 
 class TagsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: TagRvAdapter2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,33 @@ class TagsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = TagRvAdapter(getData())
+        adapter = TagRvAdapter2(findViewById(R.id.v_line))
+        adapter.setList(getData())
+        recyclerView.adapter = adapter
+
+        recyclerView.post {
+            labelAnim()
+        }
+
+
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    labelAnim()
+                }
+            }
+        })
+    }
+
+    private fun labelAnim() {
+        val manager: LinearLayoutManager =
+            recyclerView.layoutManager as LinearLayoutManager
+        adapter.scrollStopped(
+            manager.findFirstVisibleItemPosition(),
+            manager.findLastVisibleItemPosition()
+        )
     }
 
     private fun getData1(): MutableList<TagLocation> {
@@ -44,7 +73,7 @@ class TagsActivity : AppCompatActivity() {
                 TagLocation(
                     900f,
                     300f,
-                    "links_merchant_links_merchant_links_merchant_links_merchant",
+                    "links_merchant",
                     offset = Utils.dp2px(10f),
                     leftMargin = Utils.dp2px(10f),
                     rightMargin = Utils.dp2px(10f)
@@ -125,50 +154,78 @@ class TagsActivity : AppCompatActivity() {
         }
     }
 
+    private fun getImage4(): MutableList<MerchantImage> {
+        return mutableListOf<MerchantImage>().apply {
+            add(MerchantImage(800, 756, "https://img0.baidu.com/it/u=2778529950,2184146500&fm=26&fmt=auto&gp=0.jpg","Buy Now", list = null))
+            add(MerchantImage(761, 1060, "https://img0.baidu.com/it/u=3220721734,2959137348&fm=26&fmt=auto&gp=0.jpg", "Show Me Now", list =  null))
+        }
+    }
+
     private fun getData(): MutableList<MerchantItem> {
         return mutableListOf<MerchantItem>().apply {
             add(
                 MerchantItem(
-                    455,
+                    0,
                     "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
                     imgList = getImage1()
                 )
             )
             add(
                 MerchantItem(
-                    533,
+                    455,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage4()
+                )
+            )
+            add(
+                MerchantItem(
+                    4563,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage4()
+                )
+            )
+            add(
+                MerchantItem(
+                    45589,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage1()
+                )
+            )
+            add(
+                MerchantItem(
+                    533898,
                     "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
                     imgList = getImage2()
                 )
             )
-//            add(
-//                MerchantItem(
-//                    123,
-//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-//                    imgList = getImage3()
-//                )
-//            )
-//            add(
-//                MerchantItem(
-//                    33,
-//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-//                    imgList = getImage1()
-//                )
-//            )
-//            add(
-//                MerchantItem(
-//                    453,
-//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-//                    imgList = getImage2()
-//                )
-//            )
-//            add(
-//                MerchantItem(
-//                    353,
-//                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
-//                    imgList = getImage2()
-//                )
-//            )
+            add(
+                MerchantItem(
+                    1234567,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage3()
+                )
+            )
+            add(
+                MerchantItem(
+                    33,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage1()
+                )
+            )
+            add(
+                MerchantItem(
+                    453,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage2()
+                )
+            )
+            add(
+                MerchantItem(
+                    353,
+                    "大捡垃圾 俺家了大姐夫安静阿里斯顿解放啦婕拉垃圾袋弗拉就拉上来的安静的拉大链接啊来得及法律就打狙手抖放假案例三等奖发健身砥砺奋进啊了",
+                    imgList = getImage2()
+                )
+            )
         }
     }
 

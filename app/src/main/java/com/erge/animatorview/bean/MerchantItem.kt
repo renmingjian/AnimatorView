@@ -1,5 +1,8 @@
 package com.erge.animatorview.bean
 
+import java.lang.StringBuilder
+import java.text.DecimalFormat
+
 /**
  * Created by erge 3/31/21 6:23 PM
  */
@@ -7,7 +10,7 @@ data class MerchantItem(
     val likes: Int = 0,
     val description: String = "",
     val imgList: MutableList<MerchantImage>,
-
+    var currentUserliked: Boolean = false,
     var width: Int = 0,
     var height: Int = 0
 ) {
@@ -28,6 +31,17 @@ data class MerchantItem(
         height = bannerHeight
         for (image in imgList) {
             image.resizeImage(viewWidth, bannerHeight)
+        }
+    }
+
+    fun getLikeCountByFormat(): String {
+        val format = DecimalFormat("0.#")
+        return when (likes) {
+            0 -> ""
+            in 1..999 -> "$likes"
+            in 1000..9999 -> StringBuilder("$likes").insert(1, ",").toString()
+            in 10000..999999 -> "${format.format(likes / 1000f)}k"
+            else -> "${format.format(likes / 10000f)}w"
         }
     }
 }

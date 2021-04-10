@@ -12,11 +12,14 @@ import android.widget.TextView
 import com.erge.animatorview.R
 import com.erge.animatorview.bean.TagLocation
 import com.erge.animatorview.view.TriangleView
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by erge 4/1/21 1:41 PM
  */
-class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagLocationProvider {
+class TagLocationProvider3(val lineView: View, override var itemClick: (TagLocation) -> Unit) : TagLocationProvider {
 
     private val SWOP_DOWN = 0
     private val SWOP_UP = 1
@@ -31,7 +34,6 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
 
     private val DOT_TRIANBLE_MARGIN = Utils.dp2px(4f)
     private lateinit var parentView: ViewGroup
-
 
     override fun addView(tagLocation: TagLocation, parent: ViewGroup) {
         this.parentView = parent
@@ -58,12 +60,19 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
         resetLocation(tagLocation, itemView)
     }
 
+    fun addView(list: MutableList<TagLocation>, parent: ViewGroup) {
+        this.parentView = parent
+        for (tag in list) {
+            addView(tag, parent)
+        }
+    }
+
     override fun calculateLocation(tagLocation: TagLocation, parentView: ViewGroup, tagView: View) {
         val parentWidth = tagLocation.parentWidth
         val parentHeight = tagLocation.parentHeight
         val paint = Paint()
         paint.textSize = Utils.sp2px(12f)
-        var itemWidth = paint.measureText(tagLocation.name) + Utils.dp2px(21f)
+        var itemWidth = paint.measureText(tagLocation.name) + Utils.dp2px(20f)
         if (itemWidth > parentWidth - Utils.dp2px(20f)) {
             itemWidth = parentWidth - Utils.dp2px(20f)
         }
@@ -160,9 +169,17 @@ class TagLocationProvider3(override var itemClick: (TagLocation) -> Unit) : TagL
     }
 
     override fun anim(tagLocation: TagLocation, itemView: View) {
+        // 获取线(lineView)的位置与当前做动画的label中dot的位置，如果label的dot处于线的上面，则做动画，否则不做。
+        val lineLocationArray = IntArray(2)
+        val labelLocationArray = IntArray(2)
         val tvTagName: TextView = itemView.findViewById(R.id.tv_tag_name)
         val vDot: View = itemView.findViewById(R.id.v_dot)
         val ivTriangle: TriangleView = itemView.findViewById(R.id.iv_triangle)
+
+        lineView.getLocationInWindow(lineLocationArray)
+        vDot.getLocationInWindow(labelLocationArray)
+        if (labelLocationArray[1] > lineLocationArray[1]) return
+
         vDot.visibility = View.VISIBLE
         ivTriangle.visibility = View.VISIBLE
         if (tagLocation.animated) {

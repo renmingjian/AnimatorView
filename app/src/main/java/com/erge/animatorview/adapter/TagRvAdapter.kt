@@ -41,6 +41,7 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
         private var data: MerchantItem? = null
         private val tvLike: TextView = itemView.findViewById(R.id.tv_like)
+        private val tvBannerPosition: TextView = itemView.findViewById(R.id.tv_banner_position)
         private val tvDesc: TextView = itemView.findViewById(R.id.tv_desc)
         private val ivMerchant: ImageView = itemView.findViewById(R.id.iv_merchant)
         private val indicator: ScrollingPagerIndicator = itemView.findViewById(R.id.indicator)
@@ -53,7 +54,7 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
 
             this.data = data
             resetBannerSize()
-            val adapter = MerchantBannerAdapter(data.imgList)
+            val adapter = MerchantBannerAdapter(data.imgList, View(itemView.context))
 
             bannerMerchant.currentItem = 0
             bannerMerchant.setAdapter(adapter, false)
@@ -64,30 +65,36 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
                 Toast.makeText(itemView.context, "图片点击", Toast.LENGTH_SHORT).show()
             }
 
-            if (data.imgList.size > 0) {
+            if (data.imgList.size > 1) {
                 indicator.visibility = View.VISIBLE
-                indicator.attachToPager(bannerMerchant, BannerAttacher(data.imgList.size, object : OnPageChangeListener {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
+                tvBannerPosition.visibility = View.VISIBLE
+                indicator.attachToPager(
+                    bannerMerchant,
+                    BannerAttacher(data.imgList.size, object : OnPageChangeListener {
+                        override fun onPageScrolled(
+                            position: Int,
+                            positionOffset: Float,
+                            positionOffsetPixels: Int
+                        ) {
 
-                    }
-
-                    override fun onPageSelected(position: Int) {
-                        currentImageIndex = position
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                            adapter.anim(currentImageIndex)
                         }
-                    }
 
-                }))
+                        override fun onPageSelected(position: Int) {
+                            currentImageIndex = position
+                            tvBannerPosition.text = "$position/${data.imgList.size}"
+                        }
+
+                        override fun onPageScrollStateChanged(state: Int) {
+                            if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                                adapter.anim(currentImageIndex)
+                            }
+                        }
+
+                    })
+                )
             } else {
                 indicator.visibility = View.GONE
+                tvBannerPosition.visibility = View.GONE
             }
         }
 

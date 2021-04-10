@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="15sp">
@@ -24,7 +25,7 @@
         <ImageView
             android:id="@+id/iv_merchant"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@mipmap/test"
             android:visibility="gone"
@@ -47,6 +48,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_banner_position"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rect_radius_12dp_black"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/banner_merchant"
+            app:layout_constraintTop_toTopOf="@id/banner_merchant"
+            tools:text="6/9" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
@@ -62,13 +80,24 @@
 
     <ImageView
         android:id="@+id/iv_like"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="18.5dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/sun"
+        android:src="@drawable/ic_like"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_top" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieLike"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_like"
+        app:layout_constraintEnd_toEndOf="@+id/iv_like"
+        app:layout_constraintStart_toStartOf="@+id/iv_like"
+        app:layout_constraintTop_toTopOf="@id/iv_like"
+        android:visibility="invisible"
+        app:lottie_fileName="bt_like.json" />
 
     <TextView
         android:id="@+id/tv_like"

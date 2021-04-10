@@ -1,7 +1,5 @@
 package com.erge.animatorview.bean
 
-import android.util.Log
-
 /**
  * Created by erge 3/30/21 3:38 PM
  */
@@ -53,7 +51,6 @@ data class TagLocation(
         parentHeight = realImageHeight.toFloat()
         val realX = realImageWidth.toFloat() / originalImageWidth.toFloat() * x
         val realY = realImageHeight.toFloat() / originalImageHeight.toFloat() * y
-        Log.e("resize", "originalImageWidth = $originalImageWidth, originalImageHeight = $originalImageHeight, realImageWidth = $realImageWidth, realImageHeight = $realImageHeight, realX = $realX, realY = $realY, x = $x, y = $y")
         x = realX
         y = realY
     }

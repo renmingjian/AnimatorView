@@ -17,13 +17,15 @@ import com.erge.animatorview.bean.MerchantImage
 import com.erge.animatorview.utils.TagHelper
 import com.erge.animatorview.utils.TagLocationProvider3
 import com.youth.banner.adapter.BannerAdapter
+import org.greenrobot.eventbus.EventBus
 
-class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
+class MerchantBannerAdapter(datas: MutableList<MerchantImage>?, val lineView: View) :
     BannerAdapter<MerchantImage, MerchantBannerAdapter.BannerViewHolder>(datas) {
 
     val viewHolderMap = mutableMapOf<Int, BannerViewHolder>()
     private var prePosition: Int = -1
 
+    private val list = mutableListOf<TagLocationProvider3>()
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         return BannerViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_merchant_image, parent, false)
@@ -54,11 +56,13 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
         private val flContainer: FrameLayout = itemView.findViewById(R.id.fl_container)
         private val tagHelper = TagHelper()
         private var data: MerchantImage? = null
-        private val provider3 = TagLocationProvider3 {
+        private val provider = TagLocationProvider3(lineView) {
             Toast.makeText(itemView.context, it.name, Toast.LENGTH_SHORT).show()
         }
 
         init {
+            list.add(provider)
+
             ZoomHelper.addZoomableView(imageView)
             ZoomHelper.getInstance().addOnZoomStateChangedListener(object :
                 ZoomHelper.OnZoomStateChangedListener {
@@ -106,23 +110,25 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
                 flContainer.layoutParams = flContainerLayoutParams
                 flContainer.visibility = View.VISIBLE
                 flContainer.removeAllViews()
-                for (tag in data.list) {
-                    provider3.addView(tag, flContainer)
-                }
+//                for (tag in data.list) {
+//                    provider3.addView(tag, flContainer)
+//                }
+                provider.addView(data.list, flContainer)
             } else {
                 flContainer.visibility = View.GONE
             }
-            if (realPosition == 0) {
-                tagAnim()
-                linkAnim()
-            }
+//            if (realPosition == 0) {
+//                tagAnim()
+//                linkAnim()
+//            }
         }
 
         fun tagAnim() {
             if (data?.list != null && data?.list!!.size > 0) {
                 val list = data?.list
                 for ((index, value) in list!!.withIndex()) {
-                    provider3.anim(value, flContainer.getChildAt(index))
+                    println("tagAnim")
+                    provider.anim(value, flContainer.getChildAt(index))
                 }
             }
         }
@@ -131,6 +137,12 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
             // 没有link内容，则不显示
             val animated = data?.animated ?: false
             if (animated || TextUtils.isEmpty(data?.linkName) || TextUtils.isEmpty(data?.link)) return
+            val lineLocationArray = IntArray(2)
+            val linkLocationArray = IntArray(2)
+
+            lineView.getLocationInWindow(lineLocationArray)
+            clLink.getLocationInWindow(linkLocationArray)
+            if (linkLocationArray[1] + clLink.height / 2 > lineLocationArray[1]) return
             clLink.visibility = View.VISIBLE
             data?.animated = true
             val animator: ObjectAnimator = ObjectAnimator.ofFloat(
@@ -141,6 +153,13 @@ class MerchantBannerAdapter(datas: MutableList<MerchantImage>?) :
             )
             animator.duration = 500
             animator.start()
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: BannerViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        for (provider in list) {
+            EventBus.getDefault().unregister(provider)
         }
     }
 }
