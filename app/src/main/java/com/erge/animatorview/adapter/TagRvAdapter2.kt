@@ -6,7 +6,7 @@ import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieAnimationView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -18,7 +18,6 @@ import com.erge.animatorview.bean.MerchantItem
 import com.erge.animatorview.utils.Utils
 import com.youth.banner.Banner
 import com.youth.banner.listener.OnPageChangeListener
-import org.greenrobot.eventbus.EventBus
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
 
 /**
@@ -28,24 +27,23 @@ class TagRvAdapter2(val lineView: View) :
     BaseQuickAdapter<MerchantItem, BaseViewHolder>(R.layout.item_rv_tag) {
 
     private var currentImageIndex = 0
-    val list: SparseArray<MerchantBannerAdapter> = SparseArray()
+    val list: SparseArray<InspirationBannerAdapter2> = SparseArray()
     override fun convert(holder: BaseViewHolder, item: MerchantItem) {
 
         val tvLike: TextView = holder.getView(R.id.tv_like)
         val ivLike: ImageView = holder.getView(R.id.iv_like)
         val tvBannerPosition: TextView = holder.getView(R.id.tv_banner_position)
         val tvDesc: TextView = holder.getView(R.id.tv_desc)
-        val ivMerchant: ImageView = holder.getView(R.id.iv_merchant)
         val indicator: ScrollingPagerIndicator = holder.getView(R.id.indicator)
         val lottieLike = holder.getView<LottieAnimationView>(R.id.lottieLike)
-        val bannerMerchant: Banner<MerchantImage, MerchantBannerAdapter> =
-            holder.getView(R.id.banner_merchant)
+        val bannerPager = holder.getView<ViewPager>(R.id.banner_pager)
+
+        resetBannerSize(item, bannerPager)
 
         ivLike.setImageResource(if (item.currentUserliked) R.drawable.ic_liked else R.drawable.ic_like)
 
         ivLike.setOnClickListener {
             lottieLike.visibility = View.VISIBLE
-//            ivLike.visibility = View.INVISIBLE
             lottieLike.playAnimation()
         }
 
@@ -59,23 +57,19 @@ class TagRvAdapter2(val lineView: View) :
             }
         })
 
-        val adapter = MerchantBannerAdapter(item.imgList, lineView)
+        val adapter = InspirationBannerAdapter2(item.imgList, lineView)
         list.put(holder.adapterPosition, adapter)
-        bannerMerchant.currentItem = 0
-        bannerMerchant.setAdapter(adapter, false)
-        resetBannerSize(item, bannerMerchant)
-//            bannerMerchant.viewPager2.offscreenPageLimit = data.imgList.size
+        bannerPager.adapter = adapter
+
         tvLike.text = item.getLikeCountByFormat()
         tvDesc.text = item.description
-        ivMerchant.setOnClickListener {
-            Toast.makeText(context, "图片点击", Toast.LENGTH_SHORT).show()
-        }
+
         if (item.imgList.size > 1) {
             indicator.visibility = View.VISIBLE
             tvBannerPosition.visibility = View.VISIBLE
             indicator.attachToPager(
-                bannerMerchant,
-                BannerAttacher(item.imgList.size, object : OnPageChangeListener {
+                bannerPager,
+                BannerAttacher(item.imgList.size, object : ViewPager.OnPageChangeListener {
                     override fun onPageScrolled(
                         position: Int,
                         positionOffset: Float,
@@ -90,7 +84,7 @@ class TagRvAdapter2(val lineView: View) :
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
-                        if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                        if (state == ViewPager.SCROLL_STATE_IDLE) {
                             adapter.anim(currentImageIndex)
                         }
                     }
@@ -104,7 +98,7 @@ class TagRvAdapter2(val lineView: View) :
 
     private fun resetBannerSize(
         data: MerchantItem,
-        bannerMerchant: Banner<MerchantImage, MerchantBannerAdapter>
+        bannerMerchant: View
     ) {
         data.resizeBanner((Utils.getScreen(context).right - Utils.dp2px(20f)).toInt())
         val layoutParams = bannerMerchant.layoutParams

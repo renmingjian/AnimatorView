@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.erge.animatorview.BannerAttacher
 import com.erge.animatorview.R
@@ -68,30 +69,30 @@ class TagRvAdapter(val list: MutableList<MerchantItem>) :
             if (data.imgList.size > 1) {
                 indicator.visibility = View.VISIBLE
                 tvBannerPosition.visibility = View.VISIBLE
-                indicator.attachToPager(
-                    bannerMerchant,
-                    BannerAttacher(data.imgList.size, object : OnPageChangeListener {
-                        override fun onPageScrolled(
-                            position: Int,
-                            positionOffset: Float,
-                            positionOffsetPixels: Int
-                        ) {
-
-                        }
-
-                        override fun onPageSelected(position: Int) {
-                            currentImageIndex = position
-                            tvBannerPosition.text = "$position/${data.imgList.size}"
-                        }
-
-                        override fun onPageScrollStateChanged(state: Int) {
-                            if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                                adapter.anim(currentImageIndex)
-                            }
-                        }
-
-                    })
-                )
+//                indicator.attachToPager(
+//                    bannerMerchant,
+//                    BannerAttacher(data.imgList.size, object : ViewPager.OnPageChangeListener {
+//                        override fun onPageScrolled(
+//                            position: Int,
+//                            positionOffset: Float,
+//                            positionOffsetPixels: Int
+//                        ) {
+//
+//                        }
+//
+//                        override fun onPageSelected(position: Int) {
+//                            currentImageIndex = position
+//                            tvBannerPosition.text = "$position/${data.imgList.size}"
+//                        }
+//
+//                        override fun onPageScrollStateChanged(state: Int) {
+//                            if (state == ViewPager2.SCROLL_STATE_IDLE) {
+//                                adapter.anim(currentImageIndex)
+//                            }
+//                        }
+//
+//                    })
+//                )
             } else {
                 indicator.visibility = View.GONE
                 tvBannerPosition.visibility = View.GONE

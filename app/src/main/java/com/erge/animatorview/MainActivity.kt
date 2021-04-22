@@ -16,19 +16,12 @@ import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-
-
-    }
-
-    fun test() {
-        val control = CarControlInfo("erye")
-        val json = Gson().toJson(control)
-        val jsonObject = JSONObject()
 
     }
 

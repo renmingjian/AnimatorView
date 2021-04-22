@@ -35,13 +35,26 @@ data class MerchantItem(
     }
 
     fun getLikeCountByFormat(): String {
-        val format = DecimalFormat("0.#")
+        val format = DecimalFormat("0.0")
+        var likesString = "$likes"
         return when (likes) {
             0 -> ""
-            in 1..999 -> "$likes"
-            in 1000..9999 -> StringBuilder("$likes").insert(1, ",").toString()
-            in 10000..999999 -> "${format.format(likes / 1000f)}k"
-            else -> "${format.format(likes / 10000f)}w"
+            in 1..999 -> likesString
+            in 1000..9999 -> StringBuilder(likesString).insert(1, ",").toString()
+            in 10000..999999 -> {
+                likesString = likesString.substring(0, likesString.length - 2)
+                val builder = StringBuilder(likesString)
+                builder.insert(builder.toString().length - 1, ".")
+                builder.append("K")
+                builder.toString()
+            }
+            else -> {
+                likesString = likesString.substring(0, likesString.length - 5)
+                val builder = StringBuilder(likesString)
+                builder.insert(builder.toString().length - 1, ".")
+                builder.append("M")
+                builder.toString()
+            }
         }
     }
 }
