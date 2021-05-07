@@ -3,9 +3,8 @@ package com.erge.animatorview
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.view.WindowManager
+import android.view.*
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
 import com.erge.animatorview.bean.CarControlInfo
@@ -17,11 +16,26 @@ import java.lang.StringBuilder
 class MainActivity : AppCompatActivity() {
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+//        val image: ImageView = findViewById(R.id.image)
+//        image.isClickable = true
+//        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+//
+//            override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+//                println("gestureDetector: 单击")
+//                return super.onSingleTapConfirmed(e)
+//            }
+//
+//            override fun onDoubleTap(e: MotionEvent?): Boolean {
+//                println("gestureDetector: 双击")
+//                return super.onDoubleTap(e)
+//            }
+//        })
+//        image.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
 
     }
 
@@ -155,6 +169,10 @@ class MainActivity : AppCompatActivity() {
 
     fun bannerTest(view: View) {
         startActivity(Intent(this, BannerTestActivity::class.java))
+    }
+
+    fun loadMore(view: View) {
+        startActivity(Intent(this, HorizontalLoadMoreActivity::class.java))
     }
 
 
