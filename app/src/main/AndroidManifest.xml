@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.HorizontalLoadMoreActivity"></activity>
+        <activity android:name=".activity.InputActivity"></activity>
+        <activity android:name=".activity.HorizontalLoadMoreActivity" />
         <activity android:name=".activity.BannerTestActivity" />
         <activity android:name=".activity.TagsActivity" />
         <activity android:name=".activity.ZoomActivity" />

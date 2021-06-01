@@ -173,5 +173,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, HorizontalLoadMoreActivity::class.java))
     }
 
+    fun form(view: View) {
+        startActivity(Intent(this, InputActivity::class.java))
+    }
+
 
 }
