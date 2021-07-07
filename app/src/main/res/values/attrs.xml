@@ -59,4 +59,18 @@
         <attr name="triangle_fill_color" format="color|reference" />
     </declare-styleable>
 
+    <declare-styleable name="PasswordView">
+        <attr name="pw_rect_size" format="dimension|reference" />
+        <attr name="pw_dot_size" format="dimension|reference" />
+        <attr name="pw_round_size" format="dimension|reference" />
+        <attr name="pw_rect_normal_color" format="color|reference" />
+        <attr name="pw_rect_inputting_color" format="color|reference" />
+        <attr name="pw_rect_error_color" format="color|reference" />
+        <attr name="pw_dot_normal_color" format="color|reference" />
+        <attr name="pw_dot_inputting_color" format="color|reference" />
+        <attr name="pw_dot_error_color" format="color|reference" />
+        <attr name="pw_spacing" format="dimension|reference" />
+        <attr name="pw_length" format="integer|reference" />
+    </declare-styleable>
+
 </resources>

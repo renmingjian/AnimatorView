@@ -1,16 +1,10 @@
 package com.erge.animatorview
 
 import android.content.Intent
-import android.graphics.PixelFormat
 import android.os.Bundle
-import android.view.*
-import android.widget.ImageView
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
-import com.erge.animatorview.bean.CarControlInfo
-import com.google.gson.Gson
-import org.json.JSONObject
-import java.lang.StringBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,22 +13,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val image: ImageView = findViewById(R.id.image)
-//        image.isClickable = true
-//        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-//
-//            override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-//                println("gestureDetector: 单击")
-//                return super.onSingleTapConfirmed(e)
-//            }
-//
-//            override fun onDoubleTap(e: MotionEvent?): Boolean {
-//                println("gestureDetector: 双击")
-//                return super.onDoubleTap(e)
-//            }
-//        })
-//        image.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
-
+        // "^[1][0-9]{10}$"
+        val reg = Regex("^[0][8]{1}[0-35-9].*")
+        val value1 = "09".matches(reg)
+        val value2 = "08".matches(reg)
+        val value3 = "0".matches(reg)
+        println("value1 = $value1, value2 = $value2, value3 = $value3")
     }
 
 
@@ -175,6 +159,10 @@ class MainActivity : AppCompatActivity() {
 
     fun form(view: View) {
         startActivity(Intent(this, InputActivity::class.java))
+    }
+
+    fun password(view: View) {
+        startActivity(Intent(this, PasswordActivity::class.java))
     }
 
 

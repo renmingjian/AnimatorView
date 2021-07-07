@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 
     <permission
         android:name="com.erge.animatorview.REMOTE_SERVICE_PERMISSION"
@@ -19,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.InputActivity"></activity>
+        <activity android:name=".activity.PasswordActivity"></activity>
+        <activity android:name=".activity.InputActivity" />
         <activity android:name=".activity.HorizontalLoadMoreActivity" />
         <activity android:name=".activity.BannerTestActivity" />
         <activity android:name=".activity.TagsActivity" />

@@ -58,6 +58,8 @@ class FormValidator(
                             errorListRule.add(rule)
                             fail?.invoke(errorListRule)
                         }
+                    } else if (errorListRule.size == 0) {
+
                     }
                 }
             })
@@ -69,16 +71,13 @@ class FormValidator(
     }
 
     fun isAllValidate(): Boolean {
-        var validate = true
+        var allValidate = true
         listRule.forEach {
-            if (it.validateRule.isValidate(it.view.text.toString())) {
-                errorListRule.remove(it)
-            } else {
-                validate = false
-                errorListRule.add(it)
-            }
+            val ruleValidate = it.validateRule.isValidate(it.view.text.toString())
+            it.isValidate = ruleValidate
+            if (!ruleValidate) allValidate = false
         }
-        return validate
+        return allValidate
     }
 
     fun checkAll() {
