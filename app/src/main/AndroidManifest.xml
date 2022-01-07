@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-
     <permission
         android:name="com.erge.animatorview.REMOTE_SERVICE_PERMISSION"
         android:protectionLevel="normal" />
@@ -21,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PasswordActivity"></activity>
+        <activity
+            android:name=".activity.VideoProgressActivity"
+            android:exported="false" />
+        <activity android:name=".activity.PasswordActivity" />
         <activity android:name=".activity.InputActivity" />
         <activity android:name=".activity.HorizontalLoadMoreActivity" />
         <activity android:name=".activity.BannerTestActivity" />

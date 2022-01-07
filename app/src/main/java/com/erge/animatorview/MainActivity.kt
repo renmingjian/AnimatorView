@@ -12,13 +12,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // "^[1][0-9]{10}$"
-        val reg = Regex("^[0][8]{1}[0-35-9].*")
-        val value1 = "09".matches(reg)
-        val value2 = "08".matches(reg)
-        val value3 = "0".matches(reg)
-        println("value1 = $value1, value2 = $value2, value3 = $value3")
     }
 
 
@@ -163,6 +156,10 @@ class MainActivity : AppCompatActivity() {
 
     fun password(view: View) {
         startActivity(Intent(this, PasswordActivity::class.java))
+    }
+
+    fun videoLoading(view: android.view.View) {
+        startActivity(Intent(this, VideoProgressActivity::class.java))
     }
 
 
