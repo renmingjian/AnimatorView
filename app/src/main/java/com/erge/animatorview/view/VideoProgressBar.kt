@@ -8,6 +8,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -21,6 +22,8 @@ class VideoProgressBar(context: Context, attributeSet: AttributeSet) : View(cont
     private var animatorSet = AnimatorSet()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var state = 0
+    private val rectFBg: RectF = RectF()
+    private val rectF: RectF = RectF()
     private var gradientProgress: Float = 0f
         set(value) {
             field = value
@@ -40,31 +43,38 @@ class VideoProgressBar(context: Context, attributeSet: AttributeSet) : View(cont
         canvas?.save()
         canvas?.translate((width / 2).toFloat(), (height / 2).toFloat())
 
-        paint.strokeWidth = (height / 2).toFloat()
+        val radius = height / 2f
+        paint.strokeWidth = height.toFloat()
         paint.color = Color.parseColor("#ffffffff")
         paint.alpha = (0.3 * 255).toInt()
-        canvas?.drawLine(-(width / 2f), height / 2f, width / 2f, height / 2f, paint)
+        rectFBg.left = -(width / 2f)
+        rectFBg.top = -(height / 2f)
+        rectFBg.right = width / 2f
+        rectFBg.bottom = height / 2f
+        canvas?.drawRoundRect(rectFBg, radius, radius, paint)
 
         if (state == 0) {
             paint.color = Color.WHITE
             paint.alpha = (loadingProgress * 255).toInt()
-            canvas?.drawLine(
-                -(width / 2f * loadingProgress),
-                height / 2f,
-                width / 2f * loadingProgress,
-                height / 2f,
-                paint
-            )
+            rectF.left = -(width / 2f * loadingProgress)
+            rectF.top = -(height / 2f)
+            rectF.right = width / 2f * loadingProgress
+            rectF.bottom = height / 2f
+            canvas?.drawRoundRect(rectF, radius, radius, paint)
         } else {
             paint.alpha = ((1 - gradientProgress) * 255).toInt()
-            canvas?.drawLine(-(width / 2f), height / 2f, width / 2f, height / 2f, paint)
+            rectF.left = -(width / 2f)
+            rectF.top = -(height / 2f)
+            rectF.right = width / 2f
+            rectF.bottom = height / 2f
+            canvas?.drawRoundRect(rectF, radius, radius, paint)
         }
         canvas?.restore()
     }
 
     private fun startLoadingAnim() {
         val loadingAnimator = ObjectAnimator.ofFloat(this, "loadingProgress", 0f, 1f)
-        loadingAnimator?.duration = 1000
+        loadingAnimator?.duration = 700
         loadingAnimator?.interpolator = AccelerateDecelerateInterpolator()
         loadingAnimator?.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
