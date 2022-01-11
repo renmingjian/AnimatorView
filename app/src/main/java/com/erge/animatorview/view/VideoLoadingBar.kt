@@ -11,7 +11,6 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 
 /**
@@ -21,6 +20,8 @@ class VideoLoadingBar(context: Context, attributeSet: AttributeSet) : View(conte
 
     private var animatorSet = AnimatorSet()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    // state = 0，线条从无到有；state = 1，线条从白色变化到透明
     private var state = 0
     private val rectFBg: RectF = RectF()
     private val rectF: RectF = RectF()

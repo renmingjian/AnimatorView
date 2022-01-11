@@ -73,5 +73,11 @@
         <attr name="pw_length" format="integer|reference" />
     </declare-styleable>
 
+    <declare-styleable name="VideoProgressBar">
+        <attr name="progress_line_height" format="dimension" />
+        <attr name="progress_circle_radius" format="dimension" />
+        <attr name="progress_line_bg_color" format="color|reference" />
+        <attr name="progress_color" format="color|reference" />
+    </declare-styleable>
 
 </resources>
