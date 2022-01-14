@@ -162,5 +162,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, VideoProgressActivity::class.java))
     }
 
+    fun videoDrag(view: android.view.View) {
+        startActivity(Intent(this, VideoDragActivity::class.java))
+    }
+
 
 }

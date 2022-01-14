@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activity.VideoDragActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.VideoProgressActivity"
             android:exported="false" />
         <activity android:name=".activity.PasswordActivity" />
