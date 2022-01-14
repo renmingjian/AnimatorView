@@ -78,11 +78,7 @@ class VideoDragView(context: Context, attributeSet: AttributeSet) : View(context
 
                 override fun onDoubleTap(e: MotionEvent?): Boolean {
                     onVideoDoubleClickListener?.invoke()
-                    return false
-                }
-
-                override fun onDoubleTapEvent(e: MotionEvent?): Boolean {
-                    return false
+                    return super.onDoubleTap(e)
                 }
             })
 
