@@ -52,10 +52,10 @@ class VideoProgressActivity : AppCompatActivity() {
         val objectAnimator2 = ObjectAnimator.ofFloat(0F, 1F)
         objectAnimator2.addUpdateListener {
             val progress = it.animatedValue as Float
-            vpl.seekTo(progress, true)
+            vpl.seekTo(progress, false)
             tv_progress.text = "进度：$progress"
         }
-        objectAnimator2.duration = 5000
+        objectAnimator2.duration = 3000
 
         val objectAnimator = ObjectAnimator.ofFloat(0F, 1F)
         objectAnimator.addListener(onEnd = {
