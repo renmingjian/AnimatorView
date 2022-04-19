@@ -8,6 +8,22 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
 
+    <!-- 状态栏透明 -->
+    <style name="AppTheme.TransStatusBar" parent="AppTheme.TransStatusBar.Base" />
+
+    <!--  -Activity背景透明 -->
+    <style name="ActivityTranslucent.Base" parent="AppTheme">
+        <!--        <item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
 </resources>

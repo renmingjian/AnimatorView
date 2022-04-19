@@ -14,6 +14,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="picture"
+            android:text="图片选择" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="videoDrag"
             android:text="视频滑动修改进度" />
 

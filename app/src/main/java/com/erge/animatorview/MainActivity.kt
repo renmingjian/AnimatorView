@@ -2,16 +2,29 @@ package com.erge.animatorview
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.erge.animatorview.activity.*
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var et_test: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
+    }
+
+    fun setData(view: android.view.View) {
+        val text = "圣诞节埃/[呲牙里克加料口阿里快递费结案\n率建档立卡附近啊了"
+        et_test.setText(text)
+        et_test.setSelection(text.length)
     }
 
 
@@ -163,8 +176,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun videoDrag(view: android.view.View) {
-        startActivity(Intent(this, VideoDragActivity::class.java))
+//        startActivity(Intent(this, VideoDragActivity::class.java))
+//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        val textView = TextView(this)
+        textView.inputType = InputType.TYPE_CLASS_NUMBER
+        imm.showSoftInput(textView, InputMethodManager.SHOW_FORCED)
+        println("videoDrag")
     }
 
+    fun picture(view: View) {}
 
 }

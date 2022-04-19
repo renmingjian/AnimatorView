@@ -68,7 +68,6 @@ class VideoProgressBar(context: Context, attributeSet: AttributeSet) : View(cont
         canvas?.translate(0F, height / 2F)
         drawBg(canvas)
         drawProgress(canvas)
-        println("showCircle = $showCircle")
         if (showCircle) {
             drawProgressCircle(canvas)
         }
