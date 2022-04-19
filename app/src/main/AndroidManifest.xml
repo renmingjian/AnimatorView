@@ -29,8 +29,10 @@
         <activity
             android:name=".activity.VideoProgressActivity"
             android:exported="false" />
-        <activity android:name=".activity.PasswordActivity"
-            />
+        <activity
+            android:name=".activity.PasswordActivity"
+            android:theme="@style/ActivityTranslucent.Base" />
+
         <activity android:name=".activity.InputActivity" />
         <activity android:name=".activity.HorizontalLoadMoreActivity" />
         <activity android:name=".activity.BannerTestActivity" />

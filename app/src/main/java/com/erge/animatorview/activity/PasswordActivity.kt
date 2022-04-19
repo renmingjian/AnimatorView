@@ -15,9 +15,9 @@ class PasswordActivity : AppCompatActivity() {
 
         pwv = findViewById(R.id.pwv)
 
-        val wl = window.attributes
-        wl.alpha = 0.9f
-        window.attributes = wl
+//        val wl = window.attributes
+//        wl.alpha = 0.9f
+//        window.attributes = wl
 
 
     }
